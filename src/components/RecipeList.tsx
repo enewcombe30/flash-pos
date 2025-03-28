@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-
-type Recipe = {
-  id: number;
-  name: string;
-  description: string;
-  instructions: string;
-  category_id: number;
-  version: number;
-};
+import { Recipe } from "../types/recipeTypes";
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -33,17 +25,21 @@ const RecipeList = () => {
 
     return recipes.map((recipe) => (
       <li key={recipe.id}>
-        <h2>{recipe.name}</h2>
-        <p>{recipe.description}</p>
-        <p>
-          <strong>Instructions:</strong> {recipe.instructions}
-        </p>
-        <p>
-          <strong>Category ID:</strong> {recipe.category_id}
-        </p>
-        <p>
-          <strong>Version:</strong> {recipe.version}
-        </p>
+        <div className="border border-gray-500  m-2">
+          <h2 className="font-bold border-b border-gray-500 p-2">
+            {recipe.name}
+          </h2>
+          <div className="p-2">
+            <h3>Ingredients:</h3>
+            <ul>
+              {recipe.ingredients.map((ingredient) => (
+                <li key={ingredient.id}>
+                  {ingredient.amount}g of {ingredient.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </li>
     ));
   };
