@@ -9,7 +9,6 @@ export default function Counter() {
   return (
     <div>
       <h2>{count}</h2>
-      <input type="number" />
       <div>
         <button
           className="border-2 mr-1"

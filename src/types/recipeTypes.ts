@@ -5,7 +5,7 @@ export type RecipeIngredient = {
   amount: number;
   ingredientId: number;
   recipeId: number;
-  ingredient: Ingredient[];
+  ingredients: Ingredient[];
   recipeAllergens: RecipeAllergens[];
   recipeDietaryTags: RecipeDietaryTags[];
 };
@@ -47,6 +47,8 @@ export type Allergen = {
 
 export interface Recipe {
   name: string;
+  costPrice: number;
+  salePrice: number;
   subDivisionId: number;
   version: number;
   id: number;

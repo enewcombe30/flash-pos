@@ -1,20 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Order } from "../../types/orderTypes";
 import { Recipe } from "../../types/recipeTypes";
-
-const initialState: Order = {
-  orderList: [],
-};
+const initialState: Recipe[] = [];
 
 const orderSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<Recipe>) => {
-      state.orderList.push(action.payload);
+      state.push(action.payload);
     },
     removeItem: (state, action: PayloadAction<Recipe>) => {
-      state.orderList.filter((item) => item.id !== action.payload.id);
+      return state.filter((item) => item.id !== action.payload.id);
     },
   },
 });
