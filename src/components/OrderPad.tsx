@@ -12,7 +12,6 @@ export default function OrderPad() {
   }
   function removeItemFromOrder(item: Recipe) {
     dispatch(removeItem(item));
-    console.log("Removed item:", item);
   }
   const renderOrderItems = () => {
     return orders.map((item) => (
@@ -26,7 +25,6 @@ export default function OrderPad() {
       </div>
     ));
   };
-  console.log("Orders in OrderPad:", orders);
   return (
     <div className="w-full h-full bg-slate-100 border border-slate-200 relative">
       <div>{renderOrderItems()}</div>

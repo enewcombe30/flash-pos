@@ -1,14 +1,9 @@
 import { DummyRecipes } from "../constants/dummyData";
 import { Recipe } from "../types/recipeTypes";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addItem } from "../state/orders/orderSlice";
-import { RootState } from "../state/store";
 
 export default function ProductComponent() {
-  const orders = useSelector((state: RootState) => state.orders);
-
-  console.log("Orders:", orders);
   const dispatch = useDispatch();
   const renderButtons = () => {
     return DummyRecipes.map((item: Recipe) => (
