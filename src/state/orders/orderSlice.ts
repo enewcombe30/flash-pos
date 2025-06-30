@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 import { Recipe } from "../../types/recipeTypes";
+
 const initialState: Recipe[] = [];
 
 const orderSlice = createSlice({
@@ -7,10 +9,15 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action: PayloadAction<Recipe>) => {
-      state.push(action.payload);
+      state.push({
+        ...action.payload,
+        orderItemId: uuidv4(),
+      });
     },
     removeItem: (state, action: PayloadAction<Recipe>) => {
-      return state.filter((item) => item.id !== action.payload.id);
+      return state.filter(
+        (item) => item.orderItemId !== action.payload.orderItemId
+      );
     },
   },
 });

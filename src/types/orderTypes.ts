@@ -6,4 +6,5 @@ export type Order = {
 
 export type OrderItem = {
   item: Recipe;
+  orderItemId: string;
 };

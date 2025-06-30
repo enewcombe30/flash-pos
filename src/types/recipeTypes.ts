@@ -52,6 +52,7 @@ export interface Recipe {
   subDivisionId: number;
   version: number;
   id: number;
+  orderItemId?: string;
   RecipeIngredient: RecipeIngredient[];
   recipeAllergens: RecipeAllergens[];
   recipeDietaryTags: RecipeDietaryTags[];
