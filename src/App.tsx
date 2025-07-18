@@ -20,11 +20,11 @@ function App() {
           </div>
         </div>
         <div className="w-[65%] h-full bg-black flex-none text-slate-200 border border-[#061C03]">
-          <div className="w-full h-full border border-[#061C03]">
+          <div className="w-full h-full border border-[#061C03] relative">
             <ProductComponent />
-          </div>
-          <div className="fixed bottom-0 left-0 w-full h-[30px] border border-[#061C03] bg-black z-50">
-            <div className="w-fit h-4 mx-auto">Button mods and functions</div>
+            <div className="absolute bottom-0 left-0 w-full h-[30px] border border-[#061C03] bg-black z-50">
+              <div className="w-fit h-4 mx-auto">Button mods and functions</div>
+            </div>
           </div>
         </div>
         <div className="w-[15%] h-full flex bg-black text-slate-200 border border-[#061C03]">
