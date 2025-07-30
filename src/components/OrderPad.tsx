@@ -1,56 +1,61 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../state/store";
-import { useDispatch } from "react-redux";
-import { removeItem } from "../state/orders/orderSlice";
 import { Recipe } from "../types/recipeTypes";
-import { useEffect, useRef } from "react";
+import { removeItem, removeAllItems } from "../state/orders/orderSlice";
 
 export default function OrderPad() {
-  const orders = useSelector((state: RootState) => state.orders);
+  const items = useSelector((state: RootState) => state.orders.items);
   const dispatch = useDispatch();
-  const orderListRef = useRef<HTMLDivElement>(null);
 
-  function getOrderTotal() {
-    return orders.reduce((total, item) => total + item.salePrice, 0).toFixed(2);
-  }
-  function removeItemFromOrder(item: Recipe) {
+  // Group items by id and count occurrences
+  // move to useOrderPad
+  const grouped = items.reduce(
+    (acc: Record<string, { item: Recipe; count: number }>, item: Recipe) => {
+      if (acc[item.id]) {
+        acc[item.id].count += 1;
+      } else {
+        acc[item.id] = { item, count: 1 };
+      }
+      return acc;
+    },
+    {}
+  );
+
+  // Handle click (remove one)
+  // move to useOrderPad
+  const handleRemove = (item: Recipe) => {
     dispatch(removeItem(item));
-  }
-  const renderOrderItems = () => {
-    return orders.map((item) => (
-      <div
-        key={item.orderItemId}
-        className="p-2 border-b border-gray-200 flex justify-between items-center"
-        onClick={() => removeItemFromOrder(item)}
-      >
-        <span className="font-semibold text-slate-800">{item.name}</span>
-        <span className="text-gray-500">£{item.salePrice.toFixed(2)}</span>
-      </div>
-    ));
   };
 
-  console.log("Orders:", orders);
-
-  // Scroll to the bottom of the order list when orders change
-  useEffect(() => {
-    if (orderListRef.current) {
-      orderListRef.current.scrollTop = orderListRef.current.scrollHeight;
-    }
-  }, [orders]);
+  // Handle long press
+  // Move to hook so that it can be used to handle recipe edits
+  let pressTimer: ReturnType<typeof setTimeout>;
+  const handleMouseDown = (item: Recipe) => {
+    pressTimer = setTimeout(() => {
+      alert("edit");
+      dispatch(removeAllItems(item));
+    }, 500);
+  };
+  const handleMouseUp = () => {
+    clearTimeout(pressTimer);
+  };
 
   return (
-    <div className="w-full h-full bg-slate-100 border border-slate-200 relative flex flex-col">
-      <div
-        ref={orderListRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden"
-        style={{ paddingBottom: "56px" }}
-      >
-        {renderOrderItems()}
-      </div>
-      <div className="flex justify-between items-center p-2 border-t border-gray-400 text-slate-800 absolute bottom-0 w-full bg-slate-100">
-        <span className="font-bold">Total: </span>
-        <span className="font-semibold text-slate-700">£{getOrderTotal()}</span>
-      </div>
+    <div className="p-4 bg-slate-200 text-slate-900 h-full w-full">
+      {Object.values(grouped).map(({ item, count }) => (
+        <div
+          key={item.id}
+          className="mb-2 cursor-pointer select-none"
+          onClick={() => handleRemove(item)}
+          onMouseDown={() => handleMouseDown(item)}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={() => handleMouseDown(item)}
+          onTouchEnd={handleMouseUp}
+        >
+          {count} x {item.name}
+        </div>
+      ))}
     </div>
   );
 }
