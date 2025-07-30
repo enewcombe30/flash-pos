@@ -3,8 +3,13 @@ export type DummyData = {
   id: number;
 };
 
-export type DummyButton = {
+export interface DummyButton {
   label: string;
   id: number;
   onClick: () => void;
-};
+  bgColor: string;
+  textColor: string;
+  font: string;
+  textSize: string;
+  colSpan: number;
+}
