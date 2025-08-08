@@ -1,25 +1,12 @@
+import useNumberPad from "./useNumberPad";
+
 interface NumberPadProps {
   value: string;
   setValue: (value: string) => void;
 }
 
-const numbers = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  ["⌫", 0, "↵"], // Changed "C" to "⌫" for backspace
-];
-
 export default function NumberPad({ value, setValue }: NumberPadProps) {
-  const handleClick = (item: number | string) => {
-    if (item === "⌫") {
-      setValue(value.slice(0, -1)); // Remove last character
-    } else if (item === "↵") {
-      setValue("");
-    } else if (typeof item === "number") {
-      setValue(value + item.toString());
-    }
-  };
+  const { handleNumberInput, numbers } = useNumberPad({ value, setValue });
 
   return (
     <div>
@@ -27,17 +14,17 @@ export default function NumberPad({ value, setValue }: NumberPadProps) {
         {value || <span>{""}</span>}
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">
-        {numbers.flat().map((item, idx) => {
+        {numbers.flat().map((input, idx) => {
           let btnColor = "bg-[#284E24]";
-          if (item === "⌫") btnColor = "bg-[#AF3023]";
-          if (item === "↵") btnColor = "bg-[#16A34A]";
+          if (input === "⌫") btnColor = "bg-[#AF3023]";
+          if (input === "↵") btnColor = "bg-[#16A34A]";
           return (
             <button
               key={idx}
               className={`${btnColor} text-white rounded-md h-12 text-xl font-bold`}
-              onClick={() => handleClick(item)}
+              onClick={() => handleNumberInput(input)}
             >
-              {item}
+              {input}
             </button>
           );
         })}

@@ -4,7 +4,7 @@ import "./App.css";
 import ProductComponent from "./components/ProductComponent";
 import OrderPad from "./components/OrderPad";
 import SideBar from "./components/SideBar";
-import NumberPad from "./components/NumberPad";
+import NumberPad from "./components/NumberPad/NumberPad";
 
 function App() {
   const [padValue, setPadValue] = useState<string>("");
