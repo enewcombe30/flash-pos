@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./index.css";
 import "./App.css";
 import ProductComponent from "./components/ProductComponent";
-import OrderPad from "./components/OrderPad";
+import OrderPad from "./components/OrderPad/OrderPad";
 import SideBar from "./components/SideBar";
 import NumberPad from "./components/NumberPad/NumberPad";
 
