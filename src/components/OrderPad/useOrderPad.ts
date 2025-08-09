@@ -8,12 +8,14 @@ export default function useOrderPad() {
   const dispatch = useDispatch();
 
   // Group items by id and count occurrences
+  // In useOrderPad.ts
   const grouped = items.reduce(
     (acc: Record<string, { item: Recipe; count: number }>, item: Recipe) => {
-      if (acc[item.id]) {
-        acc[item.id].count += 1;
+      const key = item.id.toString();
+      if (acc[key]) {
+        acc[key].count += 1;
       } else {
-        acc[item.id] = { item, count: 1 };
+        acc[key] = { item, count: 1 };
       }
       return acc;
     },
