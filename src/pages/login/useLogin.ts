@@ -7,9 +7,14 @@ export default function useLogin() {
   const dispatch = useDispatch();
   const hasAccess = useSelector((state: RootState) => state.login.hasAccess);
   const error = useSelector((state: RootState) => state.login.error);
+  const currentUser = useSelector(
+    (state: RootState) => state.login.matchedUser
+  );
 
   const [input, setInput] = useState<string[]>(["-", "-", "-"]);
   const [isPending, setIsPending] = useState(false);
+
+  const userName = currentUser ? currentUser.name : "User";
 
   const handleNumber = (num: string) => {
     setInput((prev) => {
@@ -54,5 +59,6 @@ export default function useLogin() {
     resetAccess: () => dispatch(resetAccess()),
     setInput,
     error,
+    userName,
   };
 }

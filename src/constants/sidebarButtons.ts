@@ -1,4 +1,5 @@
 import { DummyCategories } from "./dummtButtonLists";
+import backToLogin from "../hooks/useBackToLogin";
 
 // Split categories for two columns
 const half = Math.ceil(DummyCategories.length / 2);
@@ -11,7 +12,7 @@ const pairedCategories = leftCol.map((cat, idx) => [cat, rightCol[idx]]);
 export const sidebarButtons = [
   {
     label: "Login",
-    onClick: () => alert("Login clicked"),
+    onClick: () => backToLogin(), // Need reactRouter before use
     bgColor: "bg-[#16A34A]",
     textColor: "text-white",
     font: "font-bold",

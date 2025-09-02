@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loginData } from "../../constants/dummyLogin";
+import { LoginDataType } from "../../constants/dummyLogin";
 
 interface LoginState {
   hasAccess: boolean;
   isLoggedIn: boolean;
-  matchedUser?: { code: number; name: string } | null;
+  matchedUser: LoginDataType | null;
   error: boolean;
 }
 
@@ -23,13 +24,13 @@ const loginSlice = createSlice({
       const user = loginData.find((u) => u.code === action.payload) || null;
       state.hasAccess = !!user;
       state.matchedUser = user;
-      state.error = !user; // Set isLoggedIn to true on successful login
+      state.error = !user;
     },
     resetAccess(state) {
       state.hasAccess = false;
       state.matchedUser = null;
       state.error = false;
-      state.isLoggedIn = false; // Reset isLoggedIn on logout/reset
+      state.isLoggedIn = false;
     },
     setIsLoggedIn(state, action: PayloadAction<boolean>) {
       state.isLoggedIn = action.payload;

@@ -8,8 +8,15 @@ import { RootState } from "../../state/store";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function LoginPage() {
-  const { handleDelete, handleNumber, input, mutation, hasAccess, error } =
-    useLoginModal();
+  const {
+    handleDelete,
+    handleNumber,
+    input,
+    mutation,
+    hasAccess,
+    error,
+    userName,
+  } = useLoginModal();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
 
@@ -17,7 +24,7 @@ export default function LoginPage() {
     if (hasAccess) {
       const timer = setTimeout(() => {
         dispatch(setIsLoggedIn(true));
-      }, 1000); // Show success for 1.5 seconds
+      }, 1500); // Show success for 1.5 seconds
       return () => clearTimeout(timer);
     }
   }, [hasAccess, isLoggedIn, dispatch]);
@@ -51,7 +58,7 @@ export default function LoginPage() {
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4 }}
               >
-                <LoginSuccess />
+                <LoginSuccess userName={userName} />
               </motion.div>
             )}
           </AnimatePresence>
