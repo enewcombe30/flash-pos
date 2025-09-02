@@ -6,13 +6,17 @@ import OrderPad from "./components/OrderPad/OrderPad";
 import SideBar from "./components/SideBar";
 import NumberPad from "./components/NumberPad/NumberPad";
 import LoginPage from "./pages/login/LoginPage";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLoggedIn } from "./state/login/loginSlice";
+import { RootState } from "./state/store";
 
 function App() {
   const [padValue, setPadValue] = useState<string>("");
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
 
   return (
-    <div className="w-full h-screen bg-[#061C03] text-slate-200 border border-[#061C03] overflow-hidden">
+    <div className="w-full h-screen bg-black text-slate-200 border border-[#061C03] overflow-hidden">
       {!isLoggedIn ? (
         <LoginPage />
       ) : (
@@ -42,7 +46,12 @@ function App() {
                   />
                   <div className="absolute bottom-0 left-0 w-full h-[30px] border border-[#061C03] bg-black z-50">
                     <div className="w-fit h-4 mx-auto">
-                      Button mods and functions
+                      <button
+                        className="hover:underline"
+                        onClick={() => dispatch(setIsLoggedIn(false))}
+                      >
+                        Reset App State
+                      </button>
                     </div>
                   </div>
                 </div>
