@@ -1,26 +1,21 @@
 import { DummyRecipes } from "../constants/dummyData";
 import { AltDummyProducts } from "../constants/dummyData";
 import { Recipe } from "../types/recipeTypes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../state/store";
 import { addItem } from "../state/orders/orderSlice";
+import { clearPadValue } from "../state/numberPad/numberSlice";
 
-interface ProductComponentProps {
-  padValue: string;
-  resetPadValue: () => void;
-}
-
-export default function ProductComponent({
-  padValue,
-  resetPadValue,
-}: ProductComponentProps) {
+export default function ProductComponent() {
   const dispatch = useDispatch();
+  const value = useSelector((state: RootState) => state.numberPad.padValue);
 
   const handleRecipeClick = (item: Recipe) => {
-    const multiplier = parseInt(padValue, 10) || 1;
+    const multiplier = parseInt(value, 10) || 1;
     for (let i = 0; i < multiplier; i++) {
       dispatch(addItem(item));
     }
-    resetPadValue();
+    dispatch(clearPadValue());
   };
 
   const renderRecipeButtons = () => {

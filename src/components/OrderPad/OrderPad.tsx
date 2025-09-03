@@ -1,16 +1,14 @@
 import useOrderPad from "./useOrderPad";
 
 export default function OrderPad() {
-  const { grouped, handleRemove, handleMouseDown, handleMouseUp } =
-    useOrderPad();
-
-  // Calculate total
-  const total = Object.values(grouped).reduce(
-    (sum, { item, count }) => sum + item.salePrice * count,
-    0
-  );
-
-  const hasOrders = Object.keys(grouped).length > 0;
+  const {
+    grouped,
+    handleRemove,
+    handleMouseDown,
+    handleMouseUp,
+    total,
+    hasOrders,
+  } = useOrderPad();
 
   return (
     <div className="p-4 bg-slate-200 text-slate-900 h-full w-full flex flex-col">

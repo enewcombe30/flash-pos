@@ -39,10 +39,20 @@ export default function useOrderPad() {
     clearTimeout(pressTimer);
   };
 
+  // Calculate total
+  const total = Object.values(grouped).reduce(
+    (sum, { item, count }) => sum + item.salePrice * count,
+    0
+  );
+
+  const hasOrders = Object.keys(grouped).length > 0;
+
   return {
     grouped,
     handleRemove,
     handleMouseDown,
     handleMouseUp,
+    total,
+    hasOrders,
   };
 }

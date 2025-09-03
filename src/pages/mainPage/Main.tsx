@@ -2,12 +2,10 @@ import ProductComponent from "../../components/ProductComponent";
 import OrderPad from "../../components/OrderPad/OrderPad";
 import SideBar from "../../components/SideBar";
 import NumberPad from "../../components/NumberPad/NumberPad";
-import useMain from "./useMain";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn, resetAccess } from "../../state/login/loginSlice";
 
 export default function Main() {
-  const { padValue, setPadValue } = useMain();
   const dispatch = useDispatch();
   function backToLogin() {
     dispatch(setIsLoggedIn(false));
@@ -29,15 +27,12 @@ export default function Main() {
               <OrderPad />
             </div>
             <div className="w-full h-[40%] bg-black border border-[#061C03]">
-              <NumberPad value={padValue} setValue={setPadValue} />
+              <NumberPad />
             </div>
           </div>
           <div className="w-[76.5%] h-full bg-black flex-none text-slate-200 border border-[#061C03]">
             <div className="w-full h-full border border-[#061C03] relative">
-              <ProductComponent
-                padValue={padValue}
-                resetPadValue={() => setPadValue("")}
-              />
+              <ProductComponent />
               <div className="absolute bottom-0 left-0 w-full h-[30px] border border-[#061C03] bg-black z-50">
                 <div className="w-fit h-4 mx-auto">
                   <button

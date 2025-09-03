@@ -1,12 +1,10 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../state/store";
 import useNumberPad from "./useNumberPad";
 
-interface NumberPadProps {
-  value: string;
-  setValue: (value: string) => void;
-}
-
-export default function NumberPad({ value, setValue }: NumberPadProps) {
-  const { handleNumberInput, numbers } = useNumberPad({ value, setValue });
+export default function NumberPad() {
+  const value = useSelector((state: RootState) => state.numberPad.padValue);
+  const { handleNumberInput, numbers } = useNumberPad();
 
   return (
     <div>

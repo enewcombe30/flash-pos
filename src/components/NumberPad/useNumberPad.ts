@@ -1,16 +1,17 @@
-interface props {
-  value: string;
-  setValue: (value: string) => void;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../state/store";
+import { setPadValue, clearPadValue } from "../../state/numberPad/numberSlice";
 
-export default function useNumberPad({ value, setValue }: props) {
+export default function useNumberPad() {
+  const dispatch = useDispatch();
+  const value = useSelector((state: RootState) => state.numberPad.padValue);
   const handleNumberInput = (item: number | string) => {
     if (item === "⌫") {
-      setValue(value.slice(0, -1));
+      dispatch(setPadValue(value.slice(0, -1)));
     } else if (item === "↵") {
-      setValue("");
+      dispatch(clearPadValue());
     } else if (typeof item === "number") {
-      setValue(value + item.toString());
+      dispatch(setPadValue(value + item.toString()));
     }
   };
 
@@ -21,5 +22,5 @@ export default function useNumberPad({ value, setValue }: props) {
     ["⌫", 0, "↵"],
   ];
 
-  return { value, setValue, handleNumberInput, numbers };
+  return { handleNumberInput, numbers };
 }
