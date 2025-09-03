@@ -1,5 +1,5 @@
 import SidebarButton from "./SidebarButton";
-import { sidebarButtons } from "../constants/sidebarButtons";
+import { sidebarButtons } from "../../constants/sidebarButtons";
 
 export default function SideBar() {
   return (

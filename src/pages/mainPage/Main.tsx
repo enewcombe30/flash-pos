@@ -1,6 +1,6 @@
 import ProductComponent from "../../components/ProductComponent/ProductComponent";
 import OrderPad from "../../components/OrderPad/OrderPad";
-import SideBar from "../../components/SideBar";
+import SideBar from "../../components/SideBar/SideBar";
 import NumberPad from "../../components/NumberPad/NumberPad";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn, resetAccess } from "../../state/login/loginSlice";
