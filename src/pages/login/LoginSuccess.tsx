@@ -6,7 +6,7 @@ interface props {
 
 export default function SuccessModal({ userName }: props) {
   return (
-    <div>
+    <div className="">
       <div className="w-fit h-fit mx-auto">
         <ThumbsUp />
       </div>
