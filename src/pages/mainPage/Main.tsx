@@ -4,7 +4,6 @@ import SideBar from "../../components/SideBar/SideBar";
 import NumberPad from "../../components/NumberPad/NumberPad";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn, resetAccess } from "../../state/login/loginSlice";
-import EditModal from "../../components/EditModal/EditModal";
 
 export default function Main() {
   const dispatch = useDispatch();
@@ -55,9 +54,6 @@ export default function Main() {
       <div className="w-[15%] h-full bg-black text-slate-200 border border-[#061C03] overflow-y-auto">
         <SideBar />
       </div>
-
-      {/* Edit modal */}
-      <EditModal />
     </div>
   );
 }

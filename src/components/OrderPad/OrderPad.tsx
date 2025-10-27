@@ -8,10 +8,15 @@ export default function OrderPad() {
     handleMouseUp,
     total,
     hasOrders,
+    isModalOpen,
   } = useOrderPad();
 
   return (
-    <div className="p-4 bg-slate-200 text-slate-900 h-full w-full flex flex-col">
+    <div
+      className={`p-4 bg-slate-200 text-slate-900 h-full w-full flex flex-col ${
+        isModalOpen ? "pointer-events-none" : ""
+      }`} // Disable interactions when modal is open
+    >
       {/* Orders list, scrollable */}
       <div className="flex-1 overflow-y-auto">
         {hasOrders ? (
@@ -20,10 +25,14 @@ export default function OrderPad() {
               <div
                 className="mb-2 cursor-pointer select-none"
                 onClick={() => handleRemove(item)}
-                onMouseDown={() => handleMouseDown()}
+                onMouseDown={
+                  isModalOpen ? undefined : () => handleMouseDown(item)
+                }
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                onTouchStart={() => handleMouseDown()}
+                onTouchStart={
+                  isModalOpen ? undefined : () => handleMouseDown(item)
+                }
                 onTouchEnd={handleMouseUp}
               >
                 {count} x {item.name}

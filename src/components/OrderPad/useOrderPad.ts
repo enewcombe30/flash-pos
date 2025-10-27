@@ -1,12 +1,23 @@
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../state/store";
 import { Recipe } from "../../types/recipeTypes";
 import { removeItem } from "../../state/orders/orderSlice";
-import { editList, openModal } from "../../state/openModal/modalSlice";
+import {
+  editList,
+  openModal,
+  setIsOpening,
+} from "../../state/openModal/modalSlice";
 
 export default function useOrderPad() {
   const items: Recipe[] = useSelector((state: RootState) => state.orders.items);
+  const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
+  const isOpening = useSelector((state: RootState) => state.modal.isOpening);
   const dispatch = useDispatch();
+
+  // Use ref for synchronous checking
+  const isOpeningRef = useRef(isOpening);
+  isOpeningRef.current = isOpening;
 
   // Group items for display (count how many of each recipe)
   const grouped: Record<string, { item: Recipe; count: number }> = items.reduce(
@@ -27,20 +38,28 @@ export default function useOrderPad() {
     dispatch(removeItem(item));
   };
 
-  // Handle long press - send ALL individual items to modal
+  // Handle long press - send ONLY items of the same type to modal
   let pressTimer: ReturnType<typeof setTimeout> | null = null;
-  const handleMouseDown = () => {
+  const handleMouseDown = (item: Recipe) => {
+    if (isModalOpen || isOpeningRef.current) return;
+    // Clear any existing timer to prevent multiple triggers
+    if (pressTimer) clearTimeout(pressTimer);
+    isOpeningRef.current = true;
+    dispatch(setIsOpening(true));
     pressTimer = setTimeout(() => {
-      // Send all items (not grouped) to modal
-      dispatch(editList(items));
+      // Filter items to only those matching the pressed item's id
+      const filteredItems = items.filter((recipe) => recipe.id === item.id);
+      dispatch(editList(filteredItems));
       dispatch(openModal());
-    }, 500);
+    }, 1000); // Increased to 1000ms for less sensitivity
   };
 
   const handleMouseUp = () => {
     if (pressTimer) {
       clearTimeout(pressTimer);
       pressTimer = null;
+      isOpeningRef.current = false;
+      dispatch(setIsOpening(false));
     }
   };
 
@@ -59,5 +78,6 @@ export default function useOrderPad() {
     handleMouseUp,
     total,
     hasOrders,
+    isModalOpen,
   };
 }
