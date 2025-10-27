@@ -6,13 +6,15 @@ export const Recipes: RecipeResponse = [
     name: "Pesto Pasta",
     subDivisionId: 3,
     version: 1,
+    costPrice: 4.5,
+    salePrice: 12.0,
     id: 1,
     RecipeIngredient: [
       {
         amount: 100,
         ingredientId: 1,
         recipeId: 1,
-        ingredient: [
+        ingredients: [
           {
             id: 1,
             name: "Pesto",
@@ -42,7 +44,7 @@ export const Recipes: RecipeResponse = [
         amount: 250,
         ingredientId: 2,
         recipeId: 1,
-        ingredient: [
+        ingredients: [
           {
             id: 2,
             name: "Pasta",
@@ -81,7 +83,7 @@ export const Recipes: RecipeResponse = [
         amount: 50,
         ingredientId: 3,
         recipeId: 1,
-        ingredient: [
+        ingredients: [
           {
             id: 3,
             name: "Parmesan Cheese",
@@ -130,12 +132,14 @@ export const Recipes: RecipeResponse = [
     subDivisionId: 3,
     version: 1,
     id: 2,
+    costPrice: 5,
+    salePrice: 13.0,
     RecipeIngredient: [
       {
         amount: 200,
         ingredientId: 4,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 4,
             name: "Chicken",
@@ -161,7 +165,7 @@ export const Recipes: RecipeResponse = [
         amount: 10,
         ingredientId: 5,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 5,
             name: "Garlic",
@@ -191,7 +195,7 @@ export const Recipes: RecipeResponse = [
         amount: 150,
         ingredientId: 6,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 6,
             name: "Tomato",
@@ -221,7 +225,7 @@ export const Recipes: RecipeResponse = [
         amount: 100,
         ingredientId: 7,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 7,
             name: "Mozzarella",
@@ -251,7 +255,7 @@ export const Recipes: RecipeResponse = [
         amount: 20,
         ingredientId: 8,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 8,
             name: "Olive Oil",
@@ -287,7 +291,7 @@ export const Recipes: RecipeResponse = [
         amount: 100,
         ingredientId: 9,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 9,
             name: "Lettuce",
@@ -317,7 +321,7 @@ export const Recipes: RecipeResponse = [
         amount: 80,
         ingredientId: 10,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 10,
             name: "Cucumber",
@@ -347,7 +351,7 @@ export const Recipes: RecipeResponse = [
         amount: 50,
         ingredientId: 11,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 11,
             name: "Olives",
@@ -373,7 +377,7 @@ export const Recipes: RecipeResponse = [
         amount: 30,
         ingredientId: 12,
         recipeId: 2,
-        ingredient: [
+        ingredients: [
           {
             id: 12,
             name: "Balsamic Vinegar",

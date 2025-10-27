@@ -7,6 +7,17 @@ import { setIsLoggedIn } from "../../state/login/loginSlice";
 import { RootState } from "../../state/store";
 import { AnimatePresence, motion } from "framer-motion";
 
+const transition = {
+  duration: 0.5,
+  ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
+};
+
+const variants = {
+  initial: { opacity: 0, scale: 0.95, y: 40 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.9, y: -40 },
+};
+
 export default function LoginPage() {
   const {
     handleDelete,
@@ -32,15 +43,16 @@ export default function LoginPage() {
   return (
     <div>
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-[300px] h-fit bg-[#061C03] p-4 border-[3px] border-[#284E24] text-slate-200 flex flex-col justify-between rounded-3xl">
+        <div className="w-[300px] h-fit bg-background-primary p-4 border-[3px] border-border-primary text-slate-200 flex flex-col justify-between rounded-3xl">
           <AnimatePresence mode="wait">
             {!hasAccess ? (
               <motion.div
                 key="modal"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={transition}
               >
                 <LoginModal
                   handleDelete={handleDelete}
@@ -53,10 +65,11 @@ export default function LoginPage() {
             ) : (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.05 }}
-                transition={{ duration: 0.4 }}
+                variants={variants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                transition={transition}
               >
                 <LoginSuccess userName={userName} />
               </motion.div>

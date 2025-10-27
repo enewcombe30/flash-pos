@@ -15,7 +15,7 @@ export default function ProductComponent() {
             key={item.id}
             onClick={() => handleRecipeClick(item)}
             type="button"
-            className="w-[100px] h-[60px] bg-[#284E24] text-white rounded-md p-1"
+            className="w-[100px] h-[60px] bg-border-primary text-white rounded-md p-1"
           >
             {item.name}
           </button>

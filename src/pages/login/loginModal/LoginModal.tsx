@@ -22,8 +22,8 @@ export default function LoginModal({
     <div>
       {/* Output Bar */}
       <div
-        className={`w-[205px] h-[60px] bg-[#050F05] mx-auto mb-2 rounded-[10px] flex justify-center items-center gap-6 ${
-          error ? "border-[2px] border-[#AF3023]" : ""
+        className={`w-[205px] h-[60px] bg-background-secondary mx-auto mb-2 rounded-[10px] flex justify-center items-center gap-6 ${
+          error ? "border-[2px] border-border-error" : ""
         } `}
       >
         <span className="text-3xl font-mono">
@@ -40,7 +40,7 @@ export default function LoginModal({
       {!error ? (
         <div className={`h-8 w-fit mx-auto font-thin`}>Enter your code</div>
       ) : (
-        <div className="w-fit mx-auto text-[#AF3023] h-8">
+        <div className="w-fit mx-auto text-border-error h-8">
           {error === null ? error : "Code invalid - try again"}
         </div>
       )}
@@ -51,7 +51,7 @@ export default function LoginModal({
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
             <button
               key={num}
-              className="bg-[#284E24] rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#376c34] transition"
+              className="bg-border-primary rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#376c34] transition"
               onClick={() => handleNumber(num.toString())}
               disabled={input.every((v) => v !== "-")}
             >
@@ -61,21 +61,21 @@ export default function LoginModal({
 
           {/* Delete Button */}
           <button
-            className="bg-[#AF3023] rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#c23d2f] transition"
+            className="bg-border-error rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#c23d2f] transition"
             onClick={handleDelete}
           >
             ⌫
           </button>
           {/* 0 Button */}
           <button
-            className="bg-[#284E24] rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#376c34] transition"
+            className="bg-border-primary rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#376c34] transition"
             onClick={() => handleNumber("0")}
             disabled={input.every((v) => v !== "-")}
           >
             0
           </button>
           <button
-            className="bg-[#16A34A] rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#1ecf5a] transition"
+            className="bg-primary-500 rounded-3xl h-12 w-12 flex items-center justify-center text-xl font-bold hover:bg-[#1ecf5a] transition"
             onClick={() => {
               const code = input.join("");
               mutation.mutate(Number(code)); // Convert to number before passing

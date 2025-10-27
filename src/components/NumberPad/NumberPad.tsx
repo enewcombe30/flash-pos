@@ -8,14 +8,14 @@ export default function NumberPad() {
 
   return (
     <div>
-      <div className="w-full h-[40px] flex items-center justify-end px-4 bg-[#050F05] border-b border-[#284E24] text-2xl font-mono select-all">
+      <div className="w-full h-[40px] flex items-center justify-end px-4 bg-background-secondary border-b border-border-primary text-2xl font-mono select-all">
         {value || <span>{""}</span>}
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">
         {numbers.flat().map((input, idx) => {
-          let btnColor = "bg-[#284E24]";
-          if (input === "⌫") btnColor = "bg-[#AF3023]";
-          if (input === "↵") btnColor = "bg-[#16A34A]";
+          let btnColor = "bg-border-primary";
+          if (input === "⌫") btnColor = "bg-border-error";
+          if (input === "↵") btnColor = "bg-primary-500";
           return (
             <button
               key={idx}

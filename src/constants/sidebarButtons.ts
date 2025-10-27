@@ -13,7 +13,7 @@ export const sidebarButtons = [
   {
     label: "Login",
     onClick: () => backToLogin(), // Need reactRouter before use
-    bgColor: "bg-[#16A34A]",
+    bgColor: "bg-primary-500",
     textColor: "text-white",
     font: "font-bold",
     textSize: "text-[1.5rem]",
@@ -22,7 +22,7 @@ export const sidebarButtons = [
   {
     label: "Correct Item",
     onClick: () => alert("Correct Item clicked"),
-    bgColor: "bg-[#AF3023]",
+    bgColor: "bg-border-error",
     textColor: "text-white",
     font: "font-bold",
     textSize: "text-[1.5rem]",
@@ -60,7 +60,7 @@ export const sidebarButtons = [
   {
     label: "Table Plan",
     onClick: () => alert("Table Plan clicked"),
-    bgColor: "bg-[#16A34A]",
+    bgColor: "bg-primary-500",
     textColor: "text-white",
     font: "font-bold",
     textSize: "text-[1.5rem]",
@@ -78,7 +78,7 @@ export const sidebarButtons = [
   {
     label: "Message",
     onClick: () => alert("Message clicked"),
-    bgColor: "bg-[#16A34A]",
+    bgColor: "bg-primary-500",
     textColor: "text-white",
     font: "",
     textSize: "text-sm",
@@ -115,7 +115,7 @@ export const sidebarButtons = [
   {
     label: "Send Order",
     onClick: () => alert("Send Order clicked"),
-    bgColor: "bg-[#16A34A]",
+    bgColor: "bg-primary-500",
     textColor: "text-white",
     font: "font-bold",
     textSize: "text-sm",

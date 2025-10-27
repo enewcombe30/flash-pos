@@ -13,27 +13,28 @@ export default function Main() {
     dispatch(setIsLoggedIn(false));
     dispatch(resetAccess());
   }
+
   return (
-    <div className="w-full h-full flex bg-black border border-[#061C03]">
+    <div className="w-full h-full flex bg-black border border-background-primary">
       {/* Main content area (left + center) */}
       <div className="w-[85%] h-full flex flex-col">
         {/* Top function bar */}
-        <section className="w-full h-[30px] border border-[#061C03]">
+        <section className="w-full h-[30px] border border-background-primary">
           <div className="w-fit h-content m-auto">Top function bar</div>
         </section>
         <div className="flex flex-1 h-full">
-          <section className="w-[23.5%] h-full bg-black flex-none text-slate-200 border border-[#061C03] flex flex-col">
+          <section className="w-[23.5%] h-full bg-black flex-none text-slate-200 border border-background-primary flex flex-col">
             {/* Number pad display */}
-            <div className="w-full h-[60%] bg-black border border-[#061C03]">
+            <div className="w-full h-[60%] bg-black border border-background-primary">
               <OrderPad />
             </div>
-            <div className="w-full h-[40%] bg-black border border-[#061C03]">
+            <div className="w-full h-[40%] bg-black border border-background-primary">
               <NumberPad />
             </div>
           </section>
           {/* Main section */}
-          <section className="w-[76.5%] h-full bg-black flex-none text-slate-200 border border-[#061C03]">
-            <div className="w-full h-full border border-[#061C03] relative">
+          <section className="w-[76.5%] h-full bg-black flex-none text-slate-200 border border-background-primary">
+            <div className="w-full h-full border border-background-primary relative">
               <ProductComponent />
               <div className="absolute bottom-0 left-0 w-full h-[30px]">
                 <div className="w-fit h-4 mx-auto">
@@ -50,7 +51,7 @@ export default function Main() {
         </div>
       </div>
       {/* Sidebar */}
-      <div className="w-[15%] h-full bg-black text-slate-200 border border-[#061C03] overflow-y-auto">
+      <div className="w-[15%] h-full bg-black text-slate-200 border border-background-primary overflow-y-auto">
         <SideBar />
       </div>
     </div>
