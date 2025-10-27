@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
+import { scrollbarStyles } from "../../constants/styleConstants";
+import TrashCan from "../../svgs/TrashCan";
 
 export default function EditModal() {
   const bulkProducts = useSelector((state: RootState) => state.orders.items);
@@ -19,21 +21,19 @@ export default function EditModal() {
     return productData.map((product, index) => (
       <div
         key={product.id}
-        className="w-[21.875rem] h-[4rem] bg-[#D9D9D9] mx-auto flex items-center"
+        className="w-[21.875rem] h-[4rem] bg-[#D9D9D9] mx-auto flex items-center justify-between px-4 cursor-pointer"
       >
-        <div className="text-black px-4 font-bold">
+        <div className="text-black font-bold flex items-center">
           {product.name}{" "}
-          <span className="text-sm italic text-[#908D8D]">{`(${
+          <span className="text-sm italic text-[#908D8D] ml-2">{`(${
             index + 1
           })`}</span>
         </div>
+        <div className="cursor-pointer">
+          <TrashCan />
+        </div>
       </div>
     ));
-  };
-
-  const scrollbarStyles = {
-    scrollbarWidth: "thin" as const,
-    scrollbarColor: "#284E24 #050F05",
   };
 
   return (
