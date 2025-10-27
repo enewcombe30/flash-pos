@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Recipe } from "../../types/recipeTypes";
 
 interface OrdersState {
-  items: Recipe[];
+  items: Recipe[]; // Store each recipe instance separately
 }
 
 const initialState: OrdersState = {
@@ -17,6 +17,7 @@ const orderSlice = createSlice({
       state.items.push(action.payload);
     },
     removeItem(state, action: PayloadAction<Recipe>) {
+      // Remove first matching instance
       const index = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -24,12 +25,15 @@ const orderSlice = createSlice({
         state.items.splice(index, 1);
       }
     },
-    removeAllItems(state, action: PayloadAction<Recipe>) {
-      state.items = state.items.filter((item) => item.id !== action.payload.id);
+    removeAllOfItem(state, action: PayloadAction<number>) {
+      state.items = state.items.filter((item) => item.id !== action.payload);
     },
-    // ...other reducers
+    clearOrder(state) {
+      state.items = [];
+    },
   },
 });
 
-export const { addItem, removeItem, removeAllItems } = orderSlice.actions;
+export const { addItem, removeItem, removeAllOfItem, clearOrder } =
+  orderSlice.actions;
 export default orderSlice.reducer;

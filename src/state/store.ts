@@ -3,6 +3,7 @@ import OrderReducer from "./orders/orderSlice";
 import CounterReducer from "./counter/CounterSlice";
 import LoginReducer from "./login/loginSlice";
 import numberPadReducer from "./numberPad/numberSlice";
+import openModalReducer from "./openModal/modalSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     counter: CounterReducer,
     login: LoginReducer,
     numberPad: numberPadReducer,
+    modal: openModalReducer,
   },
 });
 

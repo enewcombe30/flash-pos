@@ -20,10 +20,10 @@ export default function OrderPad() {
               <div
                 className="mb-2 cursor-pointer select-none"
                 onClick={() => handleRemove(item)}
-                onMouseDown={() => handleMouseDown(item)}
+                onMouseDown={() => handleMouseDown()}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                onTouchStart={() => handleMouseDown(item)}
+                onTouchStart={() => handleMouseDown()}
                 onTouchEnd={handleMouseUp}
               >
                 {count} x {item.name}
