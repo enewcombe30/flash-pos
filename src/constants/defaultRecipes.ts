@@ -124,6 +124,7 @@ export const Recipes: RecipeResponse = [
       { recipeId: 2, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
       { recipeId: 2, dietaryTagId: 3, dietaryTag: { id: 3, name: "Keto" } },
     ],
+    userNotes: [],
   },
 
   // Grilled Chicken Salad Recipe Constant
@@ -414,5 +415,6 @@ export const Recipes: RecipeResponse = [
       },
       { recipeId: 2, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
     ],
+    userNotes: [],
   },
 ];

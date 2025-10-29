@@ -1,8 +1,13 @@
 import TrashCan from "../../../svgs/TrashCan";
 import { scrollbarStyles } from "../../../constants/styleConstants";
 import usePreeditComponent from "./usePreeditComponent";
+import { editProduct } from "../../../types/recipeTypes";
 
-export default function PreEditComponent() {
+interface props {
+  setProductToEdit: (editProduct: editProduct) => void;
+}
+
+export default function PreEditComponent({ setProductToEdit }: props) {
   const { handleRemoveOne, editedList } = usePreeditComponent();
 
   const renderProducts = () => {
@@ -10,6 +15,7 @@ export default function PreEditComponent() {
       <div
         key={index}
         className="w-[21.875rem] h-[4rem] bg-[#D9D9D9] mx-auto flex items-center justify-between px-4 cursor-pointer"
+        onClick={() => setProductToEdit({ id: index, recipe })}
       >
         <div className="text-black font-bold flex items-center">
           {recipe.name}

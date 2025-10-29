@@ -11,6 +11,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Chicken Curry",
@@ -22,6 +23,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Vegetable Stir Fry",
@@ -33,6 +35,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Beef Tacos",
@@ -44,6 +47,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Caesar Salad",
@@ -55,6 +59,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Margherita Pizza",
@@ -66,6 +71,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Grilled Salmon",
@@ -77,6 +83,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Lentil Soup",
@@ -88,6 +95,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Pork Chops",
@@ -99,6 +107,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Fish and Chips",
@@ -110,6 +119,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Chicken Alfredo",
@@ -121,6 +131,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Vegetable Lasagna",
@@ -132,6 +143,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Shrimp Scampi",
@@ -143,6 +155,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Beef Stroganoff",
@@ -154,6 +167,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Quinoa Salad",
@@ -165,8 +179,8 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
-  // 5 more please
   {
     name: "Stuffed Bell Peppers",
     id: 16,
@@ -177,6 +191,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Chicken Fajitas",
@@ -188,6 +203,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Mushroom Risotto",
@@ -199,6 +215,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Pasta Primavera",
@@ -210,6 +227,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "BBQ Ribs",
@@ -221,6 +239,7 @@ export const DummyRecipes: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
 ];
 
@@ -235,6 +254,7 @@ export const AltDummyProducts: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Special Mains",
@@ -246,6 +266,7 @@ export const AltDummyProducts: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Special Burger",
@@ -257,6 +278,7 @@ export const AltDummyProducts: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
   {
     name: "Steak Dessert",
@@ -268,5 +290,6 @@ export const AltDummyProducts: Recipe[] = [
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
   },
 ];

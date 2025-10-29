@@ -56,7 +56,13 @@ export interface Recipe {
   RecipeIngredient: RecipeIngredient[];
   recipeAllergens: RecipeAllergens[];
   recipeDietaryTags: RecipeDietaryTags[];
+  userNotes: string[];
 }
 
 // Define the response from the API, which will be an array of recipes
 export type RecipeResponse = Recipe[];
+
+export type editProduct = {
+  id: number;
+  recipe: Recipe;
+};
