@@ -16,13 +16,16 @@ const orderSlice = createSlice({
     addItem(state, action: PayloadAction<Recipe>) {
       state.items.push(action.payload);
     },
-    removeItem(state, action: PayloadAction<Recipe>) {
-      // Remove first matching instance
-      const index = state.items.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.items.splice(index, 1);
+    removeItem: (state, action: PayloadAction<number>) => {
+      state.items.splice(action.payload, 1);
+    },
+    updateItem(
+      state,
+      action: PayloadAction<{ index: number; updatedRecipe: Recipe }>
+    ) {
+      const { index, updatedRecipe } = action.payload;
+      if (state.items[index]) {
+        state.items[index] = updatedRecipe;
       }
     },
     removeAllOfItem(state, action: PayloadAction<number>) {
@@ -34,6 +37,6 @@ const orderSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, removeAllOfItem, clearOrder } =
+export const { addItem, removeItem, removeAllOfItem, clearOrder, updateItem } =
   orderSlice.actions;
 export default orderSlice.reducer;

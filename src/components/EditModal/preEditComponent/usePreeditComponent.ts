@@ -6,6 +6,7 @@ import { Recipe } from "../../../types/recipeTypes";
 
 export default function usePreeditComponent() {
   const dispatch = useDispatch();
+  const orders = useSelector((state: RootState) => state.orders.items);
   const initialList: Recipe[] = useSelector(
     (state: RootState) => state.modal.editList as Recipe[]
   );
@@ -19,29 +20,32 @@ export default function usePreeditComponent() {
   }, [initialList]);
 
   const handleRemoveOne = (recipeId: number) => {
-    // Remove the first instance from the local edited list only
+    // Find the global index of the first recipe with this id
+    const globalIndex = orders.findIndex((recipe) => recipe.id === recipeId);
+    if (globalIndex !== -1) {
+      dispatch(removeItem(globalIndex)); // Dispatch with the global index
+    }
+    // Also update local state for UI feedback
     setEditedList((prev) => {
-      const index = prev.findIndex((r) => r.id === recipeId);
-      if (index !== -1) {
+      const localIndex = prev.findIndex((r) => r.id === recipeId);
+      if (localIndex !== -1) {
         const updated = [...prev];
-        updated.splice(index, 1);
+        updated.splice(localIndex, 1);
         return updated;
       }
       return prev;
     });
-    // Do NOT dispatch removeItem here - keep changes local
   };
 
   const handleSubmit = () => {
-    // Calculate how many items to remove (difference between initial and edited)
-    const itemsToRemove = initialList.length - editedList.length;
-    const recipeToRemove = initialList[0]; // All items are the same type
-
-    // Dispatch removeItem for each item that was removed
-    for (let i = 0; i < itemsToRemove; i++) {
-      dispatch(removeItem(recipeToRemove));
-    }
+    // Since changes are dispatched immediately, handleSubmit can be a no-op or handle any final logic
+    // For now, it's not needed as removals are immediate
   };
+
+  // const handleRemoveNote = (noteIndex: number) => {
+  // This function will be implemented in the EditModal component
+  // as it needs to update the specific recipe in the global state.
+  // };
 
   return { handleRemoveOne, editedList, handleSubmit };
 }

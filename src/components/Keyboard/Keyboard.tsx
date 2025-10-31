@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import Keyboard from "react-simple-keyboard";
-import "react-simple-keyboard/build/css/index.css";
+// import "react-simple-keyboard/build/css/index.css";
 import "./keyboardStyles.css";
 
 interface KeyboardInstance {
@@ -12,6 +12,8 @@ interface KeyboardInstance {
 interface KeyboardProps {
   value: string;
   onChange: (value: string) => void;
+  onSubmit?: () => void;
+  onCancel?: () => void;
   className?: string;
   layout?: "default" | "shift" | "numbers" | "symbols";
   theme?: string;
@@ -20,6 +22,8 @@ interface KeyboardProps {
 export default function VirtualKeyboard({
   value,
   onChange,
+  onSubmit,
+  onCancel,
   className = "",
   layout = "default",
   theme = "hg-theme-dark",
@@ -43,6 +47,10 @@ export default function VirtualKeyboard({
       onChange(value + " ");
     } else if (button === "{tab}") {
       onChange(value + "\t");
+    } else if (button === "{cancel}") {
+      onCancel?.();
+    } else if (button === "{submit}") {
+      onSubmit?.();
     } else {
       onChange(value + button);
     }
@@ -68,17 +76,17 @@ export default function VirtualKeyboard({
         layout={{
           default: [
             "1 2 3 4 5 6 7 8 9 0 {bksp}",
-            "q w e r t y u i o p",
-            "a s d f g h j k l {enter}",
-            "{shift} z x c v b n m , . {shift}",
-            "{space}",
-          ],
-          shift: [
-            "! @ # $ % ^ & * ( ) {bksp}",
             "Q W E R T Y U I O P",
             "A S D F G H J K L {enter}",
             "{shift} Z X C V B N M < > {shift}",
-            "{space}",
+            "{cancel} {space} {submit}",
+          ],
+          shift: [
+            "! @ # $ % ^ & * ( ) {bksp}",
+            "q w e r t y u i o p",
+            "a s d f g h j k l {enter}",
+            "{shift} z x c v b n m , . {shift}",
+            "{cancel} {space} {submit}",
           ],
           numbers: [
             "1 2 3 4 5 6 7 8 9 0",
@@ -99,6 +107,8 @@ export default function VirtualKeyboard({
           "{shift}": "⇧",
           "{space}": " ",
           "{tab}": "⇥",
+          "{cancel}": "Cancel",
+          "{submit}": "Submit",
         }}
       />
     </div>

@@ -1,74 +1,14 @@
-/* Custom dark theme for the keyboard to match the app's dark aesthetic */
-.hg-theme-dark {
-  --keyboard-bg: #222422; /* Dark green background matching the modal */
-  --key-bg: #d9d9d9; /* Light gray keys for contrast */
-  --key-color: #000000; /* Black text on keys - ensure high contrast */
-  --key-hover-bg: #16a34a; /* Green hover color matching the app's primary */
-  --key-active-bg: #16a34a; /* Active key color */
-  --key-border: 2px solid #16a34a; /* Thicker green border for prominence */
-  --key-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  --keyboard-border-radius: 8px; /* Rounded corners */
-  --key-border-radius: 4px; /* Rounded key corners */
-}
+/* Minimal styles to match react-simple-keyboard defaults, with basic layout fixes */
 
-/* Light theme for contrast or alternative use */
-.hg-theme-light {
-  --keyboard-bg: #ffffff; /* White background */
-  --key-bg: #f3f4f6; /* Light gray keys */
-  --key-color: #000000; /* Black text for high contrast */
-  --key-hover-bg: #e5e7eb; /* Lighter hover */
-  --key-active-bg: #d1d5db; /* Active color */
-  --key-border: 2px solid #374151; /* Thicker dark border for prominence */
-  --key-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Light shadow */
-  --keyboard-border-radius: 8px;
-  --key-border-radius: 4px;
-}
-
-/* Compact theme for smaller keyboards */
-.hg-theme-compact {
-  --keyboard-bg: #061c03;
-  --key-bg: #d9d9d9;
-  --key-color: #000000;
-  --key-hover-bg: #16a34a;
-  --key-active-bg: #16a34a;
-  --key-border: 2px solid #16a34a; /* Thicker border */
-  --key-shadow: none; /* No shadow for compact look */
-  --keyboard-border-radius: 4px;
-  --key-border-radius: 2px;
-  --key-font-size: 14px; /* Smaller font */
-  --key-height: 40px; /* Shorter keys */
-  --key-width: 40px; /* Narrower keys */
-}
-
-/* Customizable size classes */
-.keyboard-small {
-  --key-font-size: 12px;
-  --key-height: 35px;
-  --key-width: 35px;
-}
-
-.keyboard-medium {
-  --key-font-size: 16px;
-  --key-height: 55px; /* Slightly taller */
-  --key-width: 60px; /* Wider to fill space */
-}
-
-.keyboard-large {
-  --key-font-size: 20px;
-  --key-height: 65px; /* Taller */
-  --key-width: 70px; /* Wider */
-}
-
-/* General keyboard styles */
 .simple-keyboard {
-  background: var(--keyboard-bg);
-  border-radius: var(--keyboard-border-radius);
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Fill the container width */
+  width: 100%;
+  background-color: #041a01; /* 2 shades darker than #061C03 (RGB: 4, 26, 1) */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .simple-keyboard .hg-row {
@@ -76,77 +16,31 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 5px;
-  width: 100%; /* Full width for rows */
+  width: 100%;
 }
 
 .simple-keyboard .hg-button {
-  background: var(--key-bg);
-  color: var(--key-color);
-  border: var(--key-border);
-  border-radius: var(--key-border-radius);
-  box-shadow: var(--key-shadow);
-  font-size: var(--key-font-size, 16px);
-  font-weight: bold; /* Make characters bolder for prominence */
-  height: var(--key-height, 55px); /* Default taller */
-  width: var(--key-width, 60px); /* Default wider to fill */
-  margin: 1px; /* Reduced margin to fit more */
-  transition: all 0.2s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow for depth */
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1; /* Allow keys to grow and fill space */
-  min-width: var(--key-width, 60px); /* Minimum width */
+  flex: 1;
+  min-width: 50px;
+  height: 50px;
+  margin: 3px;
+  border-radius: 4px;
+  background-color: #e0e0e0; /* Medium grey background */
+  color: #333333; /* Dark grey text */
+  border: 1px solid #cccccc; /* Light grey border */
+  font-size: 18px;
+  transition: all 0.2s ease;
 }
 
 .simple-keyboard .hg-button:hover {
-  background: var(--key-hover-bg);
-  border-color: var(--key-hover-bg); /* Make border match hover for emphasis */
+  background-color: #d0d0d0; /* Slightly darker grey on hover */
+  border-color: #aaaaaa; /* Darker border on hover */
 }
 
 .simple-keyboard .hg-button:active {
-  background: var(--key-active-bg);
-  border-color: var(--key-active-bg);
+  background-color: #c0c0c0; /* Even darker grey when pressed */
   transform: scale(0.95);
-}
-
-/* Special key styles */
-.simple-keyboard .hg-button.hg-standardBtn[data-skbtn="{bksp}"] {
-  background: #ef4444; /* Red for backspace */
-  color: white;
-  border: 2px solid #dc2626; /* Thicker red border */
-  flex: 0 0 auto; /* Don't grow, fixed size */
-}
-
-.simple-keyboard .hg-button.hg-standardBtn[data-skbtn="{enter}"] {
-  background: #16a34a; /* Green for enter */
-  color: white;
-  border: 2px solid #15803d; /* Thicker green border */
-  flex: 0 0 auto; /* Fixed size */
-}
-
-.simple-keyboard .hg-button.hg-standardBtn[data-skbtn="{shift}"] {
-  background: #f59e0b; /* Amber for shift */
-  color: white;
-  border: 2px solid #d97706; /* Thicker amber border */
-  flex: 0 0 auto; /* Fixed size */
-}
-
-.simple-keyboard .hg-button.hg-standardBtn[data-skbtn="{space}"] {
-  width: 500px; /* Much wider space bar to fill more */
-  border: 2px solid #16a34a; /* Consistent border */
-  flex: 0 0 auto; /* Fixed size */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .simple-keyboard .hg-button {
-    font-size: 14px;
-    height: 45px;
-    width: 50px;
-    border-width: 1px; /* Slightly thinner on mobile for space */
-  }
-  .simple-keyboard .hg-button.hg-standardBtn[data-skbtn="{space}"] {
-    width: 300px; /* Smaller on mobile */
-  }
 }

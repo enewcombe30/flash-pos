@@ -22,7 +22,12 @@ export default function useOrderPad() {
   // Group items for display (count how many of each recipe)
   const grouped: Record<string, { item: Recipe; count: number }> = items.reduce(
     (acc: Record<string, { item: Recipe; count: number }>, recipe: Recipe) => {
-      const key = recipe.id.toString();
+      // Include userNotes in the key to ungroup items with notes
+      const key =
+        recipe.id.toString() +
+        (recipe.userNotes && recipe.userNotes.length > 0
+          ? JSON.stringify(recipe.userNotes)
+          : "");
       if (acc[key]) {
         acc[key].count += 1;
       } else {
@@ -35,10 +40,14 @@ export default function useOrderPad() {
 
   // Handle click (remove one instance)
   const handleRemove = (item: Recipe) => {
-    dispatch(removeItem(item));
+    // Find the index of the first matching recipe in the items array
+    const index = items.findIndex((recipe) => recipe.id === item.id);
+    if (index !== -1) {
+      dispatch(removeItem(index));
+    }
   };
 
-  // Handle long press - send ONLY items of the same type to modal
+  // Handle long press - send only the filtered items for the pressed recipe type
   let pressTimer: ReturnType<typeof setTimeout> | null = null;
   const handleMouseDown = (item: Recipe) => {
     if (isModalOpen || isOpeningRef.current) return;
@@ -47,7 +56,7 @@ export default function useOrderPad() {
     isOpeningRef.current = true;
     dispatch(setIsOpening(true));
     pressTimer = setTimeout(() => {
-      // Filter items to only those matching the pressed item's id
+      // Filter items to only those matching the pressed recipe's ID
       const filteredItems = items.filter((recipe) => recipe.id === item.id);
       dispatch(editList(filteredItems));
       dispatch(openModal());
