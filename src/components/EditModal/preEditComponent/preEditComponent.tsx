@@ -14,7 +14,7 @@ export default function PreEditComponent({
   productToEdit,
 }: props) {
   const editList = useSelector((state: RootState) => state.modal.editList);
-  const { handleSubmit, handleRemoveOne } = usePreeditComponent();
+  const { handleRemoveOne } = usePreeditComponent();
 
   const renderProducts = () => {
     return editList.map((recipe, index) => (
@@ -23,20 +23,24 @@ export default function PreEditComponent({
         className="w-full h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
       >
         <div
-          className="text-black font-bold flex flex-col"
+          className="text-black font-bold flex flex-col flex-1 pr-8"
           onClick={() => setProductToEdit({ id: index, recipe })}
         >
           <span>{recipe.name}</span>
           <div className="text-xs text-gray-400 mt-1 italic">
-            ({index + 1}){/* Display notes if they exist */}
-            {recipe.userNotes && recipe.userNotes.length > 0 && (
-              <span> - {recipe.userNotes.join(", ")}</span>
+            {recipe.userNotes && recipe.userNotes.length > 0 ? (
+              <span> {recipe.userNotes.join(", ")}</span>
+            ) : (
+              `(${index + 1})`
             )}
           </div>
         </div>
         <div
           className="text-red-700 cursor-pointer absolute right-4 font-bold"
-          onClick={() => handleRemoveOne(index)}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleRemoveOne(recipe);
+          }}
         >
           X
         </div>
@@ -71,12 +75,6 @@ export default function PreEditComponent({
             Notes for {productToEdit.recipe.name}
           </h3>
           {renderNotes()}
-          <button
-            onClick={handleSubmit}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-          >
-            Submit Changes
-          </button>
         </div>
       )}
     </>
