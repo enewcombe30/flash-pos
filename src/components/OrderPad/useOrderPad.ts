@@ -7,7 +7,7 @@ import {
   editList,
   openModal,
   setIsOpening,
-} from "../../state/openModal/modalSlice";
+} from "../../state/modal/modalSlice";
 
 export default function useOrderPad() {
   const items: Recipe[] = useSelector((state: RootState) => state.orders.items);

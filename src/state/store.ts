@@ -3,7 +3,8 @@ import OrderReducer from "./orders/orderSlice";
 import CounterReducer from "./counter/CounterSlice";
 import LoginReducer from "./login/loginSlice";
 import numberPadReducer from "./numberPad/numberSlice";
-import openModalReducer from "./openModal/modalSlice";
+import openModalReducer from "./modal/modalSlice";
+import keyboardReducer from "./keyboard/keyboardSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     login: LoginReducer,
     numberPad: numberPadReducer,
     modal: openModalReducer,
+    keyboard: keyboardReducer,
   },
 });
 

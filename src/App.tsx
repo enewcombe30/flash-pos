@@ -1,6 +1,6 @@
 import "./index.css";
 import "./App.css";
-import EditModal from "./components/EditModal/EditModal";
+import EditModal from "./components/EditModal/ProductModal";
 import { useSelector } from "react-redux";
 import { RootState } from "./state/store";
 import Main from "./pages/mainPage/Main";

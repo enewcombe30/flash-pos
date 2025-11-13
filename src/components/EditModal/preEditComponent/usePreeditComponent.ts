@@ -1,10 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 import { removeItem } from "../../../state/orders/orderSlice";
-import { editList } from "../../../state/openModal/modalSlice";
+import {
+  closeModal,
+  editList,
+  setCurrentPage,
+} from "../../../state/modal/modalSlice";
+import { editProduct } from "../../../types/recipeTypes";
 import { Recipe } from "../../../types/recipeTypes";
+import { MODAL_PAGES } from "../../../constants/modalConstants";
 
-export default function usePreeditComponent() {
+interface props {
+  setProductToEdit: (editProduct: editProduct) => void;
+}
+
+export default function usePreeditComponent({ setProductToEdit }: props) {
   const dispatch = useDispatch();
   const orders = useSelector((state: RootState) => state.orders.items);
 
@@ -28,5 +38,15 @@ export default function usePreeditComponent() {
     }
   };
 
-  return { handleRemoveOne };
+  const handleClose = () => {
+    dispatch(closeModal());
+    dispatch(editList([]));
+  };
+
+  function handleProductSelect(product: editProduct) {
+    setProductToEdit(product);
+    dispatch(setCurrentPage(MODAL_PAGES.EDIT_PRODUCT));
+  }
+
+  return { handleRemoveOne, handleClose, handleProductSelect, editList };
 }

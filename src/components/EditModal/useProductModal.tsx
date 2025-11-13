@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../state/store";
-import { closeModal, editList } from "../../state/openModal/modalSlice";
+import { closeModal, setCurrentPage } from "../../state/modal/modalSlice";
 import { editProduct } from "../../types/recipeTypes";
 
 export default function useEditModal() {
@@ -12,21 +12,21 @@ export default function useEditModal() {
   );
   const [productToEdit, setProductToEdit] = useState<editProduct | null>(null);
 
-  const handleClose = () => {
-    dispatch(closeModal());
-    dispatch(editList([]));
-  };
-
   useEffect(() => {
     if (isOpen && currentEditList.length === 0) {
       dispatch(closeModal());
     }
   }, [currentEditList, isOpen, dispatch]);
 
+  function handleProductToEdit(product: editProduct | null) {
+    setProductToEdit(product);
+    dispatch(setCurrentPage("EDIT_PRODUCT"));
+  }
+
   return {
     isOpen,
     productToEdit,
     setProductToEdit,
-    handleClose,
+    handleProductToEdit,
   };
 }

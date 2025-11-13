@@ -1,20 +1,17 @@
 import { scrollbarStyles } from "../../../constants/styleConstants";
 import usePreeditComponent from "./usePreeditComponent";
 import { editProduct } from "../../../types/recipeTypes";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
+import { useSelector } from "react-redux";
 
 interface props {
   setProductToEdit: (editProduct: editProduct) => void;
-  productToEdit: editProduct | null;
 }
 
-export default function PreEditComponent({
-  setProductToEdit,
-  productToEdit,
-}: props) {
+export default function PreEditComponent({ setProductToEdit }: props) {
   const editList = useSelector((state: RootState) => state.modal.editList);
-  const { handleRemoveOne } = usePreeditComponent();
+  const { handleRemoveOne, handleClose, handleProductSelect } =
+    usePreeditComponent({ setProductToEdit });
 
   const renderProducts = () => {
     return editList.map((recipe, index) => (
@@ -24,7 +21,7 @@ export default function PreEditComponent({
       >
         <div
           className="text-black font-bold flex flex-col flex-1 pr-8"
-          onClick={() => setProductToEdit({ id: index, recipe })}
+          onClick={() => handleProductSelect({ id: index, recipe })}
         >
           <span>{recipe.name}</span>
           <div className="text-xs text-gray-400 mt-1 italic">
@@ -48,19 +45,6 @@ export default function PreEditComponent({
     ));
   };
 
-  const renderNotes = () => {
-    if (!productToEdit || !productToEdit.recipe.userNotes) return null;
-    return productToEdit.recipe.userNotes.map((note, index) => (
-      <div
-        key={index}
-        className="flex items-center justify-between bg-gray-200 p-2 rounded mb-2"
-      >
-        <span className="text-sm">{note}</span>
-        <button className="text-red-500 hover:text-red-700">X</button>
-      </div>
-    ));
-  };
-
   return (
     <>
       <div
@@ -69,14 +53,22 @@ export default function PreEditComponent({
       >
         {renderProducts()}
       </div>
-      {productToEdit && (
-        <div className="mx-8 mb-4">
-          <h3 className="text-lg font-bold mb-2">
-            Notes for {productToEdit.recipe.name}
-          </h3>
-          {renderNotes()}
+      <div>
+        <div className="space-x-4 flex mx-auto mb-8 w-fit">
+          <button
+            className="bg-primary-500 text-white w-[10.313rem] rounded-2xl text-2xl font-bold"
+            onClick={handleClose}
+          >
+            Submit
+          </button>
+          <button
+            className="bg-red-500 text-white w-[10.313rem] h-[50px] rounded-2xl text-2xl font-bold"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
-      )}
+      </div>
     </>
   );
 }

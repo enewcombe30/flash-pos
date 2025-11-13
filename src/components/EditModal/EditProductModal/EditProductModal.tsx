@@ -1,65 +1,34 @@
-import VirtualKeyboard from "../../../components/Keyboard/Keyboard";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../state/store";
-import { updateItem } from "../../../state/orders/orderSlice";
-import { editList } from "../../../state/openModal/modalSlice";
+import useEditProductModal from "./useEditProductModal";
 import { editProduct } from "../../../types/recipeTypes";
+import NoteModal from "../noteModal/NoteModal";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../state/modal/modalSlice";
+import { RootState } from "../../../state/store";
+import { MODAL_PAGES } from "../../../constants/modalConstants";
 
 interface props {
-  setKeyboardOpen: (open: boolean) => void;
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
 }
 
 export default function EditProductModal({
-  setKeyboardOpen,
   productToEdit,
   setProductToEdit,
 }: props) {
+  const { handleRemoveNote } = useEditProductModal({
+    productToEdit,
+    setProductToEdit,
+  });
+
   const dispatch = useDispatch();
-  const orderList = useSelector((state: RootState) => state.orders.items);
-  const [note, setNote] = useState<string>("");
-  const handleAddNote = (newNote: string) => {
-    if (productToEdit && newNote.trim()) {
-      const updatedRecipe = {
-        ...productToEdit.recipe,
-        userNotes: [...(productToEdit.recipe.userNotes || []), newNote.trim()],
-      };
-      dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
-      setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
+  const currentPage = useSelector(
+    (state: RootState) => state.modal.currentPage
+  );
 
-      // Refresh the editList to show updated notes immediately
-      const updatedOrders = [...orderList];
-      updatedOrders[productToEdit.id] = updatedRecipe;
-      const filteredList = updatedOrders.filter(
-        (item) => item.id === updatedRecipe.id
-      );
-      dispatch(editList(filteredList));
-    }
-  };
+  function handleAddNote() {
+    dispatch(setCurrentPage(MODAL_PAGES.ADD_NOTE));
+  }
 
-  const handleRemoveNote = (noteIndex: number) => {
-    if (productToEdit) {
-      const updatedRecipe = {
-        ...productToEdit.recipe,
-        userNotes: productToEdit.recipe.userNotes.filter(
-          (_, index) => index !== noteIndex
-        ),
-      };
-      dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
-      setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
-      refreshEditList(); // Refresh the list immediately
-    }
-  };
-  const refreshEditList = () => {
-    if (productToEdit) {
-      const updatedList = orderList.filter(
-        (recipe) => recipe.id === productToEdit.recipe.id
-      );
-      dispatch(editList(updatedList));
-    }
-  };
   function renderNotes() {
     if (!productToEdit || !productToEdit.recipe.userNotes) return null;
     return productToEdit.recipe.userNotes.map((note, index) => (
@@ -77,12 +46,6 @@ export default function EditProductModal({
       </div>
     ));
   }
-
-  const handleCloseKeyboard = () => {
-    setKeyboardOpen(false);
-    setNote("");
-    setProductToEdit(null);
-  };
   if (!productToEdit) return null;
   return (
     <div className="flex flex-col space-y-4 mb-4 flex-1">
@@ -94,28 +57,19 @@ export default function EditProductModal({
           </span>
         </div>
       </div>
-      <button className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start">
+      <button
+        className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start"
+        onClick={handleAddNote}
+      >
         Add Note
       </button>
       <div>{renderNotes()}</div>
-      <div className="w-[45rem] mx-auto mb-4">
-        <input
-          type="text"
-          value={note}
-          readOnly
-          className="w-full p-4 text-2xl mb-4 text-black font-bold"
+      {currentPage === MODAL_PAGES.ADD_NOTE && (
+        <NoteModal
+          productToEdit={productToEdit}
+          setProductToEdit={setProductToEdit}
         />
-        <VirtualKeyboard
-          value={note}
-          onChange={setNote}
-          onSubmit={() => {
-            handleAddNote(note);
-            setNote("");
-          }}
-          onCancel={() => handleCloseKeyboard()}
-          className="my-keyboard-class"
-        />
-      </div>
+      )}
     </div>
   );
 }
