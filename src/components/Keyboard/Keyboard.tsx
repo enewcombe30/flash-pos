@@ -46,7 +46,7 @@ export default function VirtualKeyboard({
       onChange(value + " ");
     } else if (button === "{tab}") {
       onChange(value + "\t");
-    } else if (button === "{back}") {
+    } else if (button === "{exit}") {
       onCancel?.();
     } else if (button === "{submit}") {
       onSubmit?.();
@@ -78,14 +78,14 @@ export default function VirtualKeyboard({
             "Q W E R T Y U I O P",
             "A S D F G H J K L {enter}",
             "{shift} Z X C V B N M < > {shift}",
-            "{back} {space} {submit}",
+            "{exit} {space} {submit}",
           ],
           shift: [
             "! @ # $ % ^ & * ( ) {bksp}",
             "q w e r t y u i o p",
             "a s d f g h j k l {enter}",
             "{shift} z x c v b n m , . {shift}",
-            "{back} {space} {submit}",
+            "{exit} {space} {submit}",
           ],
           numbers: [
             "1 2 3 4 5 6 7 8 9 0",
@@ -106,7 +106,7 @@ export default function VirtualKeyboard({
           "{shift}": "⇧",
           "{space}": " ",
           "{tab}": "⇥",
-          "{back}": "Back",
+          "{exit}": "Exit",
           "{submit}": "Submit",
         }}
       />

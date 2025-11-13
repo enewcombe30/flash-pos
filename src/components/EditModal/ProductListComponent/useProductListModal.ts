@@ -8,13 +8,13 @@ import {
 } from "../../../state/modal/modalSlice";
 import { editProduct } from "../../../types/recipeTypes";
 import { Recipe } from "../../../types/recipeTypes";
-import { MODAL_PAGES } from "../../../constants/modalConstants";
+import { MODAL_PAGES } from "../../../constants/editModalConstants";
 
 interface props {
   setProductToEdit: (editProduct: editProduct) => void;
 }
 
-export default function usePreeditComponent({ setProductToEdit }: props) {
+export default function useProductListModal({ setProductToEdit }: props) {
   const dispatch = useDispatch();
   const orders = useSelector((state: RootState) => state.orders.items);
 
@@ -48,5 +48,5 @@ export default function usePreeditComponent({ setProductToEdit }: props) {
     dispatch(setCurrentPage(MODAL_PAGES.EDIT_PRODUCT));
   }
 
-  return { handleRemoveOne, handleClose, handleProductSelect, editList };
+  return { handleRemoveOne, handleProductSelect, editList, handleClose };
 }

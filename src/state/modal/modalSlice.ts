@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Recipe } from "../../types/recipeTypes";
-import { MODAL_PAGES } from "../../constants/modalConstants";
+import { MODAL_PAGES, EDIT_TYPES } from "../../constants/editModalConstants";
 
 interface ModalState {
   isOpen: boolean;
   editList: Recipe[];
-  isOpening: boolean; // Add this flag
-  currentPage: string; // Add this flag to track the current modal page
+  isOpening: boolean;
+  currentPage: string;
+  editType: string;
 }
 
 const initialState: ModalState = {
@@ -14,6 +15,7 @@ const initialState: ModalState = {
   editList: [],
   isOpening: false,
   currentPage: MODAL_PAGES.PRODUCT_LIST,
+  editType: EDIT_TYPES.OVERVIEW,
 };
 
 const modalSlice = createSlice({
@@ -22,11 +24,11 @@ const modalSlice = createSlice({
   reducers: {
     openModal(state) {
       state.isOpen = true;
-      state.isOpening = false; // Reset when modal opens
+      state.isOpening = false;
     },
     closeModal(state) {
       state.isOpen = false;
-      state.isOpening = false; // Reset when modal closes
+      state.isOpening = false;
     },
     editList(state, action: PayloadAction<Recipe[]>) {
       state.editList = action.payload;
@@ -37,9 +39,18 @@ const modalSlice = createSlice({
     setCurrentPage(state, action: PayloadAction<string>) {
       state.currentPage = action.payload;
     },
+    setEditType(state, action: PayloadAction<string>) {
+      state.editType = action.payload;
+    },
   },
 });
 
-export const { openModal, closeModal, editList, setIsOpening, setCurrentPage } =
-  modalSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  editList,
+  setIsOpening,
+  setCurrentPage,
+  setEditType,
+} = modalSlice.actions;
 export default modalSlice.reducer;

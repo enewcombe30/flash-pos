@@ -1,8 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../state/store";
 import { updateItem } from "../../../state/orders/orderSlice";
-import { editList } from "../../../state/modal/modalSlice";
+import {
+  editList,
+  setCurrentPage,
+  setEditType,
+} from "../../../state/modal/modalSlice";
 import { editProduct } from "../../../types/recipeTypes";
+import { EDIT_TYPES } from "../../../constants/editModalConstants";
 
 interface props {
   productToEdit: editProduct | null;
@@ -15,6 +20,11 @@ export default function useEditProductModal({
 }: props) {
   const dispatch = useDispatch();
   const orderList = useSelector((state: RootState) => state.orders.items);
+  const editing = useSelector((state: RootState) => state.modal.editType);
+
+  function handleAddNote() {
+    dispatch(setEditType(EDIT_TYPES.ADD_NOTE));
+  }
 
   const refreshEditList = () => {
     if (productToEdit) {
@@ -39,7 +49,14 @@ export default function useEditProductModal({
     }
   };
 
+  function handleClose() {
+    dispatch(setCurrentPage("PRODUCT_LIST"));
+  }
+
   return {
     handleRemoveNote,
+    handleAddNote,
+    editing,
+    handleClose,
   };
 }

@@ -1,10 +1,7 @@
 import useEditProductModal from "./useEditProductModal";
 import { editProduct } from "../../../types/recipeTypes";
 import NoteModal from "../noteModal/NoteModal";
-import { useSelector, useDispatch } from "react-redux";
-import { setCurrentPage } from "../../../state/modal/modalSlice";
-import { RootState } from "../../../state/store";
-import { MODAL_PAGES } from "../../../constants/modalConstants";
+import { EDIT_TYPES } from "../../../constants/editModalConstants";
 
 interface props {
   productToEdit: editProduct | null;
@@ -15,19 +12,11 @@ export default function EditProductModal({
   productToEdit,
   setProductToEdit,
 }: props) {
-  const { handleRemoveNote } = useEditProductModal({
-    productToEdit,
-    setProductToEdit,
-  });
-
-  const dispatch = useDispatch();
-  const currentPage = useSelector(
-    (state: RootState) => state.modal.currentPage
-  );
-
-  function handleAddNote() {
-    dispatch(setCurrentPage(MODAL_PAGES.ADD_NOTE));
-  }
+  const { handleRemoveNote, handleAddNote, editing, handleClose } =
+    useEditProductModal({
+      productToEdit,
+      setProductToEdit,
+    });
 
   function renderNotes() {
     if (!productToEdit || !productToEdit.recipe.userNotes) return null;
@@ -46,7 +35,9 @@ export default function EditProductModal({
       </div>
     ));
   }
+
   if (!productToEdit) return null;
+
   return (
     <div className="flex flex-col space-y-4 mb-4 flex-1">
       <div className="w-[21rem] h-[4rem] bg-gray-300 rounded mx-auto flex items-center justify-between px-4 cursor-pointer">
@@ -64,11 +55,19 @@ export default function EditProductModal({
         Add Note
       </button>
       <div>{renderNotes()}</div>
-      {currentPage === MODAL_PAGES.ADD_NOTE && (
+      {editing === EDIT_TYPES.ADD_NOTE && (
         <NoteModal
           productToEdit={productToEdit}
           setProductToEdit={setProductToEdit}
         />
+      )}
+      {editing === EDIT_TYPES.OVERVIEW && (
+        <button
+          className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold mx-auto"
+          onClick={handleClose}
+        >
+          Submit
+        </button>
       )}
     </div>
   );

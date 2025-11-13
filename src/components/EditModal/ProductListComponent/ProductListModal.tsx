@@ -1,5 +1,5 @@
 import { scrollbarStyles } from "../../../constants/styleConstants";
-import usePreeditComponent from "./usePreeditComponent";
+import useProductListModal from "./useProductListModal";
 import { editProduct } from "../../../types/recipeTypes";
 import { RootState } from "../../../state/store";
 import { useSelector } from "react-redux";
@@ -8,16 +8,18 @@ interface props {
   setProductToEdit: (editProduct: editProduct) => void;
 }
 
-export default function PreEditComponent({ setProductToEdit }: props) {
+export default function ProductListModal({ setProductToEdit }: props) {
   const editList = useSelector((state: RootState) => state.modal.editList);
-  const { handleRemoveOne, handleClose, handleProductSelect } =
-    usePreeditComponent({ setProductToEdit });
+  const { handleRemoveOne, handleProductSelect, handleClose } =
+    useProductListModal({
+      setProductToEdit,
+    });
 
   const renderProducts = () => {
     return editList.map((recipe, index) => (
       <div
         key={index}
-        className="w-full h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
+        className="w-[21rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
       >
         <div
           className="text-black font-bold flex flex-col flex-1 pr-8"
@@ -56,16 +58,10 @@ export default function PreEditComponent({ setProductToEdit }: props) {
       <div>
         <div className="space-x-4 flex mx-auto mb-8 w-fit">
           <button
-            className="bg-primary-500 text-white w-[10.313rem] rounded-2xl text-2xl font-bold"
+            className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
             onClick={handleClose}
           >
             Submit
-          </button>
-          <button
-            className="bg-red-500 text-white w-[10.313rem] h-[50px] rounded-2xl text-2xl font-bold"
-            onClick={handleClose}
-          >
-            Cancel
           </button>
         </div>
       </div>

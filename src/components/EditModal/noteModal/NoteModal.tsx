@@ -28,6 +28,7 @@ export default function NoteModal({ productToEdit, setProductToEdit }: props) {
           onSubmit={() => {
             handleAddNote(note);
             setNote("");
+            handleCloseKeyboard();
           }}
           onCancel={() => handleCloseKeyboard()}
           className="my-keyboard-class"

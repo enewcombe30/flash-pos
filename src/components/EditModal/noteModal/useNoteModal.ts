@@ -4,7 +4,7 @@ import { RootState } from "../../../state/store";
 import { updateItem } from "../../../state/orders/orderSlice";
 import { closeKeyboard } from "../../../state/keyboard/keyboardSlice";
 import { editProduct } from "../../../types/recipeTypes";
-import { editList, setCurrentPage } from "../../../state/modal/modalSlice";
+import { editList, setEditType } from "../../../state/modal/modalSlice";
 
 interface props {
   productToEdit: editProduct | null;
@@ -40,8 +40,7 @@ export default function useNoteModal({
   const handleCloseKeyboard = () => {
     dispatch(closeKeyboard());
     setNote("");
-    setProductToEdit(null);
-    dispatch(setCurrentPage("PRODUCT_LIST"));
+    dispatch(setEditType("OVERVIEW"));
   };
   return { handleAddNote, handleCloseKeyboard, note, setNote };
 }
