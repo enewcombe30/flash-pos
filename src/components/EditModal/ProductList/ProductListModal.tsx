@@ -58,7 +58,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
       <div>
         <div className="space-x-4 flex mx-auto mb-8 w-fit">
           <button
-            className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
+            className="bg-primary-500 text-white w-[9.375rem] h-[2.5rem] rounded-2xl text-2xl font-bold"
             onClick={handleClose}
           >
             Submit

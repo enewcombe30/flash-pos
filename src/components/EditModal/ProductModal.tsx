@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import ProductListModal from "./ProductListComponent/ProductListModal";
+import ProductListModal from "./ProductList/ProductListModal";
 import useProductModal from "./useProductModal";
 import EditProductModal from "./EditProductModal/EditProductModal";
 import { MODAL_PAGES } from "../../constants/editModalConstants";

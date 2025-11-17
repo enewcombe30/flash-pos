@@ -1,6 +1,6 @@
 import useEditProductModal from "./useEditProductModal";
 import { editProduct } from "../../../types/recipeTypes";
-import NoteModal from "../noteModal/NoteModal";
+import NoteModal from "../NoteModal/NoteModal";
 import { EDIT_TYPES } from "../../../constants/editModalConstants";
 
 interface props {

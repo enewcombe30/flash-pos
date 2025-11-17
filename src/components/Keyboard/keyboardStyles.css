@@ -4,9 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: full;
   background-color: #041a01; /* 2 shades darker than #061C03 (RGB: 4, 26, 1) */
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  min-width: 50px;
+  min-width: 56px;
   height: 50px;
   margin: 3px;
   border-radius: 4px;

@@ -1,4 +1,4 @@
-import VirtualKeyboard from "../../../components/Keyboard/Keyboard";
+import VirtualKeyboard from "../../Keyboard/Keyboard";
 import useNoteModal from "./useNoteModal";
 import { editProduct } from "../../../types/recipeTypes";
 
@@ -15,7 +15,7 @@ export default function NoteModal({ productToEdit, setProductToEdit }: props) {
 
   return (
     <div>
-      <div className="w-[45rem] mx-auto mb-4">
+      <div className="w-[44.5rem] mx-auto mb-4 px-3">
         <input
           type="text"
           value={note}
