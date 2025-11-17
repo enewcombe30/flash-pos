@@ -29,7 +29,7 @@ export default function EditProductModal({
     (productToEdit?.recipe.assignedAllergies &&
       productToEdit.recipe.assignedAllergies?.map((allergy, index) => (
         <span key={index} className="mr-1">
-          {`Allergy ${allergy.allergen.name}${
+          {`${allergy.allergen.name}${
             hasAllergies && productToEdit.recipe.assignedAllergies!.length > 0
               ? ","
               : ""

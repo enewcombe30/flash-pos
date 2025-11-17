@@ -29,7 +29,7 @@ export default function AllergyModal({
     return (
       <button
         key={allergy.allergenId}
-        className="w-[11rem] font-bold text-lg border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4"
+        className="w-[12rem] font-bold text-lg border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4"
         onClick={() => toggleAllergy(allergy)}
       >
         <div
@@ -37,12 +37,12 @@ export default function AllergyModal({
         >
           {isSelected && <CheckIcon />}
         </div>
-        <span className="text-white font-medium">{allergy.allergen.name}</span>
+        <span className="text-white font-medium text-sm">
+          {allergy.allergen.name}
+        </span>
       </button>
     );
   };
-
-  console.log("allergies", productToEdit?.recipe.assignedAllergies);
 
   if (!showMore) {
     return (
@@ -50,7 +50,7 @@ export default function AllergyModal({
         {allergies.slice(0, 3).map((allergy) => renderAllergyCheckbox(allergy))}
         <button
           key={"allergy-all"}
-          className="w-[11rem] font-bold text-lg border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4"
+          className="w-[12rem] font-bold border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4"
           onClick={() => handleShowAll()}
         >
           <span className="text-white font-medium w-fit mx-auto">

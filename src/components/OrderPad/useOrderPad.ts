@@ -25,8 +25,12 @@ export default function useOrderPad() {
       // Include userNotes in the key to ungroup items with notes
       const key =
         recipe.id.toString() +
-        (recipe.userNotes && recipe.userNotes.length > 0
-          ? JSON.stringify(recipe.userNotes)
+        ((recipe.userNotes && recipe.userNotes.length > 0) ||
+        (recipe.assignedAllergies && recipe.assignedAllergies.length > 0)
+          ? JSON.stringify({
+              assignedAllergies: recipe.assignedAllergies || [],
+              userNotes: recipe.userNotes || [],
+            })
           : "");
       if (acc[key]) {
         acc[key].count += 1;
