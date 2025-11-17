@@ -16,35 +16,48 @@ export default function ProductListModal({ setProductToEdit }: props) {
     });
 
   const renderProducts = () => {
-    return editList.map((recipe, index) => (
-      <div
-        key={index}
-        className="w-[21rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
-      >
+    const products = editList.map((recipe, index) => {
+      const allergies = recipe.assignedAllergies
+        ? recipe.assignedAllergies
+            .map((allergy) => allergy.allergen.name)
+            .join(", ") + (recipe.userNotes.length > 0 ? "," : "")
+        : " ";
+
+      console.log("allerhgies", allergies);
+      return (
         <div
-          className="text-black font-bold flex flex-col flex-1 pr-8"
-          onClick={() => handleProductSelect({ id: index, recipe })}
+          key={index}
+          className="w-[21rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
         >
-          <span>{recipe.name}</span>
-          <div className="text-xs text-gray-400 mt-1 italic">
-            {recipe.userNotes && recipe.userNotes.length > 0 ? (
-              <span> {recipe.userNotes.join(", ")}</span>
-            ) : (
-              `(${index + 1})`
-            )}
+          <div
+            className="text-black font-bold flex flex-col flex-1 pr-8"
+            onClick={() => handleProductSelect({ id: index, recipe })}
+          >
+            <span>{recipe.name}</span>
+            <div className="text-xs text-gray-400 mt-1 italic">
+              {(recipe.userNotes && recipe.userNotes.length > 0) ||
+              allergies ? (
+                <span>
+                  {allergies} {recipe.userNotes.join(", ")}
+                </span>
+              ) : (
+                `(${index + 1})`
+              )}
+            </div>
+          </div>
+          <div
+            className="text-red-700 cursor-pointer absolute right-4 font-bold"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRemoveOne(recipe);
+            }}
+          >
+            X
           </div>
         </div>
-        <div
-          className="text-red-700 cursor-pointer absolute right-4 font-bold"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleRemoveOne(recipe);
-          }}
-        >
-          X
-        </div>
-      </div>
-    ));
+      );
+    });
+    return products;
   };
 
   return (

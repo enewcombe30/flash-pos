@@ -57,6 +57,7 @@ export interface Recipe {
   recipeAllergens: RecipeAllergens[];
   recipeDietaryTags: RecipeDietaryTags[];
   userNotes: string[];
+  assignedAllergies?: Allergen[];
 }
 
 // Define the response from the API, which will be an array of recipes

@@ -3,7 +3,6 @@ import useOrderPad from "./useOrderPad";
 export default function OrderPad() {
   const {
     grouped,
-    // handleRemove,
     handleMouseDown,
     handleMouseUp,
     total,
@@ -20,36 +19,40 @@ export default function OrderPad() {
       {/* Orders list, scrollable */}
       <div className="flex-1 overflow-y-auto">
         {hasOrders ? (
-          Object.values(grouped).map(({ item, count }) => (
-            <div
-              className="flex justify-between relative mb-2 w-[15rem]"
-              key={item.id}
-            >
+          Object.values(grouped).map(({ item, count }) => {
+            const allergies = item.assignedAllergies
+              ? item.assignedAllergies
+                  .map((allergy) => allergy.allergen.name)
+                  .join(", ") + (item.userNotes.length > 0 ? "," : "")
+              : "";
+            return (
               <div
-                className="cursor-pointer select-none pr-20 w-[20rem]"
-                // onClick={() => handleRemove(item)}
-                onMouseDown={
-                  isModalOpen ? undefined : () => handleMouseDown(item)
-                }
-                // onMouseUp={handleMouseUp}
-                // onMouseLeave={handleMouseUp}
-                onTouchStart={
-                  isModalOpen ? undefined : () => handleMouseDown(item)
-                }
-                onTouchEnd={handleMouseUp}
+                className="flex justify-between relative mb-2 w-[15rem]"
+                key={item.id}
               >
-                <div>
-                  {count} x {item.name}
+                <div
+                  className="cursor-pointer select-none pr-20 w-[20rem]"
+                  onMouseDown={
+                    isModalOpen ? undefined : () => handleMouseDown(item)
+                  }
+                  onTouchStart={
+                    isModalOpen ? undefined : () => handleMouseDown(item)
+                  }
+                  onTouchEnd={handleMouseUp}
+                >
+                  <div>
+                    {count} x {item.name}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1 italic truncate">
+                    {allergies} {item.userNotes.join(", ")}
+                  </div>
                 </div>
-                <div className="text-xs text-gray-400 mt-1 italic truncate">
-                  {item.userNotes.join(", ")}
+                <div className="absolute right-0 top-0">
+                  £{(item.salePrice * count).toFixed(2)}
                 </div>
               </div>
-              <div className="absolute right-0 top-0">
-                £{(item.salePrice * count).toFixed(2)}
-              </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div className="text-center text-gray-400 mt-8">
             No items in order

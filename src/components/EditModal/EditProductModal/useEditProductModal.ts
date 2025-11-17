@@ -21,10 +21,21 @@ export default function useEditProductModal({
   const dispatch = useDispatch();
   const orderList = useSelector((state: RootState) => state.orders.items);
   const editing = useSelector((state: RootState) => state.modal.editType);
+  const hasNotes = productToEdit
+    ? productToEdit.recipe.userNotes &&
+      productToEdit.recipe.userNotes.length > 0
+    : false;
+  const hasAllergies = productToEdit
+    ? productToEdit.recipe.assignedAllergies &&
+      productToEdit.recipe.assignedAllergies.length > 0
+    : false;
 
   function handleAddNote() {
     dispatch(setEditType(EDIT_TYPES.ADD_NOTE));
   }
+  // function handleAddAllergy() {
+  //   dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
+  // }
 
   const refreshEditList = () => {
     if (productToEdit) {
@@ -56,7 +67,10 @@ export default function useEditProductModal({
   return {
     handleRemoveNote,
     handleAddNote,
+    // handleAddAllergy,
     editing,
     handleClose,
+    hasNotes,
+    hasAllergies,
   };
 }
