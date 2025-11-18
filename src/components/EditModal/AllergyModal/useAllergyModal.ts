@@ -1,10 +1,11 @@
 import { editProduct } from "../../../types/recipeTypes";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../state/store";
 import { updateItem } from "../../../state/orders/orderSlice";
 import { editList } from "../../../state/modal/modalSlice";
 import { Allergen } from "../../../types/recipeTypes";
+import { EDIT_TYPES } from "../../../constants/editModalConstants";
+import { setEditType } from "../../../state/modal/modalSlice";
 
 interface props {
   productToEdit: editProduct | null;
@@ -17,7 +18,7 @@ export default function useAllergyModal({
 }: props) {
   const dispatch = useDispatch();
   const orderList = useSelector((state: RootState) => state.orders.items);
-  const [showMore, setShowMore] = useState<boolean>(false);
+  const editType = useSelector((state: RootState) => state.modal.editType);
 
   const handleAddAllergy = (allergy: Allergen) => {
     if (
@@ -90,7 +91,7 @@ export default function useAllergyModal({
   };
 
   function handleShowAll() {
-    setShowMore(!showMore);
+    dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
   }
 
   const isAllergySelected = (allergy: Allergen) => {
@@ -103,9 +104,8 @@ export default function useAllergyModal({
   return {
     toggleAllergy,
     isAllergySelected,
-    showMore,
+    editType,
     handleShowAll,
     handleAddAllergy,
-    setShowMore,
   };
 }

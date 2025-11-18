@@ -33,9 +33,9 @@ export default function useEditProductModal({
   function handleAddNote() {
     dispatch(setEditType(EDIT_TYPES.ADD_NOTE));
   }
-  // function handleAddAllergy() {
-  //   dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
-  // }
+  function handleAddAllergy() {
+    dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
+  }
 
   const refreshEditList = () => {
     if (productToEdit) {
@@ -67,7 +67,7 @@ export default function useEditProductModal({
   return {
     handleRemoveNote,
     handleAddNote,
-    // handleAddAllergy,
+    handleAddAllergy,
     editing,
     handleClose,
     hasNotes,

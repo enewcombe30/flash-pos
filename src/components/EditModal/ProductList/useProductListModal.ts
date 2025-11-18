@@ -18,21 +18,10 @@ export default function useProductListModal({ setProductToEdit }: props) {
   const dispatch = useDispatch();
   const orders = useSelector((state: RootState) => state.orders.items);
 
-  const handleRemoveOne = (recipe: Recipe) => {
-    // Find the global index of this specific recipe instance
-    const globalIndex = orders.findIndex((item) => {
-      // Match by id and check if userNotes are the same (for uniqueness)
-      return (
-        item.id === recipe.id &&
-        JSON.stringify(item.userNotes) === JSON.stringify(recipe.userNotes)
-      );
-    });
-
-    if (globalIndex !== -1) {
-      dispatch(removeItem(globalIndex));
-
-      // Update the editList to reflect the change
-      const updatedList = orders.filter((_, idx) => idx !== globalIndex);
+  const handleRemoveOne = (recipe: Recipe, index: number) => {
+    if (index !== -1) {
+      dispatch(removeItem(index));
+      const updatedList = orders.filter((_, idx) => idx !== index);
       const filteredList = updatedList.filter((item) => item.id === recipe.id);
       dispatch(editList(filteredList));
     }

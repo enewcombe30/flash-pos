@@ -4,6 +4,7 @@ import { allergies } from "../../../constants/allergies";
 import CheckIcon from "../../../svgs/CheckIcon";
 import useAllergyModal from "./useAllergyModal";
 import { scrollbarStyles } from "../../../constants/styleConstants";
+import { EDIT_TYPES } from "../../../constants/editModalConstants";
 
 interface props {
   productToEdit: editProduct | null;
@@ -14,7 +15,7 @@ export default function AllergyModal({
   productToEdit,
   setProductToEdit,
 }: props) {
-  const { toggleAllergy, isAllergySelected, showMore, handleShowAll } =
+  const { toggleAllergy, isAllergySelected, editType, handleShowAll } =
     useAllergyModal({
       productToEdit,
       setProductToEdit,
@@ -42,29 +43,32 @@ export default function AllergyModal({
     );
   };
 
-  if (!showMore) {
+  // Show allergy list with modal. Curently empty modal
+  if (editType === EDIT_TYPES.ADD_ALLERGY) {
     return (
-      <div className="grid grid-flow-col grid-rows-2 gap-4 mb-6">
-        {allergies.slice(0, 3).map((allergy) => renderAllergyCheckbox(allergy))}
-        <button
-          key={"allergy-all"}
-          className={`w-[12rem] font-bold border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4`}
-          onClick={() => handleShowAll()}
+      <div className="mb-6 w-fit h-fit mx-auto">
+        <div
+          className="p-6 space-y-4 mb-6 mx-auto h-fit w-fit overflow-scroll max-h-80 custom-scrollbar"
+          style={scrollbarStyles}
         >
-          <span className="text-white font-medium w-fit mx-auto">
-            Allergy All...
-          </span>
-        </button>
+          {allergies.map((allergy) => renderAllergyCheckbox(allergy))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div
-      className="p-6 space-y-4 mb-6 mx-auto h-fit w-fit overflow-scroll max-h-80 custom-scrollbar"
-      style={scrollbarStyles}
-    >
-      {allergies.map((allergy) => renderAllergyCheckbox(allergy))}
+    <div className="grid grid-flow-col grid-rows-2 gap-4 mb-6">
+      {allergies.slice(0, 3).map((allergy) => renderAllergyCheckbox(allergy))}
+      <button
+        key={"allergy-all"}
+        className={`w-[12rem] font-bold border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4`}
+        onClick={() => handleShowAll()}
+      >
+        <span className="text-white font-medium w-fit mx-auto">
+          Allergy All...
+        </span>
+      </button>
     </div>
   );
 }

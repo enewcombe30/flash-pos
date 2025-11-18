@@ -23,7 +23,6 @@ export default function ProductListModal({ setProductToEdit }: props) {
             .join(", ") + (recipe.userNotes.length > 0 ? "," : "")
         : " ";
 
-      console.log("allerhgies", allergies);
       return (
         <div
           key={index}
@@ -34,14 +33,12 @@ export default function ProductListModal({ setProductToEdit }: props) {
             onClick={() => handleProductSelect({ id: index, recipe })}
           >
             <span>{recipe.name}</span>
-            <div className="text-xs text-gray-400 mt-1 italic overflow-x-auto whitespace-nowrap">
-              {(recipe.userNotes && recipe.userNotes.length > 0) ||
-              allergies ? (
+            <div className="italic text-sm text-gray-500 mt-1 truncate">
+              {((recipe.userNotes && recipe.userNotes.length > 0) ||
+                allergies) && (
                 <span>
                   {allergies} {recipe.userNotes.join(", ")}
                 </span>
-              ) : (
-                `(${index + 1})`
               )}
             </div>
           </div>
@@ -49,7 +46,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
             className="text-red-700 cursor-pointer absolute right-4 font-bold"
             onClick={(e) => {
               e.stopPropagation();
-              handleRemoveOne(recipe);
+              handleRemoveOne(recipe, index);
             }}
           >
             X
