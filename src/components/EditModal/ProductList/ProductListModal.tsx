@@ -27,14 +27,14 @@ export default function ProductListModal({ setProductToEdit }: props) {
       return (
         <div
           key={index}
-          className="w-[21rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
+          className="w-[22rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
         >
           <div
             className="text-black font-bold flex flex-col flex-1 pr-8"
             onClick={() => handleProductSelect({ id: index, recipe })}
           >
             <span>{recipe.name}</span>
-            <div className="text-xs text-gray-400 mt-1 italic">
+            <div className="text-xs text-gray-400 mt-1 italic overflow-x-auto whitespace-nowrap">
               {(recipe.userNotes && recipe.userNotes.length > 0) ||
               allergies ? (
                 <span>
@@ -63,7 +63,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
   return (
     <>
       <div
-        className="h-fit max-h-[26.875rem] mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
+        className="h-fit max-h-[26.875rem] w-[23rem] mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
         style={scrollbarStyles}
       >
         {renderProducts()}
