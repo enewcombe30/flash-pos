@@ -15,11 +15,18 @@ export default function AllergyModal({
   productToEdit,
   setProductToEdit,
 }: props) {
-  const { toggleAllergy, isAllergySelected, editType, handleShowAll } =
-    useAllergyModal({
-      productToEdit,
-      setProductToEdit,
-    });
+  const {
+    toggleAllergy,
+    isAllergySelected,
+    editType,
+    handleShowAll,
+    closeFullList,
+  } = useAllergyModal({
+    productToEdit,
+    setProductToEdit,
+  });
+
+  console.log("EDIT TYPE IN ALLERGY MODAL:", editType);
 
   const renderAllergyCheckbox = (allergy: Allergen) => {
     const isSelected = isAllergySelected(allergy);
@@ -43,32 +50,39 @@ export default function AllergyModal({
     );
   };
 
-  // Show allergy list with modal. Curently empty modal
-  if (editType === EDIT_TYPES.ADD_ALLERGY) {
-    return (
-      <div className="mb-6 w-fit h-fit mx-auto">
-        <div
-          className="p-6 space-y-4 mb-6 mx-auto h-fit w-fit overflow-scroll max-h-80 custom-scrollbar"
-          style={scrollbarStyles}
-        >
-          {allergies.map((allergy) => renderAllergyCheckbox(allergy))}
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="grid grid-flow-col grid-rows-2 gap-4 mb-6">
-      {allergies.slice(0, 3).map((allergy) => renderAllergyCheckbox(allergy))}
-      <button
-        key={"allergy-all"}
-        className={`w-[12rem] font-bold border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4`}
-        onClick={() => handleShowAll()}
-      >
-        <span className="text-white font-medium w-fit mx-auto">
-          Allergy All...
-        </span>
-      </button>
+    <div>
+      {editType === EDIT_TYPES.ADD_ALLERGY ? (
+        <div className="mb-6 w-fit h-fit mx-auto flex flex-col flex-1">
+          <div
+            className="p-6 space-y-4 mb-6 mx-auto h-fit w-fit overflow-scroll max-h-80 custom-scrollbar"
+            style={scrollbarStyles}
+          >
+            {allergies.map((allergy) => renderAllergyCheckbox(allergy))}
+          </div>
+          <button
+            className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold mx-auto"
+            onClick={() => closeFullList()}
+          >
+            Submit
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-flow-col grid-rows-2 gap-4 mb-6">
+          {allergies
+            .slice(0, 3)
+            .map((allergy) => renderAllergyCheckbox(allergy))}
+          <button
+            key={"allergy-all"}
+            className={`w-[12rem] font-bold border border-border-primary py-2 px-4 rounded text-white transition-colors flex items-center space-x-4`}
+            onClick={() => handleShowAll()}
+          >
+            <span className="text-white font-medium w-fit mx-auto">
+              Allergy All...
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }

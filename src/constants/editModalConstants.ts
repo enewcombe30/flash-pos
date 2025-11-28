@@ -8,4 +8,4 @@ export const EDIT_TYPES = {
   ADD_NOTE: "ADD_NOTE",
   ADD_ALLERGY: "ADD_ALLERGY",
   EDIT_INGREDIENTS: "EDIT_INGREDIENTS",
-};
+} as const;

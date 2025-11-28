@@ -94,6 +94,10 @@ export default function useAllergyModal({
     dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
   }
 
+  function closeFullList() {
+    dispatch(setEditType(EDIT_TYPES.OVERVIEW));
+  }
+
   const isAllergySelected = (allergy: Allergen) => {
     if (!productToEdit) return false;
     const assignedAllergies = productToEdit.recipe.assignedAllergies || [];
@@ -107,5 +111,6 @@ export default function useAllergyModal({
     editType,
     handleShowAll,
     handleAddAllergy,
+    closeFullList,
   };
 }

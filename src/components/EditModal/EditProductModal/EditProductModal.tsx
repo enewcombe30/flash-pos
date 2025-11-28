@@ -60,49 +60,54 @@ export default function EditProductModal({
 
   return (
     <div>
-      {editing === EDIT_TYPES.OVERVIEW &&
-        editing !== EDIT_TYPES.ADD_ALLERGY && (
-          <div className="flex flex-col mb-4 flex-1">
-            <div className="w-[23.5rem] bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-2">
-              <div className="text-black font-bold flex items-center justify-between">
-                <span>
-                  {productToEdit.recipe.name}
-                  <span className="text-gray-500 text-sm italic ml-2">
-                    ({productToEdit.id + 1})
-                  </span>
-                </span>
-              </div>
-              <div className="italic text-sm text-gray-500 mt-1 truncate">
-                {allergyList}
-                {hasNotes && productToEdit.recipe.userNotes.join(", ")}
-              </div>
-            </div>
-            <button
-              className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start my-2"
-              onClick={handleAddNote}
-            >
-              Add Note
-            </button>
-            {productToEdit.recipe.userNotes && <div>{renderNotes()}</div>}
-            {editing === EDIT_TYPES.ADD_NOTE && (
-              <NoteModal
-                productToEdit={productToEdit}
-                setProductToEdit={setProductToEdit}
-              />
-            )}
+      <div className="flex flex-col mb-4 flex-1">
+        <div className="w-[23.5rem] bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-2">
+          <div className="text-black font-bold flex items-center justify-between">
+            <span>
+              {productToEdit.recipe.name}
+              <span className="text-gray-500 text-sm italic ml-2">
+                ({productToEdit.id + 1})
+              </span>
+            </span>
+          </div>
+          <div className="italic text-sm text-gray-500 mt-1 truncate">
+            {allergyList}
+            {hasNotes && productToEdit.recipe.userNotes.join(", ")}
+          </div>
+        </div>
+        <button
+          className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start my-2"
+          onClick={handleAddNote}
+        >
+          Add Note
+        </button>
+        {productToEdit.recipe.userNotes && <div>{renderNotes()}</div>}
+        {editing === EDIT_TYPES.ADD_NOTE && (
+          <NoteModal
+            productToEdit={productToEdit}
+            setProductToEdit={setProductToEdit}
+          />
+        )}
+        {editing !== EDIT_TYPES.ADD_NOTE && (
+          <div>
             <span className="font-bold text-lg my-2">Allergens</span>
             <AllergyModal
               productToEdit={productToEdit}
               setProductToEdit={setProductToEdit}
             />
-            <button
-              className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold mx-auto"
-              onClick={handleClose}
-            >
-              Submit
-            </button>
           </div>
         )}
+      </div>
+      {editing === EDIT_TYPES.OVERVIEW && (
+        <div className="flex flex-col mb-4 flex-1">
+          <button
+            className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold mx-auto"
+            onClick={handleClose}
+          >
+            Submit
+          </button>
+        </div>
+      )}
     </div>
   );
 }
