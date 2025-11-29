@@ -56,8 +56,6 @@ export default function EditProductModal({
     ));
   }
 
-  console.log(productToEdit?.recipe.assignedAllergies);
-
   if (!productToEdit) return null;
 
   return (
