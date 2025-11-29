@@ -61,7 +61,7 @@ export default function EditProductModal({
   return (
     <div>
       <div className="flex flex-col mb-4 flex-1">
-        <div className="w-[23.5rem] bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-4">
+        <div className="w-[23.5rem] bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-2">
           <div className="text-black font-bold flex items-center justify-between">
             <span>
               {productToEdit.recipe.name}
@@ -77,7 +77,7 @@ export default function EditProductModal({
         </div>
         {editing === EDIT_TYPES.OVERVIEW && (
           <button
-            className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start my-2"
+            className="font-bold text-lg border border-primary-500 py-2 px-4 rounded self-start my-4"
             onClick={handleAddNote}
           >
             Add Note
@@ -92,7 +92,15 @@ export default function EditProductModal({
         )}
         {editing !== EDIT_TYPES.ADD_NOTE && (
           <div>
-            <span className="font-bold text-lg my-2">Allergens</span>
+            <span
+              className={`font-bold text-lg ${
+                editing === EDIT_TYPES.ADD_ALLERGY
+                  ? "invisible my-0"
+                  : "visible my-2"
+              }`}
+            >
+              Allergens
+            </span>
             <AllergyModal
               productToEdit={productToEdit}
               setProductToEdit={setProductToEdit}
