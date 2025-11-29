@@ -26,8 +26,6 @@ export default function AllergyModal({
     setProductToEdit,
   });
 
-  console.log("EDIT TYPE IN ALLERGY MODAL:", editType);
-
   const renderAllergyCheckbox = (allergy: Allergen) => {
     const isSelected = isAllergySelected(allergy);
     return (

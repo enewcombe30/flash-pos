@@ -33,7 +33,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
             onClick={() => handleProductSelect({ id: index, recipe })}
           >
             <span>{recipe.name}</span>
-            <div className="italic text-sm text-gray-500 mt-1 truncate">
+            <div className="italic text-sm text-gray-500 mt-1 truncate w-[19rem]">
               {((recipe.userNotes && recipe.userNotes.length > 0) ||
                 allergies) && (
                 <span>

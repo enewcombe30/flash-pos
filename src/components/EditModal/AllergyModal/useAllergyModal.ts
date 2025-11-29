@@ -105,6 +105,7 @@ export default function useAllergyModal({
       (assigned) => assigned.allergenId === allergy.allergenId
     );
   };
+
   return {
     toggleAllergy,
     isAllergySelected,
