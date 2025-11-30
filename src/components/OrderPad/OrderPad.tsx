@@ -32,9 +32,8 @@ export default function OrderPad() {
                   isSelected(item) ? "bg-blue-100" : ""
                 }`}
                 onClick={() => handleClick(item, index)}
-                onMouseDown={() => handleMouseDown(item)} // Start timer on mouse down
-                onMouseUp={() => handleMouseUp()} // Check if short click or long press on mouse up
-                // onMouseLeave={() => handleMouseUp(item)} // Handle mouse leave as mouse up
+                onMouseDown={() => handleMouseDown(item)}
+                onMouseUp={() => handleMouseUp()}
                 onTouchStart={() => handleMouseDown(item)}
                 onTouchEnd={() => handleMouseUp()}
               >

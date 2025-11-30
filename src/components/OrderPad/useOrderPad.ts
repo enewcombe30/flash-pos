@@ -52,14 +52,6 @@ export default function useOrderPad() {
   const handleClick = (item: Recipe, index: number) => {
     if (isModalOpen || isOpeningRef.current) return;
 
-    // const foundIndex = items.findIndex(
-    //   (recipe) =>
-    //     recipe.id === item.id &&
-    //     JSON.stringify(recipe.userNotes) === JSON.stringify(item.userNotes) &&
-    //     JSON.stringify(recipe.assignedAllergies) ===
-    //       JSON.stringify(item.assignedAllergies)
-    // );
-
     if (index !== -1) {
       // If this item is already selected, deselect it
       if (
@@ -136,9 +128,6 @@ export default function useOrderPad() {
         JSON.stringify(selectedItem.assignedAllergies)
     );
   }
-
-  console.log("Selected Item in useOrderPad:", selectedItem);
-  console.log("items in useOrderPad:", items);
 
   return {
     grouped,

@@ -61,7 +61,11 @@ export default function EditProductModal({
   return (
     <div>
       <div className="flex flex-col mb-4 flex-1">
-        <div className="w-[23.5rem] bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-2">
+        <div
+          className={`w-full bg-gray-300 rounded mx-auto px-4 py-2 cursor-pointer my-2 ${
+            editing !== EDIT_TYPES.ADD_ALLERGY ? "visible" : "hidden my-0"
+          }`}
+        >
           <div className="text-black font-bold flex items-center justify-between">
             <span>
               {productToEdit.recipe.name}

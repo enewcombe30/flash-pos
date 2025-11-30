@@ -26,7 +26,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
       return (
         <div
           key={index}
-          className="w-[22rem] h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
+          className="w-fit h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
         >
           <div
             className="text-black font-bold flex flex-col flex-1 pr-8"
@@ -60,7 +60,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
   return (
     <>
       <div
-        className="h-fit max-h-[26.875rem] w-[23rem] mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
+        className="h-fit max-h-[26.875rem] w-fit mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
         style={scrollbarStyles}
       >
         {renderProducts()}
