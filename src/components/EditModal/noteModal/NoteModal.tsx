@@ -15,7 +15,7 @@ export default function NoteModal({ productToEdit, setProductToEdit }: props) {
 
   return (
     <div>
-      <div className="w-[44.5rem] mx-auto mb-4 px-3">
+      <div className="w-full mx-auto my-4 ">
         <input
           type="text"
           value={note}

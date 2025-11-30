@@ -14,7 +14,7 @@ export default function OrderPad() {
 
   return (
     <div
-      className={`p-4 bg-slate-200 text-slate-900 h-full w-full flex flex-col ${
+      className={`p-2 bg-slate-200 text-slate-900 h-full w-full flex flex-col ${
         isModalOpen ? "pointer-events-none" : ""
       }`}
     >
@@ -23,14 +23,12 @@ export default function OrderPad() {
           Object.entries(grouped).map(([groupKey, { item, count }], index) => (
             <div
               className={`flex justify-between relative mb-2 ${
-                isSelected(item) ? "border border-blue-400" : ""
+                isSelected(item) ? "bg-primary-100" : ""
               }`}
               key={groupKey}
             >
               <div
-                className={`cursor-pointer select-none pr-5 w-[calc(100%-2rem)] ${
-                  isSelected(item) ? "bg-blue-100" : ""
-                }`}
+                className="cursor-pointer select-none pr-5 w-[calc(100%-2rem)]"
                 onClick={() => handleClick(item, index)}
                 onMouseDown={() => handleMouseDown(item)}
                 onMouseUp={() => handleMouseUp()}
@@ -44,6 +42,11 @@ export default function OrderPad() {
                   {item.userNotes &&
                     item.userNotes.length > 0 &&
                     item.userNotes.join(", ")}
+                  {item.userNotes &&
+                    item.userNotes.length > 0 &&
+                    item.assignedAllergies &&
+                    item.assignedAllergies.length > 0 &&
+                    ", "}
                   {item.assignedAllergies &&
                     item.assignedAllergies.length > 0 &&
                     item.assignedAllergies
@@ -62,7 +65,7 @@ export default function OrderPad() {
           </div>
         )}
       </div>
-      <div className="mt-4 flex justify-between font-bold text-lg border-t pt-2 border-slate-400">
+      <div className="mt-4 flex justify-between font-bold text-lg border-t p-2 border-slate-400">
         <div>Total</div>
         <div>£{total.toFixed(2)}</div>
       </div>

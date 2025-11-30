@@ -6,6 +6,7 @@ import { editList } from "../../../state/modal/modalSlice";
 import { Allergen } from "../../../types/recipeTypes";
 import { EDIT_TYPES } from "../../../constants/editModalConstants";
 import { setEditType } from "../../../state/modal/modalSlice";
+import { allergies } from "../../../constants/allergies";
 
 interface props {
   productToEdit: editProduct | null;
@@ -106,8 +107,23 @@ export default function useAllergyModal({
     );
   };
 
+  // if has allergies assigned return list with assigned allergies first
+  const sortedAllergies = () => {
+    if (!productToEdit) return allergies;
+    const assignedAllergies = productToEdit.recipe.assignedAllergies || [];
+    const assignedIds = assignedAllergies.map((a) => a.allergenId);
+    const assignedList = allergies.filter((a) =>
+      assignedIds.includes(a.allergenId)
+    );
+    const unassignedList = allergies.filter(
+      (a) => !assignedIds.includes(a.allergenId)
+    );
+    return [...assignedList, ...unassignedList];
+  };
+
   return {
     toggleAllergy,
+    sortedAllergies,
     isAllergySelected,
     editType,
     handleShowAll,

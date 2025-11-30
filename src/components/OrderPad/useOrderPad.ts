@@ -86,7 +86,12 @@ export default function useOrderPad() {
       if (isMouseDownRef.current) {
         // Only open modal if mouse is still down
         // Filter items to only those matching the pressed recipe's ID
-        const filteredItems = items.filter((recipe) => recipe.id === item.id);
+        const filteredItems = items.filter(
+          (recipe) =>
+            recipe.id === item.id &&
+            (!recipe.userNotes || recipe.userNotes.length === 0) &&
+            (!recipe.assignedAllergies || recipe.assignedAllergies.length === 0)
+        );
         dispatch(editList(filteredItems));
         dispatch(openModal());
       }

@@ -21,6 +21,7 @@ export default function AllergyModal({
     editType,
     handleShowAll,
     closeFullList,
+    sortedAllergies,
   } = useAllergyModal({
     productToEdit,
     setProductToEdit,
@@ -67,7 +68,7 @@ export default function AllergyModal({
         </div>
       ) : (
         <div className="grid grid-flow-col grid-rows-2 gap-4 mb-6">
-          {allergies
+          {sortedAllergies()
             .slice(0, 3)
             .map((allergy) => renderAllergyCheckbox(allergy))}
           <button
