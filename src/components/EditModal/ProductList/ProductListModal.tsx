@@ -57,6 +57,12 @@ export default function ProductListModal({ setProductToEdit }: props) {
     return products;
   };
 
+  if (editList.length === 1) {
+    handleProductSelect({ id: 0, recipe: editList[0] });
+  }
+
+  console.log("Rendering ProductListModal with editList:", editList);
+
   return (
     <>
       <div

@@ -25,19 +25,27 @@ export default function useOrderPad() {
   // Ref to track if mouse is currently down
   const isMouseDownRef = useRef(false);
 
+  // Ref to store the pressed item for handleMouseUp
+  const pressedItemRef = useRef<Recipe | null>(null);
+
   // Group items for display (count how many of each recipe)
+
+  // Correct this function so that a single product can be edited
+  // and group products with the same allergies and notes separately
   const grouped: Record<string, { item: Recipe; count: number }> = items.reduce(
-    (acc: Record<string, { item: Recipe; count: number }>, recipe: Recipe) => {
-      // Include userNotes in the key to ungroup items with notes
-      const key =
-        recipe.id.toString() +
-        ((recipe.userNotes && recipe.userNotes.length > 0) ||
-        (recipe.assignedAllergies && recipe.assignedAllergies.length > 0)
-          ? JSON.stringify({
-              assignedAllergies: recipe.assignedAllergies || [],
-              userNotes: recipe.userNotes || [],
-            })
-          : "");
+    (
+      acc: Record<string, { item: Recipe; count: number }>,
+      recipe: Recipe,
+      index: number
+    ) => {
+      const hasNotes = recipe.userNotes && recipe.userNotes.length > 0;
+      const hasAllergies =
+        recipe.assignedAllergies && recipe.assignedAllergies.length > 0;
+      const isEdited = hasNotes || hasAllergies;
+
+      // Use unique key for edited items to prevent grouping, group plain items by id
+      const key = isEdited ? `${recipe.id}-${index}` : recipe.id.toString();
+
       if (acc[key]) {
         acc[key].count += 1;
       } else {
@@ -49,9 +57,10 @@ export default function useOrderPad() {
   );
 
   // Handle click to select item (short press)
-  const handleClick = (item: Recipe, index: number) => {
+  const handleClick = (item: Recipe) => {
     if (isModalOpen || isOpeningRef.current) return;
 
+    const index = items.indexOf(item);
     if (index !== -1) {
       // If this item is already selected, deselect it
       if (
@@ -76,6 +85,8 @@ export default function useOrderPad() {
   const handleMouseDown = (item: Recipe) => {
     if (isModalOpen || isOpeningRef.current) return;
 
+    pressedItemRef.current = item; // Store the pressed item
+
     // Clear any existing timer to prevent multiple triggers
     if (pressTimer) clearTimeout(pressTimer);
     isMouseDownRef.current = true;
@@ -83,19 +94,32 @@ export default function useOrderPad() {
     dispatch(setIsOpening(true));
 
     pressTimer = setTimeout(() => {
-      if (isMouseDownRef.current) {
-        // Only open modal if mouse is still down
-        // Filter items to only those matching the pressed recipe's ID
-        const filteredItems = items.filter(
-          (recipe) =>
-            recipe.id === item.id &&
-            (!recipe.userNotes || recipe.userNotes.length === 0) &&
-            (!recipe.assignedAllergies || recipe.assignedAllergies.length === 0)
-        );
-        dispatch(editList(filteredItems));
+      if (isMouseDownRef.current && pressedItemRef.current) {
+        const pressedItem = pressedItemRef.current;
+        const hasNotes =
+          pressedItem.userNotes && pressedItem.userNotes.length > 0;
+        const hasAllergies =
+          pressedItem.assignedAllergies &&
+          pressedItem.assignedAllergies.length > 0;
+        const isEdited = hasNotes || hasAllergies;
+
+        if (isEdited) {
+          // Pressed item has notes/allergies, show only this item
+          dispatch(editList([pressedItem]));
+        } else {
+          // Pressed item is plain, show all unedited items of this type
+          const filteredItems = items.filter(
+            (recipe) =>
+              recipe.id === pressedItem.id &&
+              (!recipe.userNotes || recipe.userNotes.length === 0) &&
+              (!recipe.assignedAllergies ||
+                recipe.assignedAllergies.length === 0)
+          );
+          dispatch(editList(filteredItems));
+        }
         dispatch(openModal());
       }
-    }, 1000); // 1 second for long press
+    }, 1000);
   };
 
   const handleMouseUp = () => {
@@ -105,11 +129,8 @@ export default function useOrderPad() {
       pressTimer = null;
     }
     // Short click: select the item (only if modal didn't open)
-    if (!isModalOpen && !isOpeningRef.current) {
-      handleClick(
-        selectedItem as Recipe,
-        items.indexOf(selectedItem as Recipe)
-      );
+    if (!isModalOpen && !isOpeningRef.current && pressedItemRef.current) {
+      handleClick(pressedItemRef.current);
     }
     isOpeningRef.current = false;
     dispatch(setIsOpening(false));

@@ -9,7 +9,6 @@ export default function OrderPad() {
     total,
     hasOrders,
     isModalOpen,
-    handleClick,
   } = useOrderPad();
 
   return (
@@ -20,7 +19,7 @@ export default function OrderPad() {
     >
       <div className="flex-1 overflow-y-auto">
         {hasOrders ? (
-          Object.entries(grouped).map(([groupKey, { item, count }], index) => (
+          Object.entries(grouped).map(([groupKey, { item, count }]) => (
             <div
               className={`flex justify-between relative mb-2 ${
                 isSelected(item) ? "bg-primary-100" : ""
@@ -29,7 +28,6 @@ export default function OrderPad() {
             >
               <div
                 className="cursor-pointer select-none pr-5 w-[calc(100%-2rem)]"
-                onClick={() => handleClick(item, index)}
                 onMouseDown={() => handleMouseDown(item)}
                 onMouseUp={() => handleMouseUp()}
                 onTouchStart={() => handleMouseDown(item)}
