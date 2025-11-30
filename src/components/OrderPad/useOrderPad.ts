@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../state/store";
 import { Recipe } from "../../types/recipeTypes";
-import { removeItem } from "../../state/orders/orderSlice";
+import { setSelectedItem, clearSelection } from "../../state/orders/orderSlice";
 import {
   editList,
   openModal,
@@ -11,6 +11,9 @@ import {
 
 export default function useOrderPad() {
   const items: Recipe[] = useSelector((state: RootState) => state.orders.items);
+  const selectedItem: Recipe | null = useSelector(
+    (state: RootState) => state.orders.selectedItem
+  );
   const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
   const isOpening = useSelector((state: RootState) => state.modal.isOpening);
   const dispatch = useDispatch();
@@ -18,6 +21,9 @@ export default function useOrderPad() {
   // Use ref for synchronous checking
   const isOpeningRef = useRef(isOpening);
   isOpeningRef.current = isOpening;
+
+  // Ref to track if mouse is currently down
+  const isMouseDownRef = useRef(false);
 
   // Group items for display (count how many of each recipe)
   const grouped: Record<string, { item: Recipe; count: number }> = items.reduce(
@@ -42,38 +48,74 @@ export default function useOrderPad() {
     {} as Record<string, { item: Recipe; count: number }>
   );
 
-  // Handle click (remove one instance)
-  const handleRemove = (item: Recipe) => {
-    // Find the index of the first matching recipe in the items array
-    const index = items.findIndex((recipe) => recipe.id === item.id);
+  // Handle click to select item (short press)
+  const handleClick = (item: Recipe, index: number) => {
+    if (isModalOpen || isOpeningRef.current) return;
+
+    // const foundIndex = items.findIndex(
+    //   (recipe) =>
+    //     recipe.id === item.id &&
+    //     JSON.stringify(recipe.userNotes) === JSON.stringify(item.userNotes) &&
+    //     JSON.stringify(recipe.assignedAllergies) ===
+    //       JSON.stringify(item.assignedAllergies)
+    // );
+
     if (index !== -1) {
-      dispatch(removeItem(index));
+      // If this item is already selected, deselect it
+      if (
+        selectedItem &&
+        selectedItem.id === item.id &&
+        JSON.stringify(selectedItem.userNotes) ===
+          JSON.stringify(item.userNotes) &&
+        JSON.stringify(selectedItem.assignedAllergies) ===
+          JSON.stringify(item.assignedAllergies)
+      ) {
+        dispatch(clearSelection());
+      } else {
+        // Select the item
+        dispatch(setSelectedItem({ item, index }));
+      }
     }
   };
 
   // Handle long press - send only the filtered items for the pressed recipe type
   let pressTimer: ReturnType<typeof setTimeout> | null = null;
+
   const handleMouseDown = (item: Recipe) => {
     if (isModalOpen || isOpeningRef.current) return;
+
     // Clear any existing timer to prevent multiple triggers
     if (pressTimer) clearTimeout(pressTimer);
+    isMouseDownRef.current = true;
     isOpeningRef.current = true;
     dispatch(setIsOpening(true));
+
     pressTimer = setTimeout(() => {
-      // Filter items to only those matching the pressed recipe's ID
-      const filteredItems = items.filter((recipe) => recipe.id === item.id);
-      dispatch(editList(filteredItems));
-      dispatch(openModal());
-    }, 1000); // Increased to 1000ms for less sensitivity
+      if (isMouseDownRef.current) {
+        // Only open modal if mouse is still down
+        // Filter items to only those matching the pressed recipe's ID
+        const filteredItems = items.filter((recipe) => recipe.id === item.id);
+        dispatch(editList(filteredItems));
+        dispatch(openModal());
+      }
+    }, 1000); // 1 second for long press
   };
 
   const handleMouseUp = () => {
+    isMouseDownRef.current = false;
     if (pressTimer) {
       clearTimeout(pressTimer);
       pressTimer = null;
-      isOpeningRef.current = false;
-      dispatch(setIsOpening(false));
     }
+    // Short click: select the item (only if modal didn't open)
+    if (!isModalOpen && !isOpeningRef.current) {
+      handleClick(
+        selectedItem as Recipe,
+        items.indexOf(selectedItem as Recipe)
+      );
+    }
+    isOpeningRef.current = false;
+    dispatch(setIsOpening(false));
   };
 
   // Calculate total
@@ -84,11 +126,27 @@ export default function useOrderPad() {
 
   const hasOrders: boolean = items.length > 0;
 
+  function isSelected(item: Recipe): boolean {
+    if (!selectedItem) return false;
+    return (
+      item.id === selectedItem.id &&
+      JSON.stringify(item.userNotes) ===
+        JSON.stringify(selectedItem.userNotes) &&
+      JSON.stringify(item.assignedAllergies) ===
+        JSON.stringify(selectedItem.assignedAllergies)
+    );
+  }
+
+  console.log("Selected Item in useOrderPad:", selectedItem);
+  console.log("items in useOrderPad:", items);
+
   return {
     grouped,
-    handleRemove,
+    handleClick,
     handleMouseDown,
     handleMouseUp,
+    isSelected,
+    selectedItem,
     total,
     hasOrders,
     isModalOpen,

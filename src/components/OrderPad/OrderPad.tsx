@@ -3,12 +3,13 @@ import useOrderPad from "./useOrderPad";
 export default function OrderPad() {
   const {
     grouped,
-    handleRemove,
     handleMouseDown,
     handleMouseUp,
+    isSelected,
     total,
     hasOrders,
     isModalOpen,
+    handleClick,
   } = useOrderPad();
 
   return (
@@ -19,49 +20,43 @@ export default function OrderPad() {
     >
       <div className="flex-1 overflow-y-auto">
         {hasOrders ? (
-          Object.entries(grouped).map(
-            (
-              [groupKey, { item, count }] // Use Object.entries to get the key
-            ) => (
+          Object.entries(grouped).map(([groupKey, { item, count }], index) => (
+            <div
+              className={`flex justify-between relative mb-2 ${
+                isSelected(item) ? "border border-blue-400" : ""
+              }`}
+              key={groupKey}
+            >
               <div
-                className="flex justify-between relative mb-2"
-                key={groupKey}
+                className={`cursor-pointer select-none pr-5 w-[calc(100%-2rem)] ${
+                  isSelected(item) ? "bg-blue-100" : ""
+                }`}
+                onClick={() => handleClick(item, index)}
+                onMouseDown={() => handleMouseDown(item)} // Start timer on mouse down
+                onMouseUp={() => handleMouseUp()} // Check if short click or long press on mouse up
+                // onMouseLeave={() => handleMouseUp(item)} // Handle mouse leave as mouse up
+                onTouchStart={() => handleMouseDown(item)}
+                onTouchEnd={() => handleMouseUp()}
               >
-                {" "}
-                {/* Use groupKey instead of item.id */}
-                <div
-                  className="cursor-pointer select-none pr-5 w-[calc(100%-2rem)]"
-                  onClick={() => handleRemove(item)}
-                  onMouseDown={
-                    isModalOpen ? undefined : () => handleMouseDown(item)
-                  }
-                  onMouseUp={handleMouseUp}
-                  onMouseLeave={handleMouseUp}
-                  onTouchStart={
-                    isModalOpen ? undefined : () => handleMouseDown(item)
-                  }
-                  onTouchEnd={handleMouseUp}
-                >
-                  <div>
-                    {count} x {item.name}
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1 italic truncate">
-                    {item.userNotes &&
-                      item.userNotes.length > 0 &&
-                      item.userNotes.join(", ")}
-                    {item.assignedAllergies &&
-                      item.assignedAllergies.length > 0 &&
-                      item.assignedAllergies
-                        .map((a) => a.allergen.name)
-                        .join(", ")}
-                  </div>
+                <div>
+                  {count} x {item.name}
                 </div>
-                <div className="absolute right-0 top-0">
-                  £{(item.salePrice * count).toFixed(2)}
+                <div className="text-xs text-gray-400 mt-1 italic truncate">
+                  {item.userNotes &&
+                    item.userNotes.length > 0 &&
+                    item.userNotes.join(", ")}
+                  {item.assignedAllergies &&
+                    item.assignedAllergies.length > 0 &&
+                    item.assignedAllergies
+                      .map((a) => a.allergen.name)
+                      .join(", ")}
                 </div>
               </div>
-            )
-          )
+              <div className="absolute right-0 top-0">
+                £{(item.salePrice * count).toFixed(2)}
+              </div>
+            </div>
+          ))
         ) : (
           <div className="text-center text-gray-400 mt-8">
             No items in order

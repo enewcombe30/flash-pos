@@ -3,10 +3,12 @@ import { Recipe } from "../../types/recipeTypes";
 
 interface OrdersState {
   items: Recipe[]; // Store each recipe instance separately
+  selectedItem: Recipe | null;
 }
 
 const initialState: OrdersState = {
   items: [],
+  selectedItem: null,
 };
 
 const orderSlice = createSlice({
@@ -34,9 +36,28 @@ const orderSlice = createSlice({
     clearOrder(state) {
       state.items = [];
     },
+    setSelectedItem(
+      state,
+      action: PayloadAction<{ item: Recipe; index: number }>
+    ) {
+      state.selectedItem =
+        action.payload.item && action.payload.index !== -1
+          ? action.payload.item
+          : null;
+    },
+    clearSelection(state) {
+      state.selectedItem = null;
+    },
   },
 });
 
-export const { addItem, removeItem, removeAllOfItem, clearOrder, updateItem } =
-  orderSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  removeAllOfItem,
+  clearOrder,
+  updateItem,
+  setSelectedItem,
+  clearSelection,
+} = orderSlice.actions;
 export default orderSlice.reducer;
