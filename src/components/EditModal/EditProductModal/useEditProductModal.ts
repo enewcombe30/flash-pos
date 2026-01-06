@@ -48,13 +48,12 @@ export default function useEditProductModal({
   }
 
   const refreshEditList = () => {
-    if (currentEditList.length === 1) return; // Don't refresh for single items
-    if (productToEdit) {
-      const updatedList = orderList
-        .map((item, index) => ({ id: index, recipe: item }))
-        .filter((ep) => ep.recipe.id === productToEdit.recipe.id);
-      dispatch(editList(updatedList));
-    }
+    // Always refresh the editList with the latest recipe data from the order list
+    const updatedEditList = currentEditList.map((editItem) => ({
+      ...editItem,
+      recipe: orderList[editItem.id], // Get the latest recipe from the order list
+    }));
+    dispatch(editList(updatedEditList));
   };
 
   const handleRemoveNote = (noteIndex: number) => {

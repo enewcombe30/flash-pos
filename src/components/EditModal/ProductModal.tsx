@@ -13,8 +13,6 @@ export default function EditModal() {
     (state: RootState) => state.modal.currentPage
   );
 
-  console.log("current page:", currentPage);
-
   if (!isOpen) return null;
 
   return (

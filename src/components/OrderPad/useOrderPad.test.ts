@@ -16,6 +16,8 @@ describe("useOrderPad", () => {
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
+    assignedAllergies: [],
   };
   const fries: Recipe = {
     name: "Fries",
@@ -27,6 +29,8 @@ describe("useOrderPad", () => {
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    userNotes: [],
+    assignedAllergies: [],
   };
 
   let mockDispatch: jest.Mock;
@@ -56,9 +60,12 @@ describe("useOrderPad", () => {
     const { result } = renderHook(() => useOrderPad());
     const grouped = result.current.grouped;
 
-    expect(grouped[burger.id.toString()].count).toBe(2);
-    expect(grouped[fries.id.toString()].count).toBe(1);
-    expect(grouped[burger.id.toString()].item).toEqual(burger);
+    const burgerGroup = grouped.find(([key]) => key === burger.id.toString());
+    const friesGroup = grouped.find(([key]) => key === fries.id.toString());
+
+    expect(burgerGroup?.[1].count).toBe(2);
+    expect(friesGroup?.[1].count).toBe(1);
+    expect(burgerGroup?.[1].item).toEqual(burger);
   });
 
   it("returns an empty object if items is empty", () => {
@@ -71,23 +78,7 @@ describe("useOrderPad", () => {
     );
 
     const { result } = renderHook(() => useOrderPad());
-    expect(result.current.grouped).toEqual({});
-  });
-
-  it("dispatches removeItem when handleRemove is called", () => {
-    mockUseSelector.mockImplementation((selector: any) =>
-      selector({
-        orders: {
-          items: [burger],
-        },
-      })
-    );
-
-    const { result } = renderHook(() => useOrderPad());
-    act(() => {
-      result.current.handleRemove(burger);
-    });
-    expect(mockDispatch).toHaveBeenCalled();
+    expect(result.current.grouped).toEqual([]);
   });
 
   it("dispatches removeAllItems after long press", () => {

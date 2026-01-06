@@ -27,7 +27,7 @@ export default function useNoteModal({
       dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
       setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
 
-      // Refresh the editList to show updated notes immediately
+      // Always refresh the editList to show updated notes immediately
       const updatedOrders = [...orderList];
       updatedOrders[productToEdit.id] = updatedRecipe;
       const filteredList = updatedOrders

@@ -42,7 +42,7 @@ export default function useAllergyModal({
       dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
       setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
 
-      // Refresh the editList to show updated notes immediately
+      // Always refresh the editList to show updated notes immediately
       const updatedOrders = [...orderList];
       updatedOrders[productToEdit.id] = updatedRecipe;
       const filteredList = updatedOrders
@@ -82,7 +82,7 @@ export default function useAllergyModal({
     // Update Redux state
     dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
 
-    // Refresh the editList to show updated allergies immediately
+    // Always refresh the editList to show updated allergies immediately
     const updatedOrders = [...orderList];
     updatedOrders[productToEdit.id] = updatedRecipe;
     const filteredList = updatedOrders
