@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Recipe } from "../../types/recipeTypes";
+import { editProduct } from "../../types/recipeTypes";
 import { MODAL_PAGES, EDIT_TYPES } from "../../constants/editModalConstants";
 
 interface ModalState {
   isOpen: boolean;
-  editList: Recipe[];
+  editList: editProduct[];
   isOpening: boolean;
   currentPage: string;
   editType: string;
@@ -30,7 +30,7 @@ const modalSlice = createSlice({
       state.isOpen = false;
       state.isOpening = false;
     },
-    editList(state, action: PayloadAction<Recipe[]>) {
+    editList(state, action: PayloadAction<editProduct[]>) {
       state.editList = action.payload;
     },
     setIsOpening(state, action: PayloadAction<boolean>) {

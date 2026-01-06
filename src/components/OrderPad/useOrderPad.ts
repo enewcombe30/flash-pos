@@ -56,6 +56,20 @@ export default function useOrderPad() {
     {} as Record<string, { item: Recipe; count: number }>
   );
 
+  // Sort groups: for each product type, unedited first, then edited
+  const sortedGroups = Object.entries(grouped).sort(
+    ([keyA, groupA], [keyB, groupB]) => {
+      const idA = groupA.item.id;
+      const idB = groupB.item.id;
+      if (idA !== idB) return idA - idB;
+      const isEditedA = keyA.includes("-");
+      const isEditedB = keyB.includes("-");
+      if (isEditedA && !isEditedB) return 1;
+      if (!isEditedA && isEditedB) return -1;
+      return 0;
+    }
+  );
+
   // Handle click to select item (short press)
   const handleClick = (item: Recipe) => {
     if (isModalOpen || isOpeningRef.current) return;
@@ -96,27 +110,34 @@ export default function useOrderPad() {
     pressTimer = setTimeout(() => {
       if (isMouseDownRef.current && pressedItemRef.current) {
         const pressedItem = pressedItemRef.current;
+
+        if (!pressedItem || !pressedItem.id) return;
+
         const hasNotes =
           pressedItem.userNotes && pressedItem.userNotes.length > 0;
         const hasAllergies =
           pressedItem.assignedAllergies &&
           pressedItem.assignedAllergies.length > 0;
-        const isEdited = hasNotes || hasAllergies;
 
-        if (isEdited) {
+        // Show products based on edit status
+        if (hasNotes || hasAllergies) {
           // Pressed item has notes/allergies, show only this item
-          dispatch(editList([pressedItem]));
+          const index = items.indexOf(pressedItem);
+          dispatch(editList([{ id: index, recipe: pressedItem }]));
         } else {
           // Pressed item is plain, show all unedited items of this type
-          const filteredItems = items.filter(
-            (recipe) =>
-              recipe.id === pressedItem.id &&
-              (!recipe.userNotes || recipe.userNotes.length === 0) &&
-              (!recipe.assignedAllergies ||
-                recipe.assignedAllergies.length === 0)
-          );
+          const filteredItems = items
+            .map((item, index) => ({ id: index, recipe: item }))
+            .filter(
+              (ep) =>
+                ep.recipe.id === pressedItem.id &&
+                (!ep.recipe.userNotes || ep.recipe.userNotes.length === 0) &&
+                (!ep.recipe.assignedAllergies ||
+                  ep.recipe.assignedAllergies.length === 0)
+            );
           dispatch(editList(filteredItems));
         }
+
         dispatch(openModal());
       }
     }, 1000);
@@ -156,7 +177,7 @@ export default function useOrderPad() {
   }
 
   return {
-    grouped,
+    grouped: sortedGroups,
     handleClick,
     handleMouseDown,
     handleMouseUp,

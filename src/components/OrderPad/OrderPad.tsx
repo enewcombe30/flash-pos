@@ -19,7 +19,7 @@ export default function OrderPad() {
     >
       <div className="flex-1 overflow-y-auto">
         {hasOrders ? (
-          Object.entries(grouped).map(([groupKey, { item, count }]) => (
+          grouped.map(([groupKey, { item, count }]) => (
             <div
               className={`flex justify-between relative mb-2 ${
                 isSelected(item) ? "bg-primary-100" : ""

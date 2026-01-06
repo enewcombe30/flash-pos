@@ -16,7 +16,8 @@ export default function ProductListModal({ setProductToEdit }: props) {
     });
 
   const renderProducts = () => {
-    const products = editList.map((recipe, index) => {
+    const products = editList.map((editProduct) => {
+      const recipe = editProduct.recipe;
       const allergies = recipe.assignedAllergies
         ? recipe.assignedAllergies
             .map((allergy) => allergy.allergen.name)
@@ -25,12 +26,12 @@ export default function ProductListModal({ setProductToEdit }: props) {
 
       return (
         <div
-          key={index}
+          key={editProduct.id}
           className="w-fit h-[4rem] bg-gray-300 rounded mb-2 flex items-center justify-between px-4 cursor-pointer relative"
         >
           <div
             className="text-black font-bold flex flex-col flex-1 pr-8"
-            onClick={() => handleProductSelect({ id: index, recipe })}
+            onClick={() => handleProductSelect(editProduct)}
           >
             <span>{recipe.name}</span>
             <div className="italic text-sm text-gray-500 mt-1 truncate w-[19rem]">
@@ -46,7 +47,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
             className="text-red-700 cursor-pointer absolute right-4 font-bold"
             onClick={(e) => {
               e.stopPropagation();
-              handleRemoveOne(recipe, index);
+              handleRemoveOne(recipe, editProduct.id);
             }}
           >
             X
@@ -58,7 +59,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
   };
 
   if (editList.length === 1) {
-    handleProductSelect({ id: 0, recipe: editList[0] });
+    handleProductSelect(editList[0]);
   }
 
   console.log("Rendering ProductListModal with editList:", editList);

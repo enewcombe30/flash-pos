@@ -45,9 +45,9 @@ export default function useAllergyModal({
       // Refresh the editList to show updated notes immediately
       const updatedOrders = [...orderList];
       updatedOrders[productToEdit.id] = updatedRecipe;
-      const filteredList = updatedOrders.filter(
-        (item) => item.id === updatedRecipe.id
-      );
+      const filteredList = updatedOrders
+        .map((item, index) => ({ id: index, recipe: item }))
+        .filter((ep) => ep.recipe.id === updatedRecipe.id);
       dispatch(editList(filteredList));
     }
   };
@@ -85,9 +85,9 @@ export default function useAllergyModal({
     // Refresh the editList to show updated allergies immediately
     const updatedOrders = [...orderList];
     updatedOrders[productToEdit.id] = updatedRecipe;
-    const filteredList = updatedOrders.filter(
-      (item) => item.id === updatedRecipe.id
-    );
+    const filteredList = updatedOrders
+      .map((item, index) => ({ id: index, recipe: item }))
+      .filter((ep) => ep.recipe.id === updatedRecipe.id);
     dispatch(editList(filteredList));
   };
 

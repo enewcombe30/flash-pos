@@ -5,6 +5,7 @@ import {
   editList,
   setCurrentPage,
   setEditType,
+  closeModal,
 } from "../../../state/modal/modalSlice";
 import { editProduct } from "../../../types/recipeTypes";
 import { EDIT_TYPES } from "../../../constants/editModalConstants";
@@ -21,6 +22,9 @@ export default function useEditProductModal({
   const dispatch = useDispatch();
   const orderList = useSelector((state: RootState) => state.orders.items);
   const editing = useSelector((state: RootState) => state.modal.editType);
+  const currentEditList = useSelector(
+    (state: RootState) => state.modal.editList
+  );
   const hasNotes = productToEdit
     ? productToEdit.recipe.userNotes &&
       productToEdit.recipe.userNotes.length > 0
@@ -34,14 +38,21 @@ export default function useEditProductModal({
     dispatch(setEditType(EDIT_TYPES.ADD_NOTE));
   }
   function handleAddAllergy() {
+    if (!productToEdit) return;
+    // Set editList to all products of this type for allergy selection
+    const allProducts = orderList
+      .map((item, index) => ({ id: index, recipe: item }))
+      .filter((ep) => ep.recipe.id === productToEdit.recipe.id);
+    dispatch(editList(allProducts));
     dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
   }
 
   const refreshEditList = () => {
+    if (currentEditList.length === 1) return; // Don't refresh for single items
     if (productToEdit) {
-      const updatedList = orderList.filter(
-        (recipe) => recipe.id === productToEdit.recipe.id
-      );
+      const updatedList = orderList
+        .map((item, index) => ({ id: index, recipe: item }))
+        .filter((ep) => ep.recipe.id === productToEdit.recipe.id);
       dispatch(editList(updatedList));
     }
   };
@@ -61,8 +72,16 @@ export default function useEditProductModal({
   };
 
   function handleClose() {
-    dispatch(setCurrentPage("PRODUCT_LIST"));
+    if (currentEditList.length === 1) {
+      dispatch(closeModal());
+      dispatch(setCurrentPage("PRODUCT_LIST"));
+      dispatch(editList([]));
+    } else {
+      dispatch(setCurrentPage("PRODUCT_LIST"));
+    }
   }
+
+  console.log("currentEditList in useEditProductModal:", currentEditList);
 
   return {
     handleRemoveNote,

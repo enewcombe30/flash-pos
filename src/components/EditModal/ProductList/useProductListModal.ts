@@ -22,7 +22,9 @@ export default function useProductListModal({ setProductToEdit }: props) {
     if (index !== -1) {
       dispatch(removeItem(index));
       const updatedList = orders.filter((_, idx) => idx !== index);
-      const filteredList = updatedList.filter((item) => item.id === recipe.id);
+      const filteredList = updatedList
+        .map((item, idx) => ({ id: idx, recipe: item }))
+        .filter((ep) => ep.recipe.id === recipe.id);
       dispatch(editList(filteredList));
     }
   };
