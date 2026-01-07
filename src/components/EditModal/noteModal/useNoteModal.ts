@@ -1,39 +1,40 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../state/store";
-import { updateItem } from "../../../state/orders/orderSlice";
+import { useDispatch } from "react-redux";
 import { closeKeyboard } from "../../../state/keyboard/keyboardSlice";
 import { editProduct } from "../../../types/recipeTypes";
-import { editList, setEditType } from "../../../state/modal/modalSlice";
+import { setEditType } from "../../../state/modal/modalSlice";
 
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
 }
 
 export default function useNoteModal({
   productToEdit,
   setProductToEdit,
+  localEditList,
+  setLocalEditList,
 }: props) {
   const dispatch = useDispatch();
-  const orderList = useSelector((state: RootState) => state.orders.items);
   const [note, setNote] = useState<string>("");
+
   const handleAddNote = (newNote: string) => {
     if (productToEdit && newNote.trim()) {
       const updatedRecipe = {
         ...productToEdit.recipe,
         userNotes: [...(productToEdit.recipe.userNotes || []), newNote.trim()],
       };
-      dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
+
+      // Update local product state
       setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
 
-      // Always refresh the editList to show updated notes immediately
-      const updatedOrders = [...orderList];
-      updatedOrders[productToEdit.id] = updatedRecipe;
-      const filteredList = updatedOrders
-        .map((item, index) => ({ id: index, recipe: item }))
-        .filter((ep) => ep.recipe.id === updatedRecipe.id);
-      dispatch(editList(filteredList));
+      // Update localEditList
+      const updatedList = localEditList.map((item) =>
+        item.id === productToEdit.id ? { ...item, recipe: updatedRecipe } : item
+      );
+      setLocalEditList(updatedList);
     }
   };
 
@@ -42,5 +43,6 @@ export default function useNoteModal({
     setNote("");
     dispatch(setEditType("OVERVIEW"));
   };
+
   return { handleAddNote, handleCloseKeyboard, note, setNote };
 }

@@ -5,12 +5,21 @@ import { editProduct } from "../../../types/recipeTypes";
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
 }
 
-export default function NoteModal({ productToEdit, setProductToEdit }: props) {
+export default function NoteModal({
+  productToEdit,
+  setProductToEdit,
+  localEditList,
+  setLocalEditList,
+}: props) {
   const { handleAddNote, handleCloseKeyboard, note, setNote } = useNoteModal({
     productToEdit,
     setProductToEdit,
+    localEditList,
+    setLocalEditList,
   });
 
   return (

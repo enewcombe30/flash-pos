@@ -1,22 +1,23 @@
 import { scrollbarStyles } from "../../../constants/styleConstants";
 import useProductListModal from "./useProductListModal";
-import { editProduct } from "../../../types/recipeTypes";
-import { RootState } from "../../../state/store";
-import { useSelector } from "react-redux";
+import EditProductModal from "../EditProductModal/EditProductModal";
+import { MODAL_PAGES } from "../../../constants/editModalConstants";
 
-interface props {
-  setProductToEdit: (editProduct: editProduct) => void;
-}
-
-export default function ProductListModal({ setProductToEdit }: props) {
-  const editList = useSelector((state: RootState) => state.modal.editList);
-  const { handleRemoveOne, handleProductSelect, handleClose } =
-    useProductListModal({
-      setProductToEdit,
-    });
+export default function ProductListModal() {
+  const {
+    handleRemoveOne,
+    handleProductSelect,
+    handleSubmit,
+    handleCancel,
+    localEditList,
+    localProductToEdit,
+    setLocalProductToEdit,
+    setLocalEditList,
+    currentPage,
+  } = useProductListModal();
 
   const renderProducts = () => {
-    const products = editList.map((editProduct) => {
+    const products = localEditList.map((editProduct) => {
       const recipe = editProduct.recipe;
       const allergies = recipe.assignedAllergies
         ? recipe.assignedAllergies
@@ -47,7 +48,7 @@ export default function ProductListModal({ setProductToEdit }: props) {
             className="text-red-700 cursor-pointer absolute right-4 font-bold"
             onClick={(e) => {
               e.stopPropagation();
-              handleRemoveOne(recipe, editProduct.id);
+              handleRemoveOne(editProduct.id);
             }}
           >
             X
@@ -58,30 +59,42 @@ export default function ProductListModal({ setProductToEdit }: props) {
     return products;
   };
 
-  if (editList.length === 1) {
-    handleProductSelect(editList[0]);
-  }
-
-  console.log("Rendering ProductListModal with editList:", editList);
-
   return (
     <>
-      <div
-        className="h-fit max-h-[26.875rem] w-fit mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
-        style={scrollbarStyles}
-      >
-        {renderProducts()}
-      </div>
-      <div>
-        <div className="space-x-4 flex mx-auto mb-8 w-fit">
-          <button
-            className="bg-primary-500 text-white w-[9.375rem] h-[2.5rem] rounded-2xl text-2xl font-bold"
-            onClick={handleClose}
+      {currentPage === MODAL_PAGES.EDIT_PRODUCT && localProductToEdit ? (
+        <EditProductModal
+          productToEdit={localProductToEdit}
+          setProductToEdit={setLocalProductToEdit}
+          localEditList={localEditList}
+          setLocalEditList={setLocalEditList}
+          handleSubmit={handleSubmit}
+        />
+      ) : (
+        <>
+          <div
+            className="h-fit max-h-[26.875rem] w-fit mb-4 mx-8 overflow-scroll space-y-6 custom-scrollbar"
+            style={scrollbarStyles}
           >
-            Submit
-          </button>
-        </div>
-      </div>
+            {renderProducts()}
+          </div>
+          <div>
+            <div className="space-x-4 flex mx-auto mb-8 w-fit">
+              <button
+                className="bg-primary-500 text-white w-[9.375rem] h-[2.5rem] rounded-2xl text-2xl font-bold"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+              <button
+                className="bg-border-error text-white w-[9.375rem] h-[2.5rem] rounded-2xl text-2xl font-bold"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

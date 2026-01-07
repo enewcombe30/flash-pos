@@ -1,30 +1,28 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../state/store";
-import { updateItem } from "../../../state/orders/orderSlice";
-import {
-  editList,
-  setCurrentPage,
-  setEditType,
-  closeModal,
-} from "../../../state/modal/modalSlice";
+import { setCurrentPage, setEditType } from "../../../state/modal/modalSlice";
 import { editProduct } from "../../../types/recipeTypes";
-import { EDIT_TYPES } from "../../../constants/editModalConstants";
+import { EDIT_TYPES, MODAL_PAGES } from "../../../constants/editModalConstants";
 
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
+  handleSubmit?: () => void;
+  isSingleProduct: boolean;
 }
 
 export default function useEditProductModal({
   productToEdit,
   setProductToEdit,
+  localEditList,
+  setLocalEditList,
+  handleSubmit,
+  isSingleProduct,
 }: props) {
   const dispatch = useDispatch();
-  const orderList = useSelector((state: RootState) => state.orders.items);
   const editing = useSelector((state: RootState) => state.modal.editType);
-  const currentEditList = useSelector(
-    (state: RootState) => state.modal.editList
-  );
   const hasNotes = productToEdit
     ? productToEdit.recipe.userNotes &&
       productToEdit.recipe.userNotes.length > 0
@@ -34,27 +32,19 @@ export default function useEditProductModal({
       productToEdit.recipe.assignedAllergies.length > 0
     : false;
 
+  const allergyList =
+    (productToEdit?.recipe.assignedAllergies &&
+      productToEdit.recipe.assignedAllergies?.map((allergy, index) => ({
+        key: `allergy-${allergy.allergenId}-${index}`,
+        name: allergy.allergen.name,
+      }))) ||
+    [];
+
+  const notesList = productToEdit?.recipe.userNotes || [];
+
   function handleAddNote() {
     dispatch(setEditType(EDIT_TYPES.ADD_NOTE));
   }
-  function handleAddAllergy() {
-    if (!productToEdit) return;
-    // Set editList to all products of this type for allergy selection
-    const allProducts = orderList
-      .map((item, index) => ({ id: index, recipe: item }))
-      .filter((ep) => ep.recipe.id === productToEdit.recipe.id);
-    dispatch(editList(allProducts));
-    dispatch(setEditType(EDIT_TYPES.ADD_ALLERGY));
-  }
-
-  const refreshEditList = () => {
-    // Always refresh the editList with the latest recipe data from the order list
-    const updatedEditList = currentEditList.map((editItem) => ({
-      ...editItem,
-      recipe: orderList[editItem.id], // Get the latest recipe from the order list
-    }));
-    dispatch(editList(updatedEditList));
-  };
 
   const handleRemoveNote = (noteIndex: number) => {
     if (productToEdit) {
@@ -64,31 +54,42 @@ export default function useEditProductModal({
           (_, index) => index !== noteIndex
         ),
       };
-      dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
+
+      // Update local product state
       setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
-      refreshEditList();
+
+      // Update localEditList
+      const updatedList = localEditList.map((item) =>
+        item.id === productToEdit.id ? { ...item, recipe: updatedRecipe } : item
+      );
+      setLocalEditList(updatedList);
     }
   };
 
   function handleClose() {
-    if (currentEditList.length === 1) {
-      dispatch(closeModal());
-      dispatch(setCurrentPage("PRODUCT_LIST"));
-      dispatch(editList([]));
+    if (isSingleProduct && handleSubmit) {
+      // If single product, submit changes to Redux
+      handleSubmit();
     } else {
-      dispatch(setCurrentPage("PRODUCT_LIST"));
+      // Go back to product list view
+      dispatch(setCurrentPage(MODAL_PAGES.PRODUCT_LIST));
     }
   }
 
-  console.log("currentEditList in useEditProductModal:", currentEditList);
+  function handleCancel() {
+    // Go back to product list without saving changes to this product
+    dispatch(setCurrentPage(MODAL_PAGES.PRODUCT_LIST));
+  }
 
   return {
     handleRemoveNote,
     handleAddNote,
-    handleAddAllergy,
     editing,
     handleClose,
+    handleCancel,
     hasNotes,
     hasAllergies,
+    allergyList,
+    notesList,
   };
 }

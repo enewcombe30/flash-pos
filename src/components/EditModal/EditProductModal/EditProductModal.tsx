@@ -7,56 +7,42 @@ import AllergyModal from "../AllergyModal/AllergyModal";
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
+  handleSubmit?: () => void;
 }
 
 export default function EditProductModal({
   productToEdit,
   setProductToEdit,
+  localEditList,
+  setLocalEditList,
+  handleSubmit,
 }: props) {
+  const isSingleProduct = localEditList.length === 1;
+
   const {
     handleRemoveNote,
     handleAddNote,
     editing,
     handleClose,
+    handleCancel,
     hasAllergies,
     hasNotes,
+    allergyList,
+    notesList,
   } = useEditProductModal({
     productToEdit,
     setProductToEdit,
+    localEditList,
+    setLocalEditList,
+    handleSubmit,
+    isSingleProduct,
   });
 
-  const allergyList =
-    (productToEdit?.recipe.assignedAllergies &&
-      productToEdit.recipe.assignedAllergies?.map((allergy, index) => (
-        <span key={`allergy-${allergy.allergenId}-${index}`} className="mr-1">
-          {`${allergy.allergen.name}${
-            hasAllergies && productToEdit.recipe.assignedAllergies!.length > 0
-              ? ","
-              : ""
-          }`}
-        </span>
-      ))) ||
-    false;
-
-  function renderNotes() {
-    if (!productToEdit || !productToEdit.recipe.userNotes) return null;
-    return productToEdit.recipe.userNotes.map((note, index) => (
-      <div
-        key={`note-${note}-${index}`}
-        className="w-fit border border-border-primary rounded p-2 mb-2 text-white text-sm flex"
-      >
-        {note}
-        <span
-          className="cursor-pointer ml-4 font-bold text-red-500"
-          onClick={() => handleRemoveNote(index)}
-        >
-          X
-        </span>
-      </div>
-    ));
+  if (!productToEdit) {
+    return null;
   }
-
-  if (!productToEdit) return null;
 
   return (
     <div>
@@ -75,7 +61,12 @@ export default function EditProductModal({
             </span>
           </div>
           <div className="italic text-sm text-gray-500 mt-1 truncate">
-            {allergyList}
+            {allergyList.map((allergy) => (
+              <span key={allergy.key} className="mr-1">
+                {allergy.name}
+                {hasAllergies && allergyList.length > 0 ? "," : ""}
+              </span>
+            ))}
             {hasNotes && productToEdit.recipe.userNotes.join(", ")}
           </div>
         </div>
@@ -87,11 +78,30 @@ export default function EditProductModal({
             Add Note
           </button>
         )}
-        {productToEdit.recipe.userNotes && <div>{renderNotes()}</div>}
+        {notesList.length > 0 && (
+          <div>
+            {notesList.map((note, index) => (
+              <div
+                key={`note-${note}-${index}`}
+                className="w-fit border border-border-primary rounded p-2 mb-2 text-white text-sm flex"
+              >
+                {note}
+                <span
+                  className="cursor-pointer ml-4 font-bold text-red-500"
+                  onClick={() => handleRemoveNote(index)}
+                >
+                  X
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
         {editing === EDIT_TYPES.ADD_NOTE && (
           <NoteModal
             productToEdit={productToEdit}
             setProductToEdit={setProductToEdit}
+            localEditList={localEditList}
+            setLocalEditList={setLocalEditList}
           />
         )}
         {editing !== EDIT_TYPES.ADD_NOTE && (
@@ -108,18 +118,47 @@ export default function EditProductModal({
             <AllergyModal
               productToEdit={productToEdit}
               setProductToEdit={setProductToEdit}
+              localEditList={localEditList}
+              setLocalEditList={setLocalEditList}
             />
           </div>
         )}
       </div>
       {editing === EDIT_TYPES.OVERVIEW && (
         <div className="flex flex-col mb-4 flex-1">
-          <button
-            className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold mx-auto"
-            onClick={handleClose}
-          >
-            Submit
-          </button>
+          <div className="flex space-x-4 mx-auto">
+            {isSingleProduct ? (
+              <>
+                <button
+                  className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
+                  onClick={handleClose}
+                >
+                  Submit
+                </button>
+                <button
+                  className="bg-border-error text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="bg-primary-500 text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
+                  onClick={handleClose}
+                >
+                  Done
+                </button>
+                <button
+                  className="bg-border-error text-white w-[9.375rem] rounded-2xl text-2xl font-bold"
+                  onClick={handleCancel}
+                >
+                  Back
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>

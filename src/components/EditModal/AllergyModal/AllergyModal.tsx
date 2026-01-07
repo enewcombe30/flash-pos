@@ -1,6 +1,5 @@
 import { editProduct } from "../../../types/recipeTypes";
 import { Allergen } from "../../../types/recipeTypes";
-import { allergies } from "../../../constants/allergies";
 import CheckIcon from "../../../svgs/CheckIcon";
 import useAllergyModal from "./useAllergyModal";
 import { scrollbarStyles } from "../../../constants/styleConstants";
@@ -9,11 +8,15 @@ import { EDIT_TYPES } from "../../../constants/editModalConstants";
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
 }
 
 export default function AllergyModal({
   productToEdit,
   setProductToEdit,
+  localEditList,
+  setLocalEditList,
 }: props) {
   const {
     toggleAllergy,
@@ -22,9 +25,12 @@ export default function AllergyModal({
     handleShowAll,
     closeFullList,
     sortedAllergies,
+    allergies,
   } = useAllergyModal({
     productToEdit,
     setProductToEdit,
+    localEditList,
+    setLocalEditList,
   });
 
   const renderAllergyCheckbox = (allergy: Allergen) => {

@@ -1,8 +1,6 @@
 import { editProduct } from "../../../types/recipeTypes";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../state/store";
-import { updateItem } from "../../../state/orders/orderSlice";
-import { editList } from "../../../state/modal/modalSlice";
 import { Allergen } from "../../../types/recipeTypes";
 import { EDIT_TYPES } from "../../../constants/editModalConstants";
 import { setEditType } from "../../../state/modal/modalSlice";
@@ -11,46 +9,18 @@ import { allergies } from "../../../constants/allergies";
 interface props {
   productToEdit: editProduct | null;
   setProductToEdit: (editProduct: editProduct | null) => void;
+  localEditList: editProduct[];
+  setLocalEditList: (list: editProduct[]) => void;
 }
 
 export default function useAllergyModal({
   productToEdit,
   setProductToEdit,
+  localEditList,
+  setLocalEditList,
 }: props) {
   const dispatch = useDispatch();
-  const orderList = useSelector((state: RootState) => state.orders.items);
   const editType = useSelector((state: RootState) => state.modal.editType);
-
-  const handleAddAllergy = (allergy: Allergen) => {
-    if (
-      productToEdit &&
-      allergy ===
-        productToEdit.recipe.assignedAllergies?.find(
-          (a) => a.allergenId === allergy.allergenId
-        )
-    ) {
-      return; // Allergy already assigned, do nothing
-    }
-    if (productToEdit && allergy) {
-      const updatedRecipe = {
-        ...productToEdit.recipe,
-        assignedAllergies: [
-          ...(productToEdit.recipe.assignedAllergies || []),
-          allergy,
-        ],
-      };
-      dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
-      setProductToEdit({ ...productToEdit, recipe: updatedRecipe });
-
-      // Always refresh the editList to show updated notes immediately
-      const updatedOrders = [...orderList];
-      updatedOrders[productToEdit.id] = updatedRecipe;
-      const filteredList = updatedOrders
-        .map((item, index) => ({ id: index, recipe: item }))
-        .filter((ep) => ep.recipe.id === updatedRecipe.id);
-      dispatch(editList(filteredList));
-    }
-  };
 
   const toggleAllergy = (allergy: Allergen) => {
     if (!productToEdit) return;
@@ -73,22 +43,17 @@ export default function useAllergyModal({
       assignedAllergies: updatedAllergies,
     };
 
-    // Update local state
+    // Update local product state
     setProductToEdit({
       ...productToEdit,
       recipe: updatedRecipe,
     });
 
-    // Update Redux state
-    dispatch(updateItem({ index: productToEdit.id, updatedRecipe }));
-
-    // Always refresh the editList to show updated allergies immediately
-    const updatedOrders = [...orderList];
-    updatedOrders[productToEdit.id] = updatedRecipe;
-    const filteredList = updatedOrders
-      .map((item, index) => ({ id: index, recipe: item }))
-      .filter((ep) => ep.recipe.id === updatedRecipe.id);
-    dispatch(editList(filteredList));
+    // Update localEditList
+    const updatedList = localEditList.map((item) =>
+      item.id === productToEdit.id ? { ...item, recipe: updatedRecipe } : item
+    );
+    setLocalEditList(updatedList);
   };
 
   function handleShowAll() {
@@ -127,7 +92,7 @@ export default function useAllergyModal({
     isAllergySelected,
     editType,
     handleShowAll,
-    handleAddAllergy,
     closeFullList,
+    allergies,
   };
 }
