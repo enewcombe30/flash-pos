@@ -68,6 +68,7 @@ export default function ProductListModal() {
           localEditList={localEditList}
           setLocalEditList={setLocalEditList}
           handleSubmit={handleSubmit}
+          handleCancelAll={handleCancel}
         />
       ) : (
         <>

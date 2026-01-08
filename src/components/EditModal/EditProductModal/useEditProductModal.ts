@@ -11,6 +11,7 @@ interface props {
   setLocalEditList: (list: editProduct[]) => void;
   handleSubmit?: () => void;
   isSingleProduct: boolean;
+  handleCancelAll?: () => void;
 }
 
 export default function useEditProductModal({
@@ -20,6 +21,7 @@ export default function useEditProductModal({
   setLocalEditList,
   handleSubmit,
   isSingleProduct,
+  handleCancelAll,
 }: props) {
   const dispatch = useDispatch();
   const editing = useSelector((state: RootState) => state.modal.editType);
@@ -77,8 +79,13 @@ export default function useEditProductModal({
   }
 
   function handleCancel() {
-    // Go back to product list without saving changes to this product
-    dispatch(setCurrentPage(MODAL_PAGES.PRODUCT_LIST));
+    if (isSingleProduct && handleCancelAll) {
+      // If single product, discard all changes and close modal
+      handleCancelAll();
+    } else {
+      // Go back to product list without saving changes to this product
+      dispatch(setCurrentPage(MODAL_PAGES.PRODUCT_LIST));
+    }
   }
 
   return {

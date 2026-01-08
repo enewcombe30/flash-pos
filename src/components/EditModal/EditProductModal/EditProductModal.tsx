@@ -3,6 +3,7 @@ import { editProduct } from "../../../types/recipeTypes";
 import NoteModal from "../NoteModal/NoteModal";
 import { EDIT_TYPES } from "../../../constants/editModalConstants";
 import AllergyModal from "../AllergyModal/AllergyModal";
+import IngredientModal from "../IngredientModal/IngredientModal";
 
 interface props {
   productToEdit: editProduct | null;
@@ -10,6 +11,7 @@ interface props {
   localEditList: editProduct[];
   setLocalEditList: (list: editProduct[]) => void;
   handleSubmit?: () => void;
+  handleCancelAll?: () => void;
 }
 
 export default function EditProductModal({
@@ -18,6 +20,7 @@ export default function EditProductModal({
   localEditList,
   setLocalEditList,
   handleSubmit,
+  handleCancelAll,
 }: props) {
   const isSingleProduct = localEditList.length === 1;
 
@@ -38,6 +41,7 @@ export default function EditProductModal({
     setLocalEditList,
     handleSubmit,
     isSingleProduct,
+    handleCancelAll,
   });
 
   if (!productToEdit) {
@@ -116,6 +120,21 @@ export default function EditProductModal({
               Allergens
             </span>
             <AllergyModal
+              productToEdit={productToEdit}
+              setProductToEdit={setProductToEdit}
+              localEditList={localEditList}
+              setLocalEditList={setLocalEditList}
+            />
+            <span
+              className={`font-bold text-lg block mt-4 ${
+                editing === EDIT_TYPES.ADD_ALLERGY
+                  ? "invisible my-0"
+                  : "visible my-2"
+              }`}
+            >
+              Ingredients
+            </span>
+            <IngredientModal
               productToEdit={productToEdit}
               setProductToEdit={setProductToEdit}
               localEditList={localEditList}

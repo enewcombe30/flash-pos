@@ -16,6 +16,7 @@ export default function useOrderPad() {
   );
   const isModalOpen = useSelector((state: RootState) => state.modal.isOpen);
   const isOpening = useSelector((state: RootState) => state.modal.isOpening);
+  const editListItems = useSelector((state: RootState) => state.modal.editList);
   const dispatch = useDispatch();
 
   // Use ref for synchronous checking
@@ -29,31 +30,37 @@ export default function useOrderPad() {
   const pressedItemRef = useRef<Recipe | null>(null);
 
   // Group items for display (count how many of each recipe)
-
-  // Correct this function so that a single product can be edited
-  // and group products with the same allergies and notes separately
-  const grouped: Record<string, { item: Recipe; count: number }> = items.reduce(
+  // Group products with the same recipe ID, notes, and allergies together
+  const grouped: Record<
+    string,
+    { item: Recipe; count: number; index: number }
+  > = items.reduce(
     (
-      acc: Record<string, { item: Recipe; count: number }>,
+      acc: Record<string, { item: Recipe; count: number; index: number }>,
       recipe: Recipe,
       index: number
     ) => {
-      const hasNotes = recipe.userNotes && recipe.userNotes.length > 0;
-      const hasAllergies =
-        recipe.assignedAllergies && recipe.assignedAllergies.length > 0;
-      const isEdited = hasNotes || hasAllergies;
+      // Create a key based on recipe ID, notes, and allergies
+      const notesKey = recipe.userNotes
+        ? recipe.userNotes.sort().join("|")
+        : "";
+      const allergiesKey = recipe.assignedAllergies
+        ? recipe.assignedAllergies
+            .map((a) => a.allergenId)
+            .sort()
+            .join("|")
+        : "";
 
-      // Use unique key for edited items to prevent grouping, group plain items by id
-      const key = isEdited ? `${recipe.id}-${index}` : recipe.id.toString();
+      const key = `${recipe.id}-${notesKey}-${allergiesKey}`;
 
       if (acc[key]) {
         acc[key].count += 1;
       } else {
-        acc[key] = { item: recipe, count: 1 };
+        acc[key] = { item: recipe, count: 1, index };
       }
       return acc;
     },
-    {} as Record<string, { item: Recipe; count: number }>
+    {} as Record<string, { item: Recipe; count: number; index: number }>
   );
 
   // Sort groups: for each product type, unedited first, then edited
@@ -176,6 +183,11 @@ export default function useOrderPad() {
     );
   }
 
+  // Check if an item is currently being edited in the modal
+  function isBeingEdited(index: number): boolean {
+    return editListItems.some((editProduct) => editProduct.id === index);
+  }
+
   return {
     grouped: sortedGroups,
     handleClick,
@@ -186,5 +198,6 @@ export default function useOrderPad() {
     total,
     hasOrders,
     isModalOpen,
+    isBeingEdited,
   };
 }
