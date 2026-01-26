@@ -34,7 +34,6 @@ export default function useIngredientModal({
     // Start with all ingredients selected
     const shouldBeSelected = allIngredients
       .filter((ingredient) => {
-        // Ingredient should be unselected if "No [ingredient]" note exists
         const noteText = `No ${ingredient.name}`;
         if (userNotes.includes(noteText)) {
           return false;

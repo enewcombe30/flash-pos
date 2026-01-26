@@ -25,10 +25,10 @@ export default function useEditProductModal({
 }: props) {
   const dispatch = useDispatch();
   const editing = useSelector((state: RootState) => state.modal.editType);
-  const hasNotes = productToEdit
-    ? productToEdit.recipe.userNotes &&
-      productToEdit.recipe.userNotes.length > 0
-    : false;
+  const hasNotes =
+    productToEdit &&
+    productToEdit.recipe.userNotes &&
+    productToEdit.recipe.userNotes.length > 0;
   const hasAllergies = productToEdit
     ? productToEdit.recipe.assignedAllergies &&
       productToEdit.recipe.assignedAllergies.length > 0
@@ -52,9 +52,11 @@ export default function useEditProductModal({
     if (productToEdit) {
       const updatedRecipe = {
         ...productToEdit.recipe,
-        userNotes: productToEdit.recipe.userNotes.filter(
-          (_, index) => index !== noteIndex
-        ),
+        userNotes:
+          productToEdit.recipe.userNotes &&
+          productToEdit.recipe.userNotes.filter(
+            (_, index) => index !== noteIndex
+          ),
       };
 
       // Update local product state

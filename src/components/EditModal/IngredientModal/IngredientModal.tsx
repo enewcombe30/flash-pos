@@ -27,7 +27,6 @@ export default function IngredientModal({
   const renderIngredientCheckbox = (ingredient: Ingredient) => {
     const isSelected = isIngredientSelected(ingredient.id);
 
-    // Check if ingredient has any assigned allergens (making it non-selectable)
     const assignedAllergies = productToEdit?.recipe.assignedAllergies || [];
     const assignedAllergenIds = assignedAllergies.map((a) => a.allergenId);
     const isDisabled = ingredient.ingredientAllergens.some((allergen) =>

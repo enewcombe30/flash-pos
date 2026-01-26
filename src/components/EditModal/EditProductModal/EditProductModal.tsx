@@ -71,7 +71,9 @@ export default function EditProductModal({
                 {hasAllergies && allergyList.length > 0 ? "," : ""}
               </span>
             ))}
-            {hasNotes && productToEdit.recipe.userNotes.join(", ")}
+            {hasNotes &&
+              productToEdit.recipe.userNotes &&
+              productToEdit.recipe.userNotes.join(", ")}
           </div>
         </div>
         {editing === EDIT_TYPES.OVERVIEW && (
