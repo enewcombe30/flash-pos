@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Recipe } from "../../types/recipeTypes";
+import { RecipeBase, Recipe } from "../../types/recipeTypes";
 
 interface OrdersState {
   items: Recipe[]; // Store each recipe instance separately
@@ -15,15 +15,22 @@ const orderSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<Recipe>) {
-      state.items.push(action.payload);
+    addItem(state, action: PayloadAction<RecipeBase>) {
+      // Transform RecipeBase to Recipe by adding orderItemId and other required fields
+      const recipeWithOrderId: Recipe = {
+        ...action.payload,
+        orderItemId: crypto.randomUUID(),
+        userNotes: [],
+        assignedAllergies: [],
+      };
+      state.items.push(recipeWithOrderId);
     },
     removeItem: (state, action: PayloadAction<number>) => {
       state.items.splice(action.payload, 1);
     },
     updateItem(
       state,
-      action: PayloadAction<{ index: number; updatedRecipe: Recipe }>
+      action: PayloadAction<{ index: number; updatedRecipe: Recipe }>,
     ) {
       const { index, updatedRecipe } = action.payload;
       if (state.items[index]) {
@@ -31,14 +38,16 @@ const orderSlice = createSlice({
       }
     },
     removeAllOfItem(state, action: PayloadAction<number>) {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter(
+        (item: Recipe) => item.id !== action.payload,
+      );
     },
     clearOrder(state) {
       state.items = [];
     },
     setSelectedItem(
       state,
-      action: PayloadAction<{ item: Recipe; index: number }>
+      action: PayloadAction<{ item: Recipe; index: number }>,
     ) {
       state.selectedItem =
         action.payload.item && action.payload.index !== -1

@@ -24,10 +24,10 @@ export type RecipeAllergens = {
   allergen: IdNamePair;
 };
 
+// Is this the right shape?
 export type FreeFromOption = {
-  isAvailable: boolean;
   label: string;
-  replaces: string;
+  replaces: string[];
 };
 
 export interface Ingredient {
@@ -37,7 +37,8 @@ export interface Ingredient {
   metricValue: number;
   divisionId: number;
   ingredientAllergens: Allergen[];
-  freeFromOption: FreeFromOption;
+  // rethink how to handle free from ingredients in the long termq
+  // freeFromOption: FreeFromOption | null;
   ingredientDietaryTags: DietaryTag[];
 }
 
@@ -66,7 +67,7 @@ export interface RecipeBase {
   recipeDietaryTags: RecipeDietaryTags[];
 }
 
-export type RecipeFromAPI = RecipeBase;
+export type RecipeFromAPI = Recipe;
 
 export interface Recipe extends RecipeBase {
   orderItemId: string;

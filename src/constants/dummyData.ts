@@ -1,9 +1,8 @@
-import { Recipe } from "../types/recipeTypes";
+import { RecipeBase } from "../types/recipeTypes";
 
 // Use the detailed recipes from defaultRecipes for the first 2 items
 // and populate the rest with realistic ingredient data
-export const DummyRecipes: Recipe[] = [
-  // Use existing detailed recipes
+export const DummyRecipes: RecipeBase[] = [
   {
     name: "Spaghetti Bolognese",
     id: 1,
@@ -23,6 +22,7 @@ export const DummyRecipes: Recipe[] = [
             unit: "g",
             metricValue: 200,
             divisionId: 1,
+            // freeFromOption: true,
             ingredientAllergens: [
               {
                 id: 10,
@@ -120,7 +120,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 1, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -213,7 +212,6 @@ export const DummyRecipes: Recipe[] = [
     recipeDietaryTags: [
       { recipeId: 3, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
     ],
-    userNotes: [],
   },
 
   {
@@ -302,7 +300,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 4, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -397,7 +394,6 @@ export const DummyRecipes: Recipe[] = [
         dietaryTag: { id: 2, name: "Vegetarian" },
       },
     ],
-    userNotes: [],
   },
 
   {
@@ -492,7 +488,6 @@ export const DummyRecipes: Recipe[] = [
         dietaryTag: { id: 2, name: "Vegetarian" },
       },
     ],
-    userNotes: [],
   },
 
   {
@@ -581,7 +576,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 7, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -657,7 +651,6 @@ export const DummyRecipes: Recipe[] = [
     recipeDietaryTags: [
       { recipeId: 8, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
     ],
-    userNotes: [],
   },
 
   {
@@ -707,7 +700,6 @@ export const DummyRecipes: Recipe[] = [
     ],
     recipeAllergens: [],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -768,7 +760,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 10, allergenId: 7, allergen: { id: 7, name: "Fish" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -857,7 +848,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 11, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -952,7 +942,6 @@ export const DummyRecipes: Recipe[] = [
         dietaryTag: { id: 2, name: "Vegetarian" },
       },
     ],
-    userNotes: [],
   },
 
   {
@@ -1045,7 +1034,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 13, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -1124,7 +1112,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 14, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -1200,7 +1187,6 @@ export const DummyRecipes: Recipe[] = [
     recipeDietaryTags: [
       { recipeId: 15, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
     ],
-    userNotes: [],
   },
 
   {
@@ -1268,7 +1254,6 @@ export const DummyRecipes: Recipe[] = [
     ],
     recipeAllergens: [],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -1347,7 +1332,6 @@ export const DummyRecipes: Recipe[] = [
       { recipeId: 17, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
     ],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 
   {
@@ -1432,7 +1416,6 @@ export const DummyRecipes: Recipe[] = [
         dietaryTag: { id: 2, name: "Vegetarian" },
       },
     ],
-    userNotes: [],
   },
 
   {
@@ -1535,7 +1518,6 @@ export const DummyRecipes: Recipe[] = [
         dietaryTag: { id: 2, name: "Vegetarian" },
       },
     ],
-    userNotes: [],
   },
 
   {
@@ -1585,950 +1567,945 @@ export const DummyRecipes: Recipe[] = [
     ],
     recipeAllergens: [],
     recipeDietaryTags: [],
-    userNotes: [],
   },
 ];
 
-export const AltDummyProducts: Recipe[] = [
-  {
-    name: "Special Starter",
-    id: 21,
-    subDivisionId: 1,
-    version: 1,
-    costPrice: 1.5,
-    salePrice: 4.0,
-    RecipeIngredient: [],
-    recipeAllergens: [],
-    recipeDietaryTags: [],
-    userNotes: [],
-  },
-  {
-    name: "Special Mains",
-    id: 22,
-    subDivisionId: 1,
-    version: 1,
-    costPrice: 2.0,
-    salePrice: 5.0,
-    RecipeIngredient: [],
-    recipeAllergens: [],
-    recipeDietaryTags: [],
-    userNotes: [],
-  },
-  {
-    name: "Special Burger",
-    id: 23,
-    subDivisionId: 1,
-    version: 1,
-    costPrice: 2.5,
-    salePrice: 6.0,
-    RecipeIngredient: [],
-    recipeAllergens: [],
-    recipeDietaryTags: [],
-    userNotes: [],
-  },
-  {
-    name: "Steak Dessert",
-    id: 24,
-    subDivisionId: 1,
-    version: 1,
-    costPrice: 1.8,
-    salePrice: 4.5,
-    RecipeIngredient: [],
-    recipeAllergens: [],
-    recipeDietaryTags: [],
-    userNotes: [],
-  },
-];
-
+// export const AltDummyProducts: Recipe[] = [
 //   {
-//     name: "Spaghetti Bolognese",
-//     id: 1,
+//     name: "Special Starter",
+//     id: 21,
 //     subDivisionId: 1,
 //     version: 1,
-//     costPrice: 2.8,
-//     salePrice: 7.0,
-//     RecipeIngredient: [
-//       {
-//         amount: 200,
-//         ingredientId: 2,
-//         recipeId: 1,
-//         ingredients: [
-//           {
-//             id: 2,
-//             name: "Pasta",
-//             unit: "g",
-//             metricValue: 200,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 10,
-//                 ingredientId: 2,
-//                 allergenId: 1,
-//                 allergen: { id: 1, name: "Gluten" },
-//               },
-//             ],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 1, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 150,
-//         ingredientId: 13,
-//         recipeId: 1,
-//         ingredients: [
-//           {
-//             id: 13,
-//             name: "Ground Beef",
-//             unit: "g",
-//             metricValue: 150,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 100,
-//         ingredientId: 6,
-//         recipeId: 1,
-//         ingredients: [
-//           {
-//             id: 6,
-//             name: "Tomato",
-//             unit: "g",
-//             metricValue: 100,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 6,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 50,
-//         ingredientId: 3,
-//         recipeId: 1,
-//         ingredients: [
-//           {
-//             id: 3,
-//             name: "Parmesan Cheese",
-//             unit: "g",
-//             metricValue: 50,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 14,
-//                 ingredientId: 3,
-//                 allergenId: 4,
-//                 allergen: { id: 4, name: "Dairy" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 2,
-//                 ingredientId: 3,
-//                 dietaryTag: { id: 2, name: "Vegetarian" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 1, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [
-//       { recipeId: 1, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//       { recipeId: 1, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//     ],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Chicken Curry",
-//     id: 2,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.1,
-//     salePrice: 8.0,
-//     RecipeIngredient: [
-//       {
-//         amount: 200,
-//         ingredientId: 4,
-//         recipeId: 2,
-//         ingredients: [
-//           {
-//             id: 4,
-//             name: "Chicken",
-//             unit: "g",
-//             metricValue: 200,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 50,
-//         ingredientId: 14,
-//         recipeId: 2,
-//         ingredients: [
-//           {
-//             id: 14,
-//             name: "Curry Powder",
-//             unit: "g",
-//             metricValue: 50,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 14,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 100,
-//         ingredientId: 15,
-//         recipeId: 2,
-//         ingredients: [
-//           {
-//             id: 15,
-//             name: "Coconut Milk",
-//             unit: "ml",
-//             metricValue: 100,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 15,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 80,
-//         ingredientId: 16,
-//         recipeId: 2,
-//         ingredients: [
-//           {
-//             id: 16,
-//             name: "Rice",
-//             unit: "g",
-//             metricValue: 80,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 16,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Vegetable Stir Fry",
-//     id: 3,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.2,
-//     salePrice: 6.0,
-//     RecipeIngredient: [
-//       {
-//         amount: 100,
-//         ingredientId: 17,
-//         recipeId: 3,
-//         ingredients: [
-//           {
-//             id: 17,
-//             name: "Bell Pepper",
-//             unit: "g",
-//             metricValue: 100,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 17,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 80,
-//         ingredientId: 18,
-//         recipeId: 3,
-//         ingredients: [
-//           {
-//             id: 18,
-//             name: "Broccoli",
-//             unit: "g",
-//             metricValue: 80,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 18,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 70,
-//         ingredientId: 19,
-//         recipeId: 3,
-//         ingredients: [
-//           {
-//             id: 19,
-//             name: "Carrots",
-//             unit: "g",
-//             metricValue: 70,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 19,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 30,
-//         ingredientId: 20,
-//         recipeId: 3,
-//         ingredients: [
-//           {
-//             id: 20,
-//             name: "Soy Sauce",
-//             unit: "ml",
-//             metricValue: 30,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 20,
-//                 ingredientId: 20,
-//                 allergenId: 6,
-//                 allergen: { id: 6, name: "Soy" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 20,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 3, allergenId: 6, allergen: { id: 6, name: "Soy" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [
-//       { recipeId: 3, allergenId: 6, allergen: { id: 6, name: "Soy" } },
-//     ],
-//     recipeDietaryTags: [
-//       { recipeId: 3, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
-//     ],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Beef Tacos",
-//     id: 4,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.5,
-//     salePrice: 9,
-//     RecipeIngredient: [
-//       {
-//         amount: 150,
-//         ingredientId: 13,
-//         recipeId: 4,
-//         ingredients: [
-//           {
-//             id: 13,
-//             name: "Ground Beef",
-//             unit: "g",
-//             metricValue: 150,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 3,
-//         ingredientId: 21,
-//         recipeId: 4,
-//         ingredients: [
-//           {
-//             id: 21,
-//             name: "Taco Shells",
-//             unit: "pcs",
-//             metricValue: 3,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 21,
-//                 ingredientId: 21,
-//                 allergenId: 1,
-//                 allergen: { id: 1, name: "Gluten" },
-//               },
-//             ],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 4, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 50,
-//         ingredientId: 22,
-//         recipeId: 4,
-//         ingredients: [
-//           {
-//             id: 22,
-//             name: "Cheddar Cheese",
-//             unit: "g",
-//             metricValue: 50,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 22,
-//                 ingredientId: 22,
-//                 allergenId: 4,
-//                 allergen: { id: 4, name: "Dairy" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 2,
-//                 ingredientId: 22,
-//                 dietaryTag: { id: 2, name: "Vegetarian" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 4, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 30,
-//         ingredientId: 9,
-//         recipeId: 4,
-//         ingredients: [
-//           {
-//             id: 9,
-//             name: "Lettuce",
-//             unit: "g",
-//             metricValue: 30,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 9,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [
-//       { recipeId: 4, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//       { recipeId: 4, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//     ],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Caesar Salad",
-//     id: 5,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.7,
-//     salePrice: 7,
-//     RecipeIngredient: [
-//       {
-//         amount: 150,
-//         ingredientId: 9,
-//         recipeId: 5,
-//         ingredients: [
-//           {
-//             id: 9,
-//             name: "Lettuce",
-//             unit: "g",
-//             metricValue: 150,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 9,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 60,
-//         ingredientId: 3,
-//         recipeId: 5,
-//         ingredients: [
-//           {
-//             id: 3,
-//             name: "Parmesan Cheese",
-//             unit: "g",
-//             metricValue: 60,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 14,
-//                 ingredientId: 3,
-//                 allergenId: 4,
-//                 allergen: { id: 4, name: "Dairy" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 2,
-//                 ingredientId: 3,
-//                 dietaryTag: { id: 2, name: "Vegetarian" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 5, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 50,
-//         ingredientId: 23,
-//         recipeId: 5,
-//         ingredients: [
-//           {
-//             id: 23,
-//             name: "Croutons",
-//             unit: "g",
-//             metricValue: 50,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 23,
-//                 ingredientId: 23,
-//                 allergenId: 1,
-//                 allergen: { id: 1, name: "Gluten" },
-//               },
-//             ],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 5, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 40,
-//         ingredientId: 24,
-//         recipeId: 5,
-//         ingredients: [
-//           {
-//             id: 24,
-//             name: "Caesar Dressing",
-//             unit: "ml",
-//             metricValue: 40,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 24,
-//                 ingredientId: 24,
-//                 allergenId: 5,
-//                 allergen: { id: 5, name: "Eggs" },
-//               },
-//             ],
-//             ingredientDietaryTags: [],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 5, allergenId: 5, allergen: { id: 5, name: "Eggs" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [
-//       { recipeId: 5, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//       { recipeId: 5, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//       { recipeId: 5, allergenId: 5, allergen: { id: 5, name: "Eggs" } },
-//     ],
-//     recipeDietaryTags: [
-//       { recipeId: 5, dietaryTagId: 2, dietaryTag: { id: 2, name: "Vegetarian" } },
-//     ],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Margherita Pizza",
-//     id: 6,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.9,
-//     salePrice: 7.5,
-//     RecipeIngredient: [
-//       {
-//         amount: 250,
-//         ingredientId: 25,
-//         recipeId: 6,
-//         ingredients: [
-//           {
-//             id: 25,
-//             name: "Pizza Dough",
-//             unit: "g",
-//             metricValue: 250,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 25,
-//                 ingredientId: 25,
-//                 allergenId: 1,
-//                 allergen: { id: 1, name: "Gluten" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 2,
-//                 ingredientId: 25,
-//                 dietaryTag: { id: 2, name: "Vegetarian" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 6, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 100,
-//         ingredientId: 6,
-//         recipeId: 6,
-//         ingredients: [
-//           {
-//             id: 6,
-//             name: "Tomato",
-//             unit: "g",
-//             metricValue: 100,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 6,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 120,
-//         ingredientId: 7,
-//         recipeId: 6,
-//         ingredients: [
-//           {
-//             id: 7,
-//             name: "Mozzarella",
-//             unit: "g",
-//             metricValue: 120,
-//             divisionId: 1,
-//             ingredientAllergens: [
-//               {
-//                 id: 26,
-//                 ingredientId: 7,
-//                 allergenId: 4,
-//                 allergen: { id: 4, name: "Dairy" },
-//               },
-//             ],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 2,
-//                 ingredientId: 7,
-//                 dietaryTag: { id: 2, name: "Vegetarian" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [
-//           { recipeId: 6, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//         ],
-//         recipeDietaryTags: [],
-//       },
-//       {
-//         amount: 10,
-//         ingredientId: 26,
-//         recipeId: 6,
-//         ingredients: [
-//           {
-//             id: 26,
-//             name: "Basil",
-//             unit: "g",
-//             metricValue: 10,
-//             divisionId: 1,
-//             ingredientAllergens: [],
-//             ingredientDietaryTags: [
-//               {
-//                 dietaryTagId: 1,
-//                 ingredientId: 26,
-//                 dietaryTag: { id: 1, name: "Vegan" },
-//               },
-//             ],
-//           },
-//         ],
-//         recipeAllergens: [],
-//         recipeDietaryTags: [],
-//       },
-//     ],
-//     recipeAllergens: [
-//       { recipeId: 6, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
-//       { recipeId: 6, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
-//     ],
-//     recipeDietaryTags: [
-//       { recipeId: 6, dietaryTagId: 2, dietaryTag: { id: 2, name: "Vegetarian" } },
-//     ],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Grilled Salmon",
-//     id: 7,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 4.8,
-//     salePrice: 12,
+//     costPrice: 1.5,
+//     salePrice: 4.0,
 //     RecipeIngredient: [],
 //     recipeAllergens: [],
 //     recipeDietaryTags: [],
-//     userNotes: [],
 //   },
 //   {
-//     name: "Lentil Soup",
-//     id: 8,
+//     name: "Special Mains",
+//     id: 22,
 //     subDivisionId: 1,
 //     version: 1,
-//     costPrice: 2.9,
-//     salePrice: 7.5,
+//     costPrice: 2.0,
+//     salePrice: 5.0,
 //     RecipeIngredient: [],
 //     recipeAllergens: [],
 //     recipeDietaryTags: [],
-//     userNotes: [],
 //   },
 //   {
-//     name: "Pork Chops",
-//     id: 9,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 4.8,
-//     salePrice: 12.0,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Fish and Chips",
-//     id: 10,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.9,
-//     salePrice: 10,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Chicken Alfredo",
-//     id: 11,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.6,
-//     salePrice: 7.0,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Vegetable Lasagna",
-//     id: 12,
+//     name: "Special Burger",
+//     id: 23,
 //     subDivisionId: 1,
 //     version: 1,
 //     costPrice: 2.5,
-//     salePrice: 7.0,
+//     salePrice: 6.0,
 //     RecipeIngredient: [],
 //     recipeAllergens: [],
 //     recipeDietaryTags: [],
-//     userNotes: [],
 //   },
 //   {
-//     name: "Shrimp Scampi",
-//     id: 13,
+//     name: "Steak Dessert",
+//     id: 24,
 //     subDivisionId: 1,
 //     version: 1,
-//     costPrice: 4.2,
-//     salePrice: 10.5,
+//     costPrice: 1.8,
+//     salePrice: 4.5,
 //     RecipeIngredient: [],
 //     recipeAllergens: [],
 //     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Beef Stroganoff",
-//     id: 14,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.7,
-//     salePrice: 9.5,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Quinoa Salad",
-//     id: 15,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.9,
-//     salePrice: 7.5,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Stuffed Bell Peppers",
-//     id: 16,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.8,
-//     salePrice: 7.0,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Chicken Fajitas",
-//     id: 17,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.1,
-//     salePrice: 8,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Mushroom Risotto",
-//     id: 18,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 2.6,
-//     salePrice: 7.0,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "Pasta Primavera",
-//     id: 19,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 3.2,
-//     salePrice: 8,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
-//   },
-//   {
-//     name: "BBQ Ribs",
-//     id: 20,
-//     subDivisionId: 1,
-//     version: 1,
-//     costPrice: 4.2,
-//     salePrice: 12,
-//     RecipeIngredient: [],
-//     recipeAllergens: [],
-//     recipeDietaryTags: [],
-//     userNotes: [],
 //   },
 // ];
+
+// //   {
+// //     name: "Spaghetti Bolognese",
+// //     id: 1,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.8,
+// //     salePrice: 7.0,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 200,
+// //         ingredientId: 2,
+// //         recipeId: 1,
+// //         ingredients: [
+// //           {
+// //             id: 2,
+// //             name: "Pasta",
+// //             unit: "g",
+// //             metricValue: 200,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 10,
+// //                 ingredientId: 2,
+// //                 allergenId: 1,
+// //                 allergen: { id: 1, name: "Gluten" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 1, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 150,
+// //         ingredientId: 13,
+// //         recipeId: 1,
+// //         ingredients: [
+// //           {
+// //             id: 13,
+// //             name: "Ground Beef",
+// //             unit: "g",
+// //             metricValue: 150,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 100,
+// //         ingredientId: 6,
+// //         recipeId: 1,
+// //         ingredients: [
+// //           {
+// //             id: 6,
+// //             name: "Tomato",
+// //             unit: "g",
+// //             metricValue: 100,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 6,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 50,
+// //         ingredientId: 3,
+// //         recipeId: 1,
+// //         ingredients: [
+// //           {
+// //             id: 3,
+// //             name: "Parmesan Cheese",
+// //             unit: "g",
+// //             metricValue: 50,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 14,
+// //                 ingredientId: 3,
+// //                 allergenId: 4,
+// //                 allergen: { id: 4, name: "Dairy" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 2,
+// //                 ingredientId: 3,
+// //                 dietaryTag: { id: 2, name: "Vegetarian" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 1, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [
+// //       { recipeId: 1, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //       { recipeId: 1, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //     ],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Chicken Curry",
+// //     id: 2,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.1,
+// //     salePrice: 8.0,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 200,
+// //         ingredientId: 4,
+// //         recipeId: 2,
+// //         ingredients: [
+// //           {
+// //             id: 4,
+// //             name: "Chicken",
+// //             unit: "g",
+// //             metricValue: 200,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 50,
+// //         ingredientId: 14,
+// //         recipeId: 2,
+// //         ingredients: [
+// //           {
+// //             id: 14,
+// //             name: "Curry Powder",
+// //             unit: "g",
+// //             metricValue: 50,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 14,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 100,
+// //         ingredientId: 15,
+// //         recipeId: 2,
+// //         ingredients: [
+// //           {
+// //             id: 15,
+// //             name: "Coconut Milk",
+// //             unit: "ml",
+// //             metricValue: 100,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 15,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 80,
+// //         ingredientId: 16,
+// //         recipeId: 2,
+// //         ingredients: [
+// //           {
+// //             id: 16,
+// //             name: "Rice",
+// //             unit: "g",
+// //             metricValue: 80,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 16,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Vegetable Stir Fry",
+// //     id: 3,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.2,
+// //     salePrice: 6.0,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 100,
+// //         ingredientId: 17,
+// //         recipeId: 3,
+// //         ingredients: [
+// //           {
+// //             id: 17,
+// //             name: "Bell Pepper",
+// //             unit: "g",
+// //             metricValue: 100,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 17,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 80,
+// //         ingredientId: 18,
+// //         recipeId: 3,
+// //         ingredients: [
+// //           {
+// //             id: 18,
+// //             name: "Broccoli",
+// //             unit: "g",
+// //             metricValue: 80,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 18,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 70,
+// //         ingredientId: 19,
+// //         recipeId: 3,
+// //         ingredients: [
+// //           {
+// //             id: 19,
+// //             name: "Carrots",
+// //             unit: "g",
+// //             metricValue: 70,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 19,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 30,
+// //         ingredientId: 20,
+// //         recipeId: 3,
+// //         ingredients: [
+// //           {
+// //             id: 20,
+// //             name: "Soy Sauce",
+// //             unit: "ml",
+// //             metricValue: 30,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 20,
+// //                 ingredientId: 20,
+// //                 allergenId: 6,
+// //                 allergen: { id: 6, name: "Soy" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 20,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 3, allergenId: 6, allergen: { id: 6, name: "Soy" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [
+// //       { recipeId: 3, allergenId: 6, allergen: { id: 6, name: "Soy" } },
+// //     ],
+// //     recipeDietaryTags: [
+// //       { recipeId: 3, dietaryTagId: 1, dietaryTag: { id: 1, name: "Vegan" } },
+// //     ],
+// //     ,
+// //   },
+// //   {
+// //     name: "Beef Tacos",
+// //     id: 4,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.5,
+// //     salePrice: 9,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 150,
+// //         ingredientId: 13,
+// //         recipeId: 4,
+// //         ingredients: [
+// //           {
+// //             id: 13,
+// //             name: "Ground Beef",
+// //             unit: "g",
+// //             metricValue: 150,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 3,
+// //         ingredientId: 21,
+// //         recipeId: 4,
+// //         ingredients: [
+// //           {
+// //             id: 21,
+// //             name: "Taco Shells",
+// //             unit: "pcs",
+// //             metricValue: 3,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 21,
+// //                 ingredientId: 21,
+// //                 allergenId: 1,
+// //                 allergen: { id: 1, name: "Gluten" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 4, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 50,
+// //         ingredientId: 22,
+// //         recipeId: 4,
+// //         ingredients: [
+// //           {
+// //             id: 22,
+// //             name: "Cheddar Cheese",
+// //             unit: "g",
+// //             metricValue: 50,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 22,
+// //                 ingredientId: 22,
+// //                 allergenId: 4,
+// //                 allergen: { id: 4, name: "Dairy" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 2,
+// //                 ingredientId: 22,
+// //                 dietaryTag: { id: 2, name: "Vegetarian" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 4, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 30,
+// //         ingredientId: 9,
+// //         recipeId: 4,
+// //         ingredients: [
+// //           {
+// //             id: 9,
+// //             name: "Lettuce",
+// //             unit: "g",
+// //             metricValue: 30,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 9,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [
+// //       { recipeId: 4, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //       { recipeId: 4, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //     ],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Caesar Salad",
+// //     id: 5,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.7,
+// //     salePrice: 7,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 150,
+// //         ingredientId: 9,
+// //         recipeId: 5,
+// //         ingredients: [
+// //           {
+// //             id: 9,
+// //             name: "Lettuce",
+// //             unit: "g",
+// //             metricValue: 150,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 9,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 60,
+// //         ingredientId: 3,
+// //         recipeId: 5,
+// //         ingredients: [
+// //           {
+// //             id: 3,
+// //             name: "Parmesan Cheese",
+// //             unit: "g",
+// //             metricValue: 60,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 14,
+// //                 ingredientId: 3,
+// //                 allergenId: 4,
+// //                 allergen: { id: 4, name: "Dairy" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 2,
+// //                 ingredientId: 3,
+// //                 dietaryTag: { id: 2, name: "Vegetarian" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 5, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 50,
+// //         ingredientId: 23,
+// //         recipeId: 5,
+// //         ingredients: [
+// //           {
+// //             id: 23,
+// //             name: "Croutons",
+// //             unit: "g",
+// //             metricValue: 50,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 23,
+// //                 ingredientId: 23,
+// //                 allergenId: 1,
+// //                 allergen: { id: 1, name: "Gluten" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 5, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 40,
+// //         ingredientId: 24,
+// //         recipeId: 5,
+// //         ingredients: [
+// //           {
+// //             id: 24,
+// //             name: "Caesar Dressing",
+// //             unit: "ml",
+// //             metricValue: 40,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 24,
+// //                 ingredientId: 24,
+// //                 allergenId: 5,
+// //                 allergen: { id: 5, name: "Eggs" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 5, allergenId: 5, allergen: { id: 5, name: "Eggs" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [
+// //       { recipeId: 5, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //       { recipeId: 5, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //       { recipeId: 5, allergenId: 5, allergen: { id: 5, name: "Eggs" } },
+// //     ],
+// //     recipeDietaryTags: [
+// //       { recipeId: 5, dietaryTagId: 2, dietaryTag: { id: 2, name: "Vegetarian" } },
+// //     ],
+// //     ,
+// //   },
+// //   {
+// //     name: "Margherita Pizza",
+// //     id: 6,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.9,
+// //     salePrice: 7.5,
+// //     RecipeIngredient: [
+// //       {
+// //         amount: 250,
+// //         ingredientId: 25,
+// //         recipeId: 6,
+// //         ingredients: [
+// //           {
+// //             id: 25,
+// //             name: "Pizza Dough",
+// //             unit: "g",
+// //             metricValue: 250,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 25,
+// //                 ingredientId: 25,
+// //                 allergenId: 1,
+// //                 allergen: { id: 1, name: "Gluten" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 2,
+// //                 ingredientId: 25,
+// //                 dietaryTag: { id: 2, name: "Vegetarian" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 6, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 100,
+// //         ingredientId: 6,
+// //         recipeId: 6,
+// //         ingredients: [
+// //           {
+// //             id: 6,
+// //             name: "Tomato",
+// //             unit: "g",
+// //             metricValue: 100,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 6,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 120,
+// //         ingredientId: 7,
+// //         recipeId: 6,
+// //         ingredients: [
+// //           {
+// //             id: 7,
+// //             name: "Mozzarella",
+// //             unit: "g",
+// //             metricValue: 120,
+// //             divisionId: 1,
+// //             ingredientAllergens: [
+// //               {
+// //                 id: 26,
+// //                 ingredientId: 7,
+// //                 allergenId: 4,
+// //                 allergen: { id: 4, name: "Dairy" },
+// //               },
+// //             ],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 2,
+// //                 ingredientId: 7,
+// //                 dietaryTag: { id: 2, name: "Vegetarian" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [
+// //           { recipeId: 6, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //         ],
+// //         recipeDietaryTags: [],
+// //       },
+// //       {
+// //         amount: 10,
+// //         ingredientId: 26,
+// //         recipeId: 6,
+// //         ingredients: [
+// //           {
+// //             id: 26,
+// //             name: "Basil",
+// //             unit: "g",
+// //             metricValue: 10,
+// //             divisionId: 1,
+// //             ingredientAllergens: [],
+// //             ingredientDietaryTags: [
+// //               {
+// //                 dietaryTagId: 1,
+// //                 ingredientId: 26,
+// //                 dietaryTag: { id: 1, name: "Vegan" },
+// //               },
+// //             ],
+// //           },
+// //         ],
+// //         recipeAllergens: [],
+// //         recipeDietaryTags: [],
+// //       },
+// //     ],
+// //     recipeAllergens: [
+// //       { recipeId: 6, allergenId: 1, allergen: { id: 1, name: "Gluten" } },
+// //       { recipeId: 6, allergenId: 4, allergen: { id: 4, name: "Dairy" } },
+// //     ],
+// //     recipeDietaryTags: [
+// //       { recipeId: 6, dietaryTagId: 2, dietaryTag: { id: 2, name: "Vegetarian" } },
+// //     ],
+// //     ,
+// //   },
+// //   {
+// //     name: "Grilled Salmon",
+// //     id: 7,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 4.8,
+// //     salePrice: 12,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Lentil Soup",
+// //     id: 8,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.9,
+// //     salePrice: 7.5,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Pork Chops",
+// //     id: 9,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 4.8,
+// //     salePrice: 12.0,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Fish and Chips",
+// //     id: 10,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.9,
+// //     salePrice: 10,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Chicken Alfredo",
+// //     id: 11,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.6,
+// //     salePrice: 7.0,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Vegetable Lasagna",
+// //     id: 12,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.5,
+// //     salePrice: 7.0,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Shrimp Scampi",
+// //     id: 13,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 4.2,
+// //     salePrice: 10.5,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Beef Stroganoff",
+// //     id: 14,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.7,
+// //     salePrice: 9.5,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Quinoa Salad",
+// //     id: 15,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.9,
+// //     salePrice: 7.5,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Stuffed Bell Peppers",
+// //     id: 16,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.8,
+// //     salePrice: 7.0,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Chicken Fajitas",
+// //     id: 17,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.1,
+// //     salePrice: 8,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Mushroom Risotto",
+// //     id: 18,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 2.6,
+// //     salePrice: 7.0,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "Pasta Primavera",
+// //     id: 19,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 3.2,
+// //     salePrice: 8,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// //   {
+// //     name: "BBQ Ribs",
+// //     id: 20,
+// //     subDivisionId: 1,
+// //     version: 1,
+// //     costPrice: 4.2,
+// //     salePrice: 12,
+// //     RecipeIngredient: [],
+// //     recipeAllergens: [],
+// //     recipeDietaryTags: [],
+// //     ,
+// //   },
+// // ];

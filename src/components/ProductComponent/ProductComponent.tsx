@@ -1,6 +1,6 @@
 import { DummyRecipes } from "../../constants/dummyData";
-import { AltDummyProducts } from "../../constants/dummyData";
-import { Recipe } from "../../types/recipeTypes";
+// import { AltDummyProducts } from "../../constants/dummyData";
+import { RecipeBase } from "../../types/recipeTypes";
 import useProductComponent from "./useProductComponent";
 
 export default function ProductComponent() {
@@ -10,7 +10,7 @@ export default function ProductComponent() {
     const partialDummyRecipes = DummyRecipes.slice(0, 8);
     return (
       <div className="flex flex-wrap gap-2">
-        {partialDummyRecipes.map((item: Recipe) => (
+        {partialDummyRecipes.map((item: RecipeBase) => (
           <button
             key={item.id}
             onClick={() => handleRecipeClick(item)}
@@ -27,7 +27,7 @@ export default function ProductComponent() {
   const renderAltButtons = () => {
     return (
       <div className="flex flex-wrap gap-2 justify-end">
-        {AltDummyProducts.map((item: Recipe) => (
+        {DummyRecipes.map((item: RecipeBase) => (
           <button
             key={item.id}
             className="w-[100px] h-[60px] bg-[#8B447E] text-white rounded-md p-1"

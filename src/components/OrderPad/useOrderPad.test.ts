@@ -16,6 +16,7 @@ describe("useOrderPad", () => {
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    orderItemId: "test-burger-id-1",
     userNotes: [],
     assignedAllergies: [],
   };
@@ -29,6 +30,7 @@ describe("useOrderPad", () => {
     RecipeIngredient: [],
     recipeAllergens: [],
     recipeDietaryTags: [],
+    orderItemId: "test-fries-id-1",
     userNotes: [],
     assignedAllergies: [],
   };
@@ -39,7 +41,7 @@ describe("useOrderPad", () => {
   beforeEach(() => {
     mockDispatch = jest.fn();
     (reactRedux.useDispatch as unknown as jest.Mock).mockReturnValue(
-      mockDispatch
+      mockDispatch,
     );
     mockUseSelector = reactRedux.useSelector as unknown as jest.Mock;
   });
@@ -54,7 +56,7 @@ describe("useOrderPad", () => {
         orders: {
           items: [burger, burger, fries],
         },
-      })
+      }),
     );
 
     const { result } = renderHook(() => useOrderPad());
@@ -74,7 +76,7 @@ describe("useOrderPad", () => {
         orders: {
           items: [],
         },
-      })
+      }),
     );
 
     const { result } = renderHook(() => useOrderPad());
@@ -87,7 +89,7 @@ describe("useOrderPad", () => {
         orders: {
           items: [burger, burger],
         },
-      })
+      }),
     );
 
     window.alert = jest.fn();
