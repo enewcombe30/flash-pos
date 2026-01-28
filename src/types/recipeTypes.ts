@@ -24,6 +24,12 @@ export type RecipeAllergens = {
   allergen: IdNamePair;
 };
 
+export type FreeFromOption = {
+  isAvailable: boolean;
+  label: string;
+  replaces: string;
+};
+
 export interface Ingredient {
   id: number;
   name: string;
@@ -31,6 +37,7 @@ export interface Ingredient {
   metricValue: number;
   divisionId: number;
   ingredientAllergens: Allergen[];
+  freeFromOption: FreeFromOption;
   ingredientDietaryTags: DietaryTag[];
 }
 
@@ -61,12 +68,6 @@ export interface RecipeBase {
 
 export type RecipeFromAPI = RecipeBase;
 
-export interface RecipeInOrder extends RecipeBase {
-  orderItemId: string;
-  userNotes: string[];
-  assignedAllergies: Allergen[];
-}
-
 export interface Recipe extends RecipeBase {
   orderItemId: string;
   userNotes: string[];
@@ -75,22 +76,12 @@ export interface Recipe extends RecipeBase {
 
 export type RecipeResponse = RecipeFromAPI[];
 
-// Type for a recipe being edited in an order
-// orderIndex: The position/index of this item in the order array
 export type EditableRecipe = {
   orderIndex: number;
   recipe: Recipe;
 };
 
-// Legacy alias for backward compatibility - id field represents orderIndex
 export type editProduct = {
   id: number;
   recipe: Recipe;
 };
-
-// Utility types for partial updates and ensuring required fields
-// Example usage:
-// - For API responses: RecipeFromAPI or RecipeResponse
-// - For order items with all fields: RecipeInOrder
-// - For partial updates: Partial<Recipe> or Partial<RecipeInOrder>
-// - For ensuring all fields: Required<Recipe>
