@@ -24,7 +24,6 @@ export type RecipeAllergens = {
   allergen: IdNamePair;
 };
 
-// Is this the right shape?
 export type FreeFromOption = {
   label: string;
   replaces: string[];
@@ -37,9 +36,8 @@ export interface Ingredient {
   metricValue: number;
   divisionId: number;
   ingredientAllergens: Allergen[];
-  // rethink how to handle free from ingredients in the long termq
-  // freeFromOption: FreeFromOption | null;
   ingredientDietaryTags: DietaryTag[];
+  alternativeIngredient: Ingredient;
 }
 
 export type DietaryTag = {

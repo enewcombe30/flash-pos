@@ -30,15 +30,15 @@ export default function IngredientModal({
     const assignedAllergies = productToEdit?.recipe.assignedAllergies || [];
     const assignedAllergenIds = assignedAllergies.map((a) => a.allergenId);
     const isDisabled = ingredient.ingredientAllergens.some((allergen) =>
-      assignedAllergenIds.includes(allergen.allergenId)
+      assignedAllergenIds.includes(allergen.allergenId),
     );
-
+    console.log(ingredient);
     return (
       <button
         key={ingredient.id}
         className={`w-full font-bold text-lg border py-2 px-4 rounded transition-colors flex items-center space-x-4 ${
           isDisabled
-            ? "border-gray-600 opacity-50 cursor-not-allowed"
+            ? "border-gray-600 cursor-not-allowed"
             : "border-border-primary"
         }`}
         onClick={() => toggleIngredient(ingredient.id, ingredient.name)}
@@ -51,8 +51,8 @@ export default function IngredientModal({
           {isSelected && <CheckIcon />}
         </div>
         <span
-          className={`font-medium text-sm ${
-            isDisabled ? "text-gray-500" : "text-white"
+          className={`font-medium text-sm text-white ${
+            isDisabled || !isSelected ? "line-through" : ""
           }`}
         >
           {ingredient.name} - {ingredient.metricValue}
